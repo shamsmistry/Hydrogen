@@ -1,0 +1,25 @@
+<ion-view view-title="Feedback">
+    <ion-content has-bouncing="false" class="fm-bg">
+        <div class="pal main-bg">
+            <div class="ft-16 txt-reg bl-txt">What would you like to report?</div>
+            <div class="pam">
+                <div class="lg-inline-bl" ng-click="selectSuggestion()"><span class="feedback-opt {{!select ? 'selected' : ''}} mrm"><i class="lg-icon-feedback"></i></span><span class="lg-inline-bl lg-vm-align db-txt ft-16">Suggestion</span></div>
+                <div class="lg-inline-bl mlm" ng-click="selectBug()"><span class="feedback-opt {{select ? 'selected' : ''}} mrm"><i class="lg-icon-bug"></i></span><span class="lg-inline-bl lg-vm-align db-txt ft-16">Bug</span></div>
+            </div>
+            <div class="mtm">
+                <textarea class="lg-text-area-pd-gen lg-br-all db-txt lg-thin-br br-radii" rows="5" ng-model="feedback.text" msd-elastic="" placeholder="Briefly describe your experience  ...."></textarea>
+            </div>
+            <div class="mtm pts lg-m-align">
+                <button ng-click="submit()" type="submit" class="feedbak-btn">Submit</button>
+            </div>
+        </div>
+        <div class="pal main-bg lg-m-align" ng-if="container2">
+            <div class="ft-28 gr-txt mbl"><i class="lg-icon-feedback"></i></div>
+            <div class="ft-16 txt-reg bl-txt">Thank you for your kind words</div>
+            <div class="ft-14 txt-reg db-txt phl ptm">Our team will definetely have a look at your valuable feedback. It really helps us improve further.</div>
+            <div class="mtm pts lg-m-align">
+                <button type="submit" ng-click="$ionicGoBack()" class="feedbak-btn gr">Peace!</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

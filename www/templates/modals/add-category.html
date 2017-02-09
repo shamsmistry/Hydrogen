@@ -1,0 +1,23 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="vm.cancel()"></button>
+        </div>
+        <h1 class="title">Add Category</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-click="vm.confirm(vm.category)">Done</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div>
+            <div class="lg-m-align mtl" ng-if="isLoading">
+                <ion-spinner></ion-spinner>
+            </div>
+            <ion-list>
+                <ion-radio ng-click="vm.selectedItem(category)" ng-value="category" ng-repeat="category in categories">
+                    <div class="ft-14 txt-book bl-txt ptm pbm">{{category.name}}</div>
+                </ion-radio>
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-modal-view>

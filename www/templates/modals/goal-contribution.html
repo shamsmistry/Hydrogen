@@ -1,0 +1,62 @@
+<ion-modal-view >
+    <ion-header-bar  class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="closeModal()"></button>
+        </div>
+        <h1 class="title">Contribute</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-disabled="isPostReady" ng-click="vm.confirm(vm.post)">Contribute</button>
+        </div>
+    </ion-header-bar>
+
+    
+    <ion-content has-bouncing="false">
+        <div>
+        <div class="card">
+            <div class="item item-text-wrap pam" ng-if="currentParams.id">
+                <div class="row gry-txt">
+                    <div class="col-80">
+                      <div class="ft-14 txt-book">{{currentParams.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="card ov-vis">
+                <div class="item item-text-wrap ptm prm pbm pln">
+                    <div class="row">
+                        <div class="col-20 lg-l-align pam"><img class="thumbnail" alt="" ng-src="{{user.profile.medium}}"></div>
+                        <div class="col prm">
+                            <div class="lg-br-btm">
+                                <!--<textarea class="lg-text-area" rows="1" msd-elastic="\n" ng-model="vm.post.text" placeholder="Write your contribute"></textarea>-->
+                                <div class="mention-container">
+                                    <textarea ui-mention mention-list focus-me="postfocus"  ng-model="vm.post.text" placeholder="Write your contribute" ng-trim="false" msd-elastic class="lg-text-area" rows="1"></textarea>
+                                    <div class="mention-highlight"></div>
+                                    <ul ng-if="$mention.choices.length" class="user-search list-group-item active man">
+                                        <li ng-repeat="choice in $mention.choices" ng-class="{active:$mention.activeChoice==choice}" class="list-group-item">
+                                            <a ng-click="$mention.select(choice)">
+                                                <img ng-src=" {{choice.profileImage}}" class="user-photo mrm"> {{::choice.name}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ptl">
+                                <!--div ng-hide="true" class="mtl"><img class="uploaded-img" src="https://cdn.linkagoal.com/uploads/139561/goal/580x370/559045cddf512.jpg"-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </ion-content>
+    <!--ion-footer-bar class="custom-lg-bar">
+        <div class="gry-txt pll prl lg-full-width">
+            <button class="lg-custom-icon-btn"><i class="lg-icon-camera"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="location()"><i class="lg-icon-location-2"></i>Location is off</button>
+        </div>
+    </ion-footer-bar-->
+</ion-modal-view>
+

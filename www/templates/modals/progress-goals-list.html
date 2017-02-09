@@ -1,0 +1,21 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="vm.cancel()"></button>
+        </div>
+        <h1 class="title">Goal list</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-click="vm.confirm(vm.selected)">Done</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div>
+            <ion-list >
+                <ion-radio ng-disabled="goal.status == 'COMPLETED'"  ng-click="vm.selectedItem(goal)" ng-value="goal.id" ng-repeat="goal in goals">
+                    <div class="ft-14 txt-book bl-txt ptm pbm {{ goal.status == 'COMPLETED' ? 'gry-txt' : ''}}">{{goal.name}}</div>
+                </ion-radio>
+            </ion-list>
+            <ion-infinite-scroll ng-if="noMoreContent" on-infinite="getMoreGoals()" distance="1%"></ion-infinite-scroll>
+        </div>
+    </ion-content>
+</ion-modal-view>

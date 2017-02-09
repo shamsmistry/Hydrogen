@@ -1,0 +1,57 @@
+<ion-view title="Goals Followed" view-title="Goals Followed">
+    <ion-content class="main-bg">
+        <div class="card-band">
+            <div class="card-band-txt ft-14 pvs">
+                <span class="card-band-name">
+                <span class="bl-txt txt-book">People in your network are now following new goals</span>
+            </div>
+        </div>
+        <div ng-repeat="followdata in activities">
+            <div class="lg-br-btm-thick">
+                <div class="card-band lg-no-br">
+                    <div class="card-band-txt">
+                        <span class="card-band-name" ng-repeat="users_from in followdata.users_from | limitTo:2"><a on-tap="$root.navigateState('profile' , {id: users_from.uid})" nav-direction="forward" class="lg-gen" ><b class="gr-txt">{{users_from.name}}</b></a>
+                        <span ng-if="followdata.totalUsersCount == 2"> and </span><span ng-if="followdata.totalUsersCount > 2">, </span>
+                        </span>
+                        <span ng-if="(followdata.users_from.length > 2)"> and </span>
+                        <a href="#" class="card-band-name" ng-if="(followdata.users_from.length > 2)">
+                    {{followdata.users_from.length - 2}}
+                    <ng-pluralize count="followdata.users_from.length" when="{'3': ' other', 'other': ' other'}"></ng-pluralize>
+                    </a>
+                        <span class="ng-binding"> has followed</span>
+                    </div>
+                </div>
+                <div on-tap="$root.navigateState('goal', {id: followdata.goal.id})" class="goal_img img-box no-border" nav-direction="forward">
+                    <img ng-src="{{followdata.goal.cover.large}}">
+                </div>
+                <div class="item item-body pbn no-border">
+                    <div class="card-content-txt txt-book">
+                        <a on-tap="$root.navigateState('goal', {id: followdata.goal.id})" nav-direction="forward" class="lg-gen ng-binding">{{followdata.goal.name}}</a>
+                    </div>
+                <span class="card-hashtag" ng-repeat="tag in followdata.goal.tags">
+                #{{tag.name}}
+            <!-- ngRepeat: tag in goal.tags -->
+        </span>
+                </div>
+                <div class="item pan no-border">
+                    <div class="row row-center lg-br-btm lg-thin-br">
+                        <div class="col col-center">
+                            <div class="no-border pas">
+                                <img on-tap="$root.navigateState('profile', {id: followdata.goal.user.uid})" nav-direction="forward" class="user-thumb-in" ng-src="{{followdata.goal.user.profile.small}}">
+                                <span on-tap="$root.navigateState('profile', {id: followdata.goal.user.uid})" nav-direction="forward" class="ft-12 mls txt-book"><span class="lg-gen" nav-direction="forward">{{followdata.goal.user.name}}</span></span>
+                            </div>
+                        </div>
+                        <div class="col-50 col-center lg-r-align phn pvs">
+                            <button class="button button-small button-outline button-positive phm lg-vm-align" on-tap="$root.linkOrUnlink(followdata.goal)">Link</button>
+                            <button class="button button-small button-outline button-positive phm lg-vm-align" ng-class="(followdata.goal.me.isFollower == 0) ? '': 'active'" on-tap="$root.followOrUnfollow(followdata.goal)">Follow</button>
+                            <button ng-hide="true" class="button button-small icon lg-action-btn lg-vm-align">
+                                <i class="lg-icon-more-vertical"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="noMoreContent" on-infinite="getFollowingNetworkList(activity)" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

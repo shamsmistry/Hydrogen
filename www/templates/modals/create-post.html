@@ -1,0 +1,108 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="closeModal()"></button>
+        </div>
+        <h1 class="title">Share Post</h1>
+        <div class="buttons">
+            <!--<button class="button lg-l-float" ng-disabled="isPostReady" ng-click="submitPost()">Post</button>-->
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader">
+        <div class="row row-center pan">
+            <div class="col-50" ng-click="selectPrivacy()">
+                <button class="lg-custom-icon-btn txt-reg ft-12"><i ng-class="(seletedPrivacyScope == null) ? 'lg-icon-public-2':seletedPrivacyScope.icon" class="lg-vs-align"></i>{{seletedPrivacyScope == null ? 'Privacy':seletedPrivacyScope.scope}}</button>
+            </div>
+        </div>
+    </div>
+    <ion-content class="has-subheader pts" scroll="true">
+        <div class="">
+            <!--<div class="item item-text-wrap ptn prn pbm pln">-->
+                <div class="row">
+                    <div class="col-20 lg-l-align pam"><img class="thumbnail" alt="" ng-src="{{user.profile.medium}}"></div>
+                    <div class="col prm ptm">
+                        <!-- <div class="lg-br-btm">
+                            <textarea class="lg-text-area" rows="1" msd-elastic="\n" ng-model="post.text" placeholder="What are you upto"></textarea>
+                        </div> -->
+                        <div class="mention-container pbm lg-br-btm">
+                            <textarea ui-mention mention-list focus-me="postfocus" ng-model="post.text" placeholder="What are you up to?" ng-trim="false"
+                                msd-elastic="\n" class="lg-text-area" rows="1"></textarea>
+                            <div class="mention-highlight"></div>
+                            <ul ng-if="$mention.choices.length" class="user-search list-group-item active man">
+                                <li ng-repeat="choice in $mention.choices" ng-class="{active:$mention.activeChoice==choice}" class="list-group-item">
+                                    <a ng-click="$mention.select(choice)">
+                                        <img ng-src=" {{choice.profileImage}}" class="user-photo mrm"> {{::choice.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!--div>
+                            <div class="row pln">
+                                <div class="col col-10 pln">
+                                    <i class="lg-icon-location-2 db-txt"></i>
+                                </div>
+                                <div class="col"><div class="db-txt ft-14 txt-reg">Linkagoal Inc, San Fransisco, CA.</div></div>
+                            </div>
+                        </div-->
+                    <div class="phm pbm mhs">
+                        <div ng-if="post.images" ng-repeat="img in post.images" class="lg-relative lg-inline-bl">
+                            <img ng-if="img.imagetype=='still'" class="uploaded-img" ng-src="{{img.image}}">
+                            <div class="lg-relative">
+                            <img ng-if="img.imagetype=='gif'" class="uploaded-img lg-mh-100" ng-src="{{img.image.images.fixed_height.url}}">
+                            <span ng-if="img.imagetype=='gif'" class="gif-badge txt-book">GIF</span>
+                            </div>
+                            <span class="lg-controller-options mlm"><i class="lg-icon-cross" ng-click="removePostImage($index)"></i></span>
+                            <div ng-if="img.imagetype=='gif'" class="pts">
+                                <img class="giphy-ico" src="img/poweredby_giphy.png"/>
+                            </div>
+                            <!--span class="lg-add-more mas" ngf-select="addPostImage($files)" accept="image/png, image/jpeg, image/jpg" ngf-validate-fn="true" ngf-multiple="true" aria-label="Add more photos"><i class="lg-icon-create-small lg-vm-align ft-20 gry-txt"></i></span>
+                            </div-->
+                            <div ng-if="false" class="pas">
+                                <textarea class="lg-text-area" rows="1" msd-elastic="\n" placeholder="Add a caption"></textarea>
+                            </div>
+                        </div>
+
+                        <div ng-if="!post.link" class="rd-txt ft-14">{{url.fetch_url_error}}</div>
+                        <div ng-if="post.link">
+                            <div class="lg-r-align"><span class="lg-inline-bl db-txt ft-14 mrs mbm" ng-click="removeLinkFromPost();">Discard</span></div>
+                            <div class="lg-br-all lg-thin-br br-radii">
+                                <div ng-if="post.link.image.medium"><img class="full-width lg-bl" ng-src="{{post.link.image.medium.source}}" alt="" /></div>
+                                <div class="pam">
+                                    <a rel="nofollow" href="{{post.link.url}}" class="card-content-txt">{{post.link.title}} | {{post.link.host}}</a>
+                                    <div class="card-lg-url-desc">{{post.link.description | limitTo:200 }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phm mhs" ng-show="insertLink == 1">
+                        <div layout="row" layout-wrap layout-align="start center">
+                            <div flex>
+                                <div>
+                                    <input ng-change="myFunc()" class="lg-text-area input-field-full url-box" ng-model="url.urlLink" placeholder="Insert Video Link or URL to post"></input>
+                                </div>
+                            </div>
+                            <div flex="25" class="lg-r-align">
+                                <span ng-show="isUrlLoading"><wave-spinner></wave-spinner></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!--</div>-->
+        </div>
+    </ion-content>
+    <ion-footer-bar class="custom-lg-bar lg-br-top" keyboard-attach>
+        <div class="db-txt pls prs lg-full-width">
+            <button class="lg-custom-icon-btn" ng-click="addPostImage()"><i class="lg-icon-camera"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="gifModal()"><i class="lg-icon-gif"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="insertLink = 1;"><i class="lg-icon-url"></i></button>
+            <!--button class="lg-custom-icon-btn" ng-click="location()"><i class="lg-icon-location-2"></i></button-->
+            
+        </div>
+        <div class="controller-button">
+            <button class="button sub-btn" ng-disabled="isPostReady" ng-click="submitPost()">Post</button>
+        </div>
+    </ion-footer-bar>
+</ion-modal-view>

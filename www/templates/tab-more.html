@@ -1,0 +1,73 @@
+<ion-view view-title="More">
+    <!--ion-nav-buttons side="left">
+        <button class="button-icon lg-icon-chat" nav-direction="back" ui-sref="chat.main()"></button>
+    </ion-nav-buttons-->
+    <!--ion-nav-buttons side="right">
+        <button class="button-icon lg-icon-search" nav-direction="forward" on-tap="$root.navigateState('search-page',{})"></button>
+    </ion-nav-buttons-->
+    <ion-content has-bouncing="false" class="fm-bg">
+        <div class="img-box">
+            <img ng-src="img/banner/settings-banner.jpg" alt="settings-banner">
+        </div>
+        <ion-list class="white-bg">
+            <!--ion-item href="#/tab/more/find-friends" class="lg-more-navigation">
+                <div class="row row-center pan">
+                    <div class="col-15 col-center lg-m-align pan"><i class="icon main-ico-more gr-txt lg-icon-public"></i></div>
+                    <div class="col col-center pan"><span class="ft-14 plm">Find Friends</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item-->
+            <ion-item ui-sref="tab.more.my_goals()" class="lg-more-navigation no-border">
+                <div class="row row-center pan">
+                    <div class="col-15 col-center lg-m-align pan"><i class="icon main-ico-more gr-txt lg-icon-goal"></i></div>
+                    <div class="col col-center pan"><span class="ft-14 plm">My Goals</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item>
+            <ion-item ui-sref="tab.more.invite()" class="lg-more-navigation no-border">
+                <div class="row row-center pan">
+                    <div class="col-15 col-center lg-m-align pan"><i class="icon main-ico-more gr-txt lg-icon-public"></i></div>
+                    <div class="col col-center pan"><span class="ft-14 plm">Invite friends</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item>
+            <ion-item href="#/tab/more/account" class="lg-more-navigation no-border">
+                <div class="row row-center pan">
+                    <div class="col-15 col-center lg-m-align pan"><i class="icon main-ico-more gr-txt lg-icon-settings"></i></div>
+                    <div class="col col-center pan"><span class="ft-14 plm">Settings</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item>
+            <ion-item ui-sref="tab.more-appversion()" class="lg-more-navigation no-border">
+                <div class="row row-center pan">
+                    <div class="col-15 col-center lg-m-align pan"><i class="icon main-ico-more gr-txt lg-icon-info"></i></div>
+                    <div class="col col-center pan"><span class="ft-14 plm">About App</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item>
+            <ion-item ui-sref="tab.more-feedback()" class="lg-more-navigation no-border">
+                <div class="row row-center pan">
+                    <div class="col-15 col-center lg-m-align pan"><i class="icon main-ico-more gr-txt lg-icon-feedback"></i></div>
+                    <div class="col col-center pan"><span class="ft-14 plm">Feedback</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div class="lg-m-align">
+            <div>
+                <div class="row row-center pan">
+                    <div class="col col-center pan"><a ui-sref="tab.more-about()" class="more-footer-tabs">About</a></div>
+                    <div class="col col-center pan"><a ui-sref="tab.more-terms()" class="more-footer-tabs">Terms</a></div>
+                </div>
+                <div>
+                    <div class="row row-center pan">
+                        <div class="col col-center pan"><a ui-sref="tab.more-privacy()" class="more-footer-tabs">Privacy</a></div>
+                        <div class="col col-center pan"><a ui-sref="tab.more-copyright()" class="more-footer-tabs">Copyright</a></div>
+                        <!--<div class="col col-center pan"><a href="#" class="more-footer-tabs">Resources</a></div>
+                        <div class="col col-center pan"><a href="#" class="more-footer-tabs">Help</a></div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

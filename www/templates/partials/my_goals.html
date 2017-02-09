@@ -1,0 +1,32 @@
+<ion-view view-title="My Goals">
+  <ion-content class="main-bg">
+    <!--Empty Data-->
+    <!--<div class="lg-m-align pal" ng-hide="true">
+        <span class="emptydata-ico"><i class="lg-icon-goal"></i></span>
+        <div class="ptl pbl ft-16 txt-reg db-txt">You have no goals</div>
+    </div>-->
+    <div ng-if="showEmptyData">
+    <div class="empty-data-new ed-bg-7 mam pam">
+        <div class="lg-m-align">
+            <img src="img/emptydata/profile-goals.png" width="170" alt="Goals">
+        </div>
+        <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+            Creating one using this button
+        </div>
+    </div>
+    <!--Empty Data-->
+    <div class="lg-divider-ed mtl"></div>
+    <!--Empty Data-->
+    <div class="lg-m-align pal">
+        <div class="ptl pbl ft-16 txt-reg db-txt">Creating one using this button</div>
+        <span ng-click="createGoal()" class="emptydata-ico"><i class="lg-icon-create-small"></i></span>
+    </div>
+    <!--Empty Data-->
+    </div>
+    <div class="fm-bg">
+        <!-- <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher> -->
+        <goal-bx goals="myGoals" link-btn-enabled="sessionUser" actionsheet-btn-enabled="true"></goal-bx>
+        <ion-infinite-scroll ng-if="!noMoreContent" on-infinite="getMyGoals()" distance="1%"></ion-infinite-scroll>
+    </div>
+  </ion-content>
+</ion-view>

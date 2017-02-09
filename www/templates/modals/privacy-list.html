@@ -1,0 +1,26 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="vm.cancel()"></button>
+        </div>
+        <h1 class="title">Privacy</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-disabled="isReady" ng-click="vm.confirm(vm.privacyscope)">Done</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div>
+            <ion-list>
+                <ion-radio ng-click="vm.selectedItem(privacy)" ng-hide="privacy.id == 4" ng-value="privacy.id" ng-checked="privacy.default == 1" ng-repeat="privacy in privacyList" ng-model="test">
+                    <div class="row">
+                        <div class="col col-15"><i class="ft-20" ng-class="privacy.icon"></i></div>
+                        <div class="col">
+                            <div class="ft-14 txt-book bl-txt">{{ privacy.scope }}</div>
+                            <div class="ft-12 txt-reg db-txt">{{ privacy.description }}</div>
+                        </div>
+                    </div>
+                </ion-radio>
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-modal-view>

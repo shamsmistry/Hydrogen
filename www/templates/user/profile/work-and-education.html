@@ -1,0 +1,72 @@
+<ion-view view-title="Education & Work">
+<!--     <ion-header-bar align-title="left" class="bar-positive">
+        <div class="col-20 pln col-center">
+            <button class="button button-icon lg-icon-caret-left lg-l-float" nav-direction="back" ng-click="$ionicGoBack()"></button>
+        </div>
+        <h1 class="title">Education & Work</h1>
+    </ion-header-bar> -->
+    <ion-content class="fm-bg">
+        <div class="list card">
+            <div class="card-inner-heading pam txt-book lg-inline-bl">Work History</div>
+            <span ng-click="addWork()" class="lg-r-float gr-txt txt-reg ft-14 mtm mrl" ng-if="isMe(uid)">Add</span>
+            <div>
+                <!-- Work -->
+                <div class="row row-center prm plm pbm db-txt" ng-repeat="workHistory in userWorkInfo">
+                    <div class="col-15 col-center"><span class="base-icon"><i class="lg-icon-work ft-16"></i></span></div>
+                    <div class="col col-center ft-14">
+                        <div>
+                            <span><b>{{workHistory.position}}</b></span>
+                            <span> | {{workHistory.organization.name}}</span>
+                            <div>
+                                <span>{{workHistory.from_year | date:'yyyy'}}</span>
+                                <span ng-if="workHistory.is_working==0"> - {{workHistory.to_year | date:'yyyy'}}</span>
+                                <span ng-if="workHistory.is_working==1"> - Present</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="isMe(uid)" class="col-15 col-center">
+                        <span ng-click="editWork(workHistory)" class="ft-16 lg-vm-align lg-inline-bl mrm"><i class="lg-icon-edit"></i></span>
+                        <!-- <a href="#" ui-sref="app.profile-work-add-edit({id:workHistory._id})">
+                            <i class="lg-icon-edit ft-16"></i>
+                        </a> -->
+                        <span ng-click="deleteWork(workHistory)" class="ft-16 lg-vm-align lg-inline-bl"><i class="lg-icon-cross-small"></i></span>
+                    </div>
+                </div>
+                <!-- Work -->
+                
+            </div>
+            <div ng-click="loadWork()" class="lg-br-top lg-thin-br pam lg-m-align ft-14 gr-txt" ng-if="userWorkInfo.length > 0">Load more</div>
+        </div>
+
+        <div class="list card">
+            <div class="card-inner-heading pam txt-book lg-inline-bl">Education History</div>
+            <span ng-click="addEdu()" class="lg-r-float gr-txt txt-reg ft-14 mtm mrl" ng-if="isMe(uid)">Add</span>
+            <div>
+                <!-- Education -->
+                <div class="row row-center prm plm pbm db-txt" ng-repeat="eduInfo in userEduInfo">
+                    <div class="col-15 col-center"><span class="base-icon"><i class="lg-icon-education ft-16"></i></span></div>
+                    <div class="col col-center ft-14">
+                        <div>
+                            <span><b>{{eduInfo.program}}</b></span>
+                            <span> | {{eduInfo.organization.name}}</span>
+                            <div>
+                                <span>{{eduInfo.from_year | date:'yyyy'}}</span>
+                                <span ng-if="eduInfo.graduated==1"> - {{eduInfo.to_year | date:'yyyy'}}</span>
+                                <span ng-if="eduInfo.graduated==0"> - Present</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="isMe(uid)" class="col-15 col-center">
+                        <span ng-click="editEdu(eduInfo)" class="ft-16 lg-vm-align lg-inline-bl mrm"><i class="lg-icon-edit ft-16"></i></span>
+                        <!-- <a href="#" ui-sref="app.profile-edu-add-edit({id:eduInfo.id})">
+                            <i class="lg-icon-edit ft-16"></i>
+                        </a> -->
+                        <span ng-click="deleteEdu(eduInfo)" class="ft-16 lg-vm-align lg-inline-bl"><i class="lg-icon-cross-small"></i></span>
+                    </div>
+                </div>
+                <!-- Education -->
+            </div>
+            <div ng-click="loadEdu()" class="lg-br-top lg-thin-br pam lg-m-align ft-14 gr-txt" ng-if="userEduInfo.length > 0">Load more</div>
+        </div>        
+    </ion-content>
+</ion-view>

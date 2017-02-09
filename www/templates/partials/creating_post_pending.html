@@ -1,0 +1,29 @@
+<div class="opc" ng-if="iscreating">
+    <div class="list card fx-fade-up fx-dur-600 fx-ease-expo fx-stagger-50">
+        <div class="card-band">
+            <div class="card-band-txt">
+                <span class="card-band-name"><a nav-direction="forward" class="lg-gen"><b>{{user.name}}</b></a></span><span> {{$root.hasHave(user.uid)}} added new images </span>
+            </div>
+            <div class="item item-avatar no-border">
+                <img class="user-thumb" nav-direction="forward" ng-src="{{user.profile.medium}}">
+                <h2 class="user-name"><a href="#" class="lg-gen" nav-direction="forward">{{user.name}}</a></h2>
+                <span class="time-loc-right ft-12 txt-reg gry-txt">
+                </span>
+            </div>
+            <div class="item item-body no-border">
+                <div class="card-content-txt">
+                    <span ng-bind-html="post" open-link link="post" post="post"></span>
+                </div>
+            </div>
+            <div class="multi-view clearfix" ng-if="images.length > 1">
+                <span class="feed-multi-img lg-relative" ng-repeat="image in images">
+                    <img ng-src="{{image.image}}">
+                </span>
+            </div>
+            <div class="item-image" ng-if="images.length == 1">
+                <img ng-if="img.imagetype=='still'" ng-src="{{img.image}}" ng-repeat="img in images">
+                <img ng-if="img.imagetype=='gif'" class="uploaded-img" ng-repeat="img in images" ng-src="{{img.image.images.fixed_height.url}}">
+            </div>
+        </div>
+    </div>
+</div>

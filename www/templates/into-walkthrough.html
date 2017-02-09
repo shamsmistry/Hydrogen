@@ -1,0 +1,91 @@
+<ion-view hide-nav-bar="true">
+	<ion-content scroll="false">
+		<div class="into-content mtl">
+			<div class="logo-full mal"></div>
+			<button class="button button-clear wt-top-btn" nav-transition="fade" ng-click="login()">Skip</button>
+		</div>
+		<ion-slide-box class="full-height startup" on-slide-changed="slideHasChanged($index)" slide-interval="10000" auto-play="true" does-continue="true">
+		  <ion-slide> 
+		    <div class="fullscreen-intro intro1">
+		    	<div class="intro-btn-box clearfix">
+					<button ui-sref="main.signup()" class="intro-btn-a mrs">Get Started</button>
+                    <button ui-sref="main.login()" class="intro-btn-b">Login</button>
+		    	</div>
+		    </div>
+		  </ion-slide>
+		  <ion-slide>
+		    <div class="fullscreen-intro intro2">
+		    	<div class="middle-content">
+					<img alt="Write-goals" src="img/walkthrough/Connect-life-events.png" />
+		    		<div class="wt-text mna">
+		    		<div class="ptl pbl">Connect Your Life Events</div>
+		    		<div class="desc ptl pbl">Share your past, present and build your future</div>
+					</div>
+		    	</div>
+				<a class="button button-icon icon ion-chevron-right slide-nxt" ng-click="nextSlide()"></a>
+		    </div>
+		  </ion-slide>
+		  <ion-slide>
+		    <div class="fullscreen-intro intro3">
+				<div class="middle-content">
+					<img alt="Write-goals" src="img/walkthrough/Share-life-events.png" />
+		    		<div class="wt-text mna">
+		    		<div class="ptl pbl">Share Your Life Goals</div>
+		    		<div class="desc ptl pbl">Flaunt the new things you are planning to accomplish</div>
+					</div>
+		    	</div>
+				<a class="button button-icon icon ion-chevron-right slide-nxt" ng-click="nextSlide()"></a>
+		    </div>
+		  </ion-slide>
+		  <ion-slide>
+		    <div class="fullscreen-intro intro4">
+                <div class="middle-content">
+					<img alt="Write-goals" src="img/walkthrough/Write-goals.png" />
+		    		<div class="wt-text mna">
+		    		<div class="ptl pbl">Write Your Goal</div>
+		    		<div class="desc ptl pbl">Take the first step to adopt something new</div>
+					</div>
+		    	</div>
+				<a class="button button-icon icon ion-chevron-right slide-nxt" ng-click="nextSlide()"></a>
+		    </div>
+		  </ion-slide>
+		  <ion-slide>
+		    <div class="fullscreen-intro intro5">
+				<div class="middle-content">
+					<img alt="Be-the-help" src="img/walkthrough/Be-the-help.png" />
+		    		<div class="wt-text mna">
+		    		<div class="ptl pbl">Be The Help</div>
+		    		<div class="desc ptl pbl">Share your thoughts and your expertise</div>
+					</div>
+		    	</div>
+				<a class="button button-icon icon ion-chevron-right slide-nxt" ng-click="nextSlide()"></a>
+		    </div>
+		  </ion-slide>
+          <ion-slide>
+		    <div class="fullscreen-intro intro6">
+                <div class="middle-content">
+					<img alt="Mark-your-success" src="img/walkthrough/Mark-your-success.png" />
+		    		<div class="wt-text mna">
+		    		<div class="ptl pbl">Stay On Track</div>
+		    		<div class="desc ptl pbl">Set Milestones and keep moving forward</div>
+		    		</div>
+		    	</div>
+				<a class="button button-icon icon ion-chevron-right slide-nxt" ng-click="nextSlide()"></a>
+		    </div>
+		  </ion-slide>
+          <ion-slide>
+		    <div class="fullscreen-intro intro7">
+				<div class="middle-content">
+					<img alt="Explore-the-new" src="img/walkthrough/Explore-the-new.png" />
+		    		<div class="wt-text mna">
+		    		<div class="ptl pbl">Explore The New</div>
+		    		<div class="desc ptl pbl">Find lastest trends and get inspired</div>
+		    		</div>
+		    	</div>
+				<a class="button icon-right ion-chevron-right button-clear slide-nxt" ui-sref="main.signup()">Get Started &nbsp;</a>
+		    </div>
+		  </ion-slide>		  
+		</ion-slide-box>
+	</ion-content>
+</ion-view>
+

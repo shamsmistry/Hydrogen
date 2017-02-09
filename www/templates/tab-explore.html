@@ -1,0 +1,119 @@
+<!--Explore Page-->
+<ion-view view-title="Explore">
+    <ion-nav-buttons side="right">
+        <button class="button-icon lg-icon-search" nav-direction="forward" on-tap="$root.navigateState('search-page',{})"></button>
+    </ion-nav-buttons>
+    <ion-content class="fm-bg" overflow-scroll="true">
+        <!--ion-refresher pulling-text="Pull to refresh..." on-refresh="getExploreData()"></ion-refresher-->
+        <ion-slide-box ng-show="featuredTags" slide-interval="8000" auto-play="true" does-continue="true" class="explore-slider">
+            <ion-slide>
+                <div class="box trending-events first" style="background: url('img/explore/Explore-banner.jpg') no-repeat scroll 50%; background-size: cover;">
+                    <div class="trending ptl">
+                        <!--<h2><span>Trending</span> Now</h2>
+                        <h1>#{{tags.tagname}}</h1>-->
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide ng-show="tags" ng-repeat="tags in featuredTags" class="main-bg">
+                <div on-tap="$root.navigateState('tags',{name:tags.tagname})" nav-direction="forward" class="box trending-events" style="background: url({{tags.image.medium}}) no-repeat;  background-position: 100% 50%; ">
+                    <div class="trending ptl">
+                        <!--h2><span>Trending</span> Now</h2-->
+                        <h1>#{{tags.tagname}}</h1>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+        <div class="cat-container">
+            <hscroller>
+                <a ui-sref="tab.explore.category({category_id: category.id})" class="fx-fade-right fx-dur-600 fx-ease-expo fx-stagger-50" ng-repeat="category in data.categories">
+                    <!--<hcard index="{{category.id}}" ng-style="{'background-color':category.color}" desc="{{category.name}}" image="{{category.image.small}}"></hcard>-->
+                    <hcard index="{{category.id}}" ng-style="{'background-color': '#fff'}" desc="{{category.name}}" image="{{category.image.small}}"></hcard>
+                </a>
+            </hscroller>
+        </div>
+        <div ng-if="data.featuredUsers">
+            <div class="exp-heading">
+                <div class="row">
+                    <div class="col lg-l-align">
+                        <i class="heading-ico lg-icon-featured-filled"></i>
+                        <span class="heading-title">Featured Profiles</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-container">
+                <hscroller>
+                    <hcard ng-repeat="user in data.featuredUsers" index="$index">
+                        <div class="profile-card">
+                            <div class="profile-info" style="background: url({{user.cover.medium}}) scroll 50%; background-size: cover;">
+                            </div>
+                            <!-- end of the profile header-->
+                            <div class="profilePg-title-box pbm lg-m-align lg-rel">
+                                <img class="profile-owner-pic" ng-src="{{user.profile.medium}}" alt="{{user.name}}" nav-direction="forward" on-tap="$root.navigateState('profile',{id:user.uid})">
+                                <div class="row pan">
+                                    <div class="col pbn">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="card-content-txt txt-book mtm" nav-direction="forward" on-tap="$root.navigateState('profile',{id:user.uid})">{{user.name}}</div>
+                                <!--div class="card-hashtag mts">{{user.bio}}</div-->
+                                <div class="lg-m-align pam">
+                                    <span class="box-btn pan" ng-if="!$root.isMe(user.uid)" ng-class="(user.me.isFollowing == 0) ? '': 'active'" ng-click="$root.followUnfollowUser(user)">
+                                    <span class="follow">
+                                        <i class="lg-icon-follow-user mrs lg-vm-align"></i>
+                                        <span class="lg-vm-align">Follow</span>
+                                    </span>
+                                    <span class="following">
+                                        <i class="lg-icon-following-user mrs lg-vm-align"></i>
+                                        <span class="lg-vm-align">Following</span>
+                                    </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </hcard><hcard index="$index">
+                        <div class="profile-card">
+                            <div class="main-bg view-all-card">
+                            <a ui-sref="tab.explore.featuredprofiles" class="view-all-link db-txt txt-book ft-20">View All</a>
+                            </div>
+                        </div>
+                    </hcard>
+                </hscroller>
+            </div>
+        </div>
+        <div ng-if="data.hotNewGoals">
+            <div class="exp-heading">
+                <div class="row">
+                    <div class="col lg-l-align">
+                        <i class="heading-ico lg-icon-hot-new-filled"></i>
+                        <span class="heading-title">Hot New Goals</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <goal-bx goals="data.hotNewGoals" actionsheet-btn-enabled="true"></goal-bx>
+                <!--goal-box result-set="data.hotNewGoals"></goal-box-->
+            </div>
+            <div class="lite-bg pam mbs lg-m-align">
+                <a ui-sref="tab.explore.hotnewgoals()" nav-direction="forward" class="see-all-link db-txt">See All</a>
+            </div>
+        </div>
+        <div ng-if="data.popularGoals">
+            <div class="exp-heading">
+                <div class="row">
+                    <div class="col lg-l-align">
+                        <i class="heading-ico lg-icon-hot-new-filled"></i>
+                        <span class="heading-title">Popular Goals</span>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <goal-bx goals="data.popularGoals" actionsheet-btn-enabled="true"></goal-bx>
+                <!--goal-box result-set="data.popularGoals"></goal-box-->
+            </div>
+            <div class="lite-bg pam lg-m-align">
+                <a ui-sref="tab.explore.populargoals()" nav-direction="forward" class="see-all-link db-txt">See All</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!--End of Explore Page-->

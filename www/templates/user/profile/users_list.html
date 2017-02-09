@@ -1,0 +1,19 @@
+<ion-view view-title="{{title}}">
+<!--     <ion-header-bar align-title="left" class="bar-stable">
+        <div class="row pan row-center">
+            <div class="col-10 pln col-center">
+                <button class="button button-icon lg-icon-caret-left lg-l-float" nav-direction="back" ng-click="$ionicGoBack()"></button>
+            </div>
+            <div class="col col-80 pan lg-m-align col-center" ng-if="title">{{title}}</div>
+        </div>
+    </ion-header-bar> -->
+    <ion-content class="main-bg">
+    	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <!--User list-->
+        <div>
+            <user-list users="users"></user-list>
+            <ion-infinite-scroll ng-if="noMoreContent" on-infinite="getUsers()" distance="1%"></ion-infinite-scroll>
+        </div>
+        <!--User list--> 
+    </ion-content>
+</ion-view>

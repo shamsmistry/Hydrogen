@@ -1,0 +1,63 @@
+<!--<ion-view title="About You">
+  <ion-content>
+		<div class="edit-profile">
+			<div class="mbl padding lg-center-align">
+        <span class="profile-border" ng-click="showPhotoOptions()">
+          <img class="profile-pic" ng-src="{{userBasicData.profile_img}}">
+        </span>
+      </div>
+  		<div class="">
+  		 	 	<label class="item item-input">
+    				<textarea class="" ng-model="userBasicData.bio" rows="4" placeholder="Describe yourself.."></textarea>
+  		 	 	</label>
+  		 	</div>
+  		 	<div class="rdo-group ptl lg-text-center"> 
+            	<input type="radio" id="male" name="radios" ng-model="userBasicData.gender" value="MALE"> 
+ 				<label for="male">male</label> 
+ 
+  				<input type="radio" id="female" name="radios" ng-model="userBasicData.gender" value="FEMALE"> 
+  				<label for="female">female</label>
+			</div>
+			<div class="padding mtl ptl"><button type="button" class="button button-full btn-grey" ng-click="updateUserBasicInfo()">Finish</button></div>
+		</div>
+  </ion-content>
+</ion-view>-->
+
+
+<ion-view hide-nav-bar="false" title="Who's {{loggedInUser.name}}?" can-swipe-back="false">
+    <ion-content class="welcome main-bg">
+        <div class="lg-m-align pbl prm plm ft-16 txt-lite db-txt">Add your Pic & Bio</div>
+        <div class="pll pbl prl pts mll mrl">
+            <div class="lg-onboard-field">
+                <textarea class="lg-text-area" rows="1" msd-elastic ng-model="user.biography" placeholder="Word yourself..."></textarea>
+            </div>
+        </div>
+        <div class="image-upload-onboard txt-white lg-m-align pal">
+            <div class="pll prl mll mrl lg-relative" ng-click="profileImage()">
+                <img ng-if="imagePath == false" width="140px" ng-src="img/onboarding/profile.gif" />
+                <img ng-if="imagePath != false" width="140px" class="circular-radii" ng-src="{{imagePath}}" />
+            </div>
+            <span class="seperator"></span>
+            <div class="ft-18 txt-book ptm pll prl pbs">Upload your avatar</div>
+            <div class="ft-16 txt-reg pll prl">Your profile pic is your visual signature, representing who you are.</div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="custom-lg-bar lg-br-top lg-thin-brt" keyboard-attach>
+        <div class="row gry-txt pan pbs prm plm lg-full-width">
+            <div class="col col-center">
+                <a nav-direction="forward" class="button icon-right ion-chevron-left button-clear db-txt" ui-sref="aftersignup.welcome()">&nbsp;</a>
+            </div>
+            <div class="col col-30 col-center">
+                <div class="lg-progress-bullet">
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                </div>
+            </div>
+            <div class="col col-30 col-center lg-r-align"><a ng-click="updateProfile()" class="button icon-right ion-chevron-right button-clear db-txt" ui-sref="aftersignup.interest()">Continue &nbsp;</a></div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

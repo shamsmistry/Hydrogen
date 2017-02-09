@@ -1,0 +1,49 @@
+{
+  "name": "Linkagoal",
+  "version": "2.1.0",
+  "description": "Linkagoal is a goal-based social network. It works on a simple yet powerful concept of Create, Link and Contribute. The site allows its members to write goals (Create), connect with common goals and aspirations (Link), and help them achieve their goal (Contribute). Linkagoal is based on the belief that the lack of resources, guidance, experience, accountability, and encouragement hinder people from achieving their goals – so why not help them.",
+  "dependencies": {
+    "gulp": "^3.5.6",
+    "gulp-concat": "^2.2.0",
+    "gulp-minify-css": "^0.3.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace-task": "^0.11.0",
+    "gulp-sass": "^2.0.0"
+  },
+  "devDependencies": {
+    "bower": "^1.3.3",
+    "gulp-util": "^2.2.14",
+    "shelljs": "^0.3.0"
+  },
+  "cordovaPlugins": [
+    "ionic-plugin-keyboard@1.0.9",
+    "cordova-plugin-device",
+    "pushwoosh-cordova-plugin",
+    {
+      "locator": "https://github.com/apache/cordova-plugin-whitelist.git",
+      "id": "cordova-plugin-whitelist"
+    },
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-splashscreen@3.0.0",
+    "cordova-plugin-image-picker",
+    "cordova-plugin-image-picker@~1.1.1",
+    "cordova-plugin-statusbar@1.0.1",
+    "cordova-plugin-file-transfer@^1.5.0",
+    "cordova-plugin-inappbrowser@~1.4.0",
+    "cordova-plugin-statusbar@~1.0.1",
+    "ionic-plugin-keyboard@2.2.0",
+    "cordova-fabric-plugin",
+    "ionic-plugin-keyboard@^1.0.8",
+    "cordova-plugin-x-socialsharing@^5.0.11",
+    "cordova-plugin-media@^2.2.0",
+    "cordova-plugin-device@^1.1.1",
+    "cordova-plugin-camera@^2.1.1",
+    "pushwoosh-cordova-plugin@^4.2.2",
+    "cordova-plugin-customurlscheme@~4.1.5",
+    "cordova-plugin-splashscreen@~3.0.0"
+  ],
+  "cordovaPlatforms": [
+    "android",
+    "ios"
+  ]
+}

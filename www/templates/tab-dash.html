@@ -1,0 +1,224 @@
+<ion-view title="{{titleLogo}}"> <!-- ng-class="{'bar-subheader-slide-away': slideHeader}"-->
+
+    <!--ion-nav-buttons side="left">
+        <button class="button-icon lg-icon-chat" nav-direction="back" ui-sref="chat.main()"></button>
+    </ion-nav-buttons-->
+
+
+    <ion-nav-buttons side="right">
+        <button class="button-icon lg-icon-search" nav-direction="forward" on-tap="$root.navigateState('search-page',{})"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+        <button class="button-icon lg-icon-chat lg-relative" nav-direction="back" on-tap="$root.navigateTo('chatmain.user',{})"><span ng-if="$root.chatFactory.total_seen> 0" class="msg-notify"></span></button>
+    </ion-nav-buttons>
+
+    <!-- <div class="bar bar-subheader">
+        <div class="row row-center pan">
+            <div class="col col-center pan">
+                <button ng-click="createGoal()" class="tab-lg"><i class="lg-icon-goal ft-18 mrm"></i><span class="lg-vs-align">Create Goal</span></button>
+            </div>
+            <div class="col col-center pan">
+                <button ng-click="createPost()" class="tab-lg lg-br-lft lg-thin-br"><i class="lg-icon-post ft-18 mrm"></i><span class="lg-vs-align">Share Post</span></button>
+            </div>
+        </div>
+    </div> -->
+
+
+    <ion-content class="fm-bg"> <!-- scroll-watch ng-class="{'has-subheader' : !slideHeader}" -->
+        <!--Emptydata-->
+        <div class="main-bg mbl pbm" ng-if="!noMoreFeedContent && activities.length == 0">
+           <div class="txt-reg ft-14 emptydata-dash">Get the Newly published content from goals & profiles you follow here!</div>
+            <div class="img-box"><img src="img/emptydata/db-feed.jpg" alt="no content"></div>
+            <div class="empty-data-new ed-bg-2 mam pam" ng-hide="false">
+                <div class="lg-m-align">
+                    <img src="img/emptydata/db-2.png" width="86" alt="dashboard">
+                </div>
+                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                    <div class="txt-book">Need Inspiration?</div>
+                    Head over to Explore to find new goals and people to follow.
+                </div>
+            </div>
+        </div>
+        <!--Emptydata-->
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <div feeds activities="activities" class="mts" top-bar-enabled="true"></div>
+        <ion-infinite-scroll on-infinite="getDashboardFeed()" distance="1%" ng-if="noMoreFeedContent"></ion-infinite-scroll>
+
+        <!-- Slide suggestions -->
+        <!-- <ion-slide-box class="feed-slider" show-pager="false" ng-init="disableSwipe()" ng-hide="true">
+            <ion-slide>
+                <div class="list card">
+                    <div class="card-band">
+                        <div class="card-band-txt"><span class="card-band-name">Suggested goal</span></div>
+                    </div>
+                    <div class="item item-avatar no-border">
+                        <img class="user-thumb" src="https://cdn.linkagoal.com/uploads/153761/thumbs/200x200/550e5a147eef9.jpg">
+                        <h2 class="user-name"><a href="#" class="lg-gen">Brook Pley</a></h2>
+                        <span class="time-loc-right ft-12 txt-reg gry-txt">15m</span>
+                    </div>
+                    <div class="item item-body no-border">
+                        <div class="card-content-txt">
+                            <a href="#" class="lg-gen">I dream to drive Mercedes Benz AMG 6 by 6 (G63)</a>
+                        </div>
+                        <span class="card-hashtag"><a href="#" class="lg-gen">#Driving</a></span>
+                    </div>
+                    <div class="item-image">
+                        <img src="https://cdn.linkagoal.com/uploads/153761/goal/580x370/550e5a06b919b.jpg">
+                    </div>
+                    <div class="item-stats no-border">
+                        <div class="row row-center">
+                            <div class="col col-center plm pbn ptn">
+                                <a href="#" class="subdued card-stats">4 Motivations</a><span class="md">&middot;</span>
+                                <a href="#" class="subdued card-stats"> 11 Contributions</a><span class="md">&middot;</span>
+                                <a href="#" class="subdued card-stats"> 200 Views</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item pan no-border">
+                        <div class="row row-center lg-br-top lg-thin-br">
+                            <div class="col col-center">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-motivate-2 lg-vm-align"></i>
+                                    <span class="lg-vm-align">Motivate</span>
+                                </button>
+                            </div>
+                            <div class="col col-center">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-contribute-2 lg-vm-align"></i>
+                                    <span class="lg-vm-align">Contribute</span>
+                                </button>
+                            </div>
+                            <div class="col-20 col-center pas">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-share lg-vm-align"></i>
+                                    <span class="lg-vm-align">Share</span>
+                                </button>
+                            </div>
+                            <div class="col-10 col-center pas">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-more-vertical lg-vm-align"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="list card">
+                    <div class="card-band">
+                        <div class="card-band-txt"><span class="card-band-name">Suggested goal</span></div>
+                    </div>
+                    <div class="item item-avatar no-border">
+                        <img class="user-thumb" src="https://cdn.linkagoal.com/uploads/153761/thumbs/200x200/550e5a147eef9.jpg">
+                        <h2 class="user-name"><a href="#" class="lg-gen">Brook Pley</a></h2>
+                        <span class="time-loc-right ft-12 txt-reg gry-txt">15m</span>
+                    </div>
+                    <div class="item item-body no-border">
+                        <div class="card-content-txt">
+                            <a href="#" class="lg-gen">I am willing to drive Mercedes Benz AMG 6 by 6 (G63)</a>
+                        </div>
+                        <span class="card-hashtag"><a href="#" class="lg-gen">#Driving</a></span>
+                    </div>
+                    <div class="item-image">
+                        <img src="https://cdn.linkagoal.com/uploads/153761/goal/580x370/550e5a06b919b.jpg">
+                    </div>
+                    <div class="item-stats no-border">
+                        <div class="row row-center">
+                            <div class="col col-center plm pbn ptn">
+                                <a href="#" class="subdued card-stats">4 Motivations</a><span class="md">&middot;</span>
+                                <a href="#" class="subdued card-stats"> 11 Contributions</a><span class="md">&middot;</span>
+                                <a href="#" class="subdued card-stats"> 200 Views</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item pan no-border">
+                        <div class="row row-center lg-br-top lg-thin-br">
+                            <div class="col col-center">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-motivate-2 lg-vm-align"></i>
+                                    <span class="lg-vm-align">Motivate</span>
+                                </button>
+                            </div>
+                            <div class="col col-center">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-contribute-2 lg-vm-align"></i>
+                                    <span class="lg-vm-align">Contribute</span>
+                                </button>
+                            </div>
+                            <div class="col-20 col-center pas">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-share lg-vm-align"></i>
+                                    <span class="lg-vm-align">Share</span>
+                                </button>
+                            </div>
+                            <div class="col-10 col-center pas">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-more-vertical lg-vm-align"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="list card">
+                    <div class="card-band">
+                        <div class="card-band-txt"><span class="card-band-name">Suggested goal</span></div>
+                    </div>
+                    <div class="item item-avatar no-border">
+                        <img class="user-thumb" src="https://cdn.linkagoal.com/uploads/153761/thumbs/200x200/550e5a147eef9.jpg">
+                        <h2 class="user-name"><a href="#" class="lg-gen">Brook Pley</a></h2>
+                        <span class="time-loc-right ft-12 txt-reg gry-txt">15m</span>
+                    </div>
+                    <div class="item item-body no-border">
+                        <div class="card-content-txt">
+                            <a href="#" class="lg-gen">I want to drive Mercedes Benz AMG 6 by 6 (G63)</a>
+                        </div>
+                        <span class="card-hashtag"><a href="#" class="lg-gen">#Driving</a></span>
+                    </div>
+                    <div class="item-image">
+                        <img src="https://cdn.linkagoal.com/uploads/153761/goal/580x370/550e5a06b919b.jpg">
+                    </div>
+                    <div class="item-stats no-border">
+                        <div class="row row-center">
+                            <div class="col col-center plm pbn ptn">
+                                <a href="#" class="subdued card-stats">4 Motivations</a><span class="md">&middot;</span>
+                                <a href="#" class="subdued card-stats"> 11 Contributions</a><span class="md">&middot;</span>
+                                <a href="#" class="subdued card-stats"> 200 Views</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item pan no-border">
+                        <div class="row row-center lg-br-top lg-thin-br">
+                            <div class="col col-center">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-motivate-2 lg-vm-align"></i>
+                                    <span class="lg-vm-align">Motivate</span>
+                                </button>
+                            </div>
+                            <div class="col col-center">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-contribute-2 lg-vm-align"></i>
+                                    <span class="lg-vm-align">Contribute</span>
+                                </button>
+                            </div>
+                            <div class="col-20 col-center pas">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-share lg-vm-align"></i>
+                                    <span class="lg-vm-align">Share</span>
+                                </button>
+                            </div>
+                            <div class="col-10 col-center pas">
+                                <button class="lg-action-btn">
+                                    <i class="lg-icon-more-vertical lg-vm-align"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box> -->
+        <!-- Slide suggestions -->
+
+    </ion-content>
+</ion-view>

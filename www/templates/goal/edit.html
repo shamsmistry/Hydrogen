@@ -1,0 +1,36 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="closeModal()"></button>
+        </div>
+        <h1 class="title">Edit Goal</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-disabled="isPostReady" ng-click="vm.confirm(goal)">Save</button>
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader">
+        <div class="row row-center pan">
+            <div class="col-50" ng-click="selectCategory()">
+                <button class="lg-custom-icon-btn txt-reg ft-12"><i class="lg-icon-list lg-vs-align"></i>{{(selectedCategory == null) ? 'Select Category' : selectedCategory.name}}</button>
+            </div>
+            <div class="col-50" ng-click="selectPrivacy()">
+                <button class="lg-custom-icon-btn txt-reg ft-12"><i ng-class="(seletedPrivacyScope == null) ? 'lg-icon-public-2':seletedPrivacyScope.icon" class="lg-vs-align"></i>{{seletedPrivacyScope == null ? 'Privacy':seletedPrivacyScope.scope}}</button>
+            </div>
+        </div>
+    </div>
+    <ion-content has-bouncing="false">
+        <div class="card">
+            <div class="item item-text-wrap ptm prm pbm pln mtl">
+                <div class="row">
+                    <div class="col prm">
+                        <div class="lg-br-btm">
+                            <textarea class="lg-text-area" rows="1" msd-elastic="\n" ng-model="goal.name" placeholder="Write your goal here ..." maxlength="90"></textarea>
+                            <span class="{{ (90 - goal.name.length)==0 ? 'ft-12 rd-txt' : 'ft-12 gry-txt'}}" ng-if="goal.name">{{90 - goal.name.length}} Characters left</span>
+                        </div>
+                        <textarea class="lg-text-area" rows="1" msd-elastic="\n" ng-model="goal.description" placeholder="Add a description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

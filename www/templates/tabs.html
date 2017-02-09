@@ -1,0 +1,57 @@
+<ion-nav-bar class="bar-positive">
+  <div ng-show="createOptionsEnabled" style="width: 100%; height: 64px; background:rgba(92,100,112,0.95); position: absolute; z-index: 12"></div>
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+</ion-nav-bar>
+
+<ion-tabs class="tabs-icon-only tabs-color-active-positive">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="Home" icon-off="lg-icon-home" ng-click="myTabSelected()" icon-on="lg-icon-home" href="#/tab/dashboard">
+    <ion-nav-view name="tab-dash"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Explore Tab -->
+  <ion-tab title="Explore" icon-off="lg-icon-explore" ng-click="exploreTabSelected()" icon-on="lg-icon-explore" href="#/tab/explore">
+    <ion-nav-view name="tab-explore"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Create Button -->
+  <ion-tab >
+    <ion-nav-view name="tab-create"></ion-nav-view>
+  </ion-tab>
+  
+    <div style="z-index:11; position:absolute;  left:50%;  bottom:0; background:rgba(92,100,112,0.95)">
+        
+        <div ng-click="toggleCreateOptions()" ng-show="createOptionsEnabled" style="z-index:12; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(92,100,112,0.95)"></div>
+         <button class="fab-btn" fabicons style="z-index:13;top:auto; bottom:4px;">
+            <nav class="circular-menu">
+
+                <div class="circle" ng-class="{'open': createOptionsEnabled}">
+                    <span ng-click="createPost()" class="lg-icon-post post"></span>
+                    <span ng-click="createGoal()" class="lg-icon-goal goal"></span>
+                    <span ng-click="updateProgress()" class="lg-icon-progress progress"></span>
+                </div>
+
+                <span class="menu-button" ng-click="toggleCreateOptions()" ng-class="{'open': createOptionsEnabled}">
+                    <i class=" lg-icon-create-small"></i>
+                </span>
+
+            </nav> 
+        </button>
+    </div> 
+  
+    <!--button class="fab-btn" ng-click="createGoal()"><i class="lg-icon-create-small"></i></button-->
+
+  <!-- Me Tab -->
+  <ion-tab title="Me" icon-off="lg-icon-user" ng-click="meTabSelected()" icon-on="lg-icon-user" badge-style="badge-positive" badge="$root.unseenNotifications.unseen" href="#/tab/me">
+    <ion-nav-view name="tab-me"></ion-nav-view>
+  </ion-tab>
+  <span class="lg-notify-dot"></span>
+  <!-- More Tab -->
+  <ion-tab title="More" icon-off="lg-icon-list" icon-on="lg-icon-list"  href="#/tab/more">
+    <ion-nav-view name="tab-more"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>
+<div ng-click="toggleCreateOptions()" ng-show="createOptionsEnabled" style="z-index:4; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(92,100,112,0.95)"></div>

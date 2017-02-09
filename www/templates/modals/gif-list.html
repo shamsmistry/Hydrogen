@@ -1,0 +1,34 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="vm.cancel()"></button>
+        </div>
+        <h1 class="title">Pick a GIF</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-disabled="isReady" ng-click="vm.confirm()">Done</button>
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" ng-model-options="{debounce: 300}" ng-model="search.query" placeholder="Search for GIF">
+        </label>
+        <button class="button button-clear" ng-show="search.query.length > 0" ng-click="vm.resetSearch()">
+            Cancel
+        </button>
+    </div>
+    <ion-content class="has-subheader pts">
+        <div>
+            <div class="row">
+                <div class="col pan">
+                    <div class="phx ptx gif-images" ng-repeat="i in results" ng-if="$even" ng-click="vm.selectedItem(i)"><img ng-src="{{i.images.fixed_width_downsampled.url}}" ng-class="{active:vm.image.id == i.id}" style="width:100%;" /></div>
+                </div>
+                <div class="col pan">
+                    <div class="phx ptx gif-images" ng-repeat="i in results" ng-if="$odd" ng-click="vm.selectedItem(i)"><img ng-src="{{i.images.fixed_width_downsampled.url}}" ng-class="{active:vm.image.id == i.id}" style="width:100%;" /></div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="!noMoreContent" on-infinite="get()">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-modal-view>

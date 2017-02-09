@@ -1,0 +1,22 @@
+<ion-view view-title="Username">
+  <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+    <ion-nav-buttons side="right">
+      <button class="button button-clear button-positive" ng-click="updateUsername()">
+        Update
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="main-bg">
+    <ion-item class="no-border lg-more-navigation item-input">
+      <div class="row row-center">
+        <div class="col-25 col-center pas"><span class="ft-14 gry-txt txt-reg">Username</span></div>
+        <div class="col col-center pan">
+          <div class="lg-br-btm"><span class="ft-14 txt-reg"><input type="text" ng-model="user.username"></span></div>
+          <div class="row row-center">
+            <div class="col col-center"><span class="ft-14 gr-txt txt-reg">{{msg}}</span></div>
+          </div>
+        </div>
+      </div>
+    </ion-item>
+  </ion-content>
+</ion-view>

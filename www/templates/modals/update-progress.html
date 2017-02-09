@@ -1,0 +1,69 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="closeModal()"></button>
+        </div>
+        <h1 class="title">Update Progress</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-disabled="isPostReady" ng-click="updateProgress()">Update</button>
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader">
+        <div class="row row-center pan">
+            <div class="col pan" ng-click="selectGoal()" ng-if="currentParams.id == null">
+                <div class="item no-border item-icon-right">
+                    <div class="gry-txt ft-14 txt-book" ng-if="!seletedGoal.name">Select goal</div>
+                    <div class="goal-name blk-txt ft-14 txt-book" ng-if="seletedGoal.name">{{seletedGoal.name}}</div>
+                    <i class="icon ft-16 lg-icon-caret-up"></i>
+                </div>
+            </div>
+            <div class="col pan" ng-if="currentParams.id > 0">
+                <div class="item no-border">
+                    <div class="goal-name ft-14 txt-book">{{currentParams.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ion-content class="has-subheader pts">
+        <div class="card" style="margin-top:0px">
+            <div class="item item-text-wrap ptm prm pbm pln">
+                <div class="row">
+                    <div class="col-20 lg-l-align pam"><img class="thumbnail" alt="" ng-src="{{user.profile.medium}}"></div>
+                    <div class="col prm">
+                        <div class="lg-br-btm">
+                            <textarea class="lg-text-area" rows="1" msd-elastic="\n" ng-model="progress.text" placeholder="Add progress to your goal"></textarea>
+                        </div>
+                        <!--div>
+                                <div class="row pln">
+                                    <div class="col col-10 pln">
+                                            <i class="lg-icon-location-2 db-txt"></i>
+                                    </div>
+                                    <div class="col"><div class="db-txt ft-14 txt-reg">Linkagoal Inc, San Fransisco, CA.</div></div>
+                                </div>
+                            </div>
+                            <div class="ptm">
+                                <div ng-hide="false" class=""><img class="uploaded-img" src="https://cdn.linkagoal.com/uploads/139561/goal/580x370/559045cddf512.jpg"></div>
+                        </div-->
+                        <div class="ptl">
+                            <div ng-if="progress.image" class=""><img class="uploaded-img" ng-src="{{progress.image}}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-footer custom-subfooter lg-br-top" keyboard-attach>
+        <div class="db-txt pll prl lg-full-width">
+            <button class="lg-custom-icon-btn" ng-click="addProgressImage()"><i class="lg-icon-camera"></i></button>
+            <!--button class="lg-custom-icon-btn"><i class="lg-icon-timeline"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="addInterest()"><i class="lg-icon-interest"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="location()"><i class="lg-icon-location-2"></i></button-->
+        </div>
+    </ion-footer-bar>
+    <!--ion-footer-bar class="custom-lg-bar lg-br-top" keyboard-attach>
+        <div class="db-txt pll prl lg-full-width">
+            <button class="lg-custom-icon-btn"><i class="lg-icon-camera"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="location()"><i class="lg-icon-location-2"></i></button>
+        </div>
+    </ion-footer-bar-->
+</ion-modal-view>

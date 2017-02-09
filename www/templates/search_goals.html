@@ -1,0 +1,7 @@
+<ion-view title="{{query}}">
+    <ion-content class="fm-bg">
+    	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <goal-bx goals="goals" actionsheet-btn-enabled="true"></goal-bx>
+        <ion-infinite-scroll ng-if="noMoreContent" on-infinite="getMoreGoals()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

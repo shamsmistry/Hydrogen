@@ -1,0 +1,307 @@
+<ion-view class="lg-custom-goalPg" ion-cover-header="220" hide-nav-bar="true">
+    <!-- regular ionic header bar -->
+    <div class="bar bar-header bar-positive no-top">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-caret-left" nav-direction="back" ng-click="$ionicGoBack()"></button>
+        </div>
+        <h1 class="title">{{goalDetails.name}}</h1>
+        <div class="buttons" ng-click="GoalsActionSheet(goalDetails)">
+            <span class="button button-icon lg-icon-more-vertical"></span>
+        </div>
+    </div>
+    <!-- end of ionic header bar -->
+    <ion-content class="main-bg" overflow-scroll="true">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getGoalData()"></ion-refresher>
+        <!-- here is an example of how you can have a lg-custom-like goalPg, feel free to modify it -->
+        <div class="goalPg-info" ng-style="{'background': '-webkit-linear-gradient(top, rgba(0,0,0,0.56) 0%,rgba(102,101,101,0.3) 40%,rgba(255,252,252,0) 100%), url('+ goalDetails.cover.large +') center center'}">
+        </div>
+        <!-- end of the goalPg header-->
+        <div class="side-space-box bx-shadow db-txt">
+            <!--Goal Details-->
+            <div class="goalPg-title-box pam lg-l-align">
+                <div class="card-content-txt txt-book ft-20">{{goalDetails.name}}</div>
+                <div class="ft-14 gry-txt ptm">{{goalDetails.description}}</div>
+                <div class="card-hashtag ft-14 ptm"><a on-tap="$root.navigateState('tags',{name:tags.name})" class="hash-tag" ng-repeat="tags in goalDetails.tags">#{{tags.name}}</a></div>
+                <div class="pts">
+                    <a nav-direction="forward" on-tap="$root.navigateState('profile',{id:goalDetails.user.uid})" class="lg-inline-bl ft-12">
+                        <img class="thumbnail" alt="" ng-src="{{goalDetails.user.profile.medium}}">
+                        <span class="mls ft-14 txt-book">{{goalDetails.user.name}}</span>
+                    </a>
+                </div>
+            </div>
+            <!--Statistics-->
+            <div class="plm prm pbm db-txt">
+                <span class="stats-char mrm" ng-if="goalDetails.stats.motivations != 0" on-tap="$root.navigateState('goal_motivations', {id : goalDetails.id })">
+                        <span class="stats">
+                            <span class="stats-num mrs gr-txt">{{goalDetails.stats.motivations | nrFormat}}</span>
+                <span class="stats-char mrm">
+                                <ng-pluralize count="goalDetails.stats.motivations" when="{'0': '', '1': 'MOTIVATION', 'other': 'MOTIVATIONS'}"></ng-pluralize>
+                            </span>
+                </span>
+                </span>
+                <span class="stats-char mrm" ng-if="goalDetails.stats.linkers != 0" on-tap="$root.navigateState('goal_linkers', {id : goalDetails.id })">
+                        <span class="stats">
+                            <span class="stats-num mrs gr-txt">{{goalDetails.stats.linkers | nrFormat}}</span>
+                <span class="stats-char mrm">
+                                <ng-pluralize count="goalDetails.stats.linkers" when="{'0': '', '1': 'LINKER', 'other': 'LINKERS'}"></ng-pluralize>
+                            </span>
+                </span>
+                </span>
+                <span class="stats-char mrm" ng-if="goalDetails.stats.followers != 0" on-tap="$root.navigateState('goal_followers', {id : goalDetails.id })">
+                        <span class="stats">
+                            <span class="stats-num mrs gr-txt">{{goalDetails.stats.followers | nrFormat}}</span>
+                <span class="stats-char mrm">
+                                <ng-pluralize count="goalDetails.stats.followers" when="{'0': '', '1': 'FOLLOWER', 'other': 'FOLLOWERS'}"></ng-pluralize>
+                            </span>
+                </span>
+                </span>
+                <!-- <span class="stats"><span class="stats-num mrs gr-txt">101</span><span class="stats-char mrm">Activities</span></span> -->
+            </div>
+            <!--Action Bar-->
+            <div class="item no-border pbn">
+                <!--<div class="row row-center lg-br-top lg-thin-br ptn">
+                    <div class="col col-center">
+                        <button class="lg-action-btn" ng-class="(goalDetails.me.isMotivated == 1) ? 'active': '' " ng-click="motivationOnGoal(goalDetails)">
+                            <i class="lg-icon-motivate-2"></i>
+                            <span>Motivate</span>
+                        </button>
+                    </div>
+                    <div class="col col-center" ng-if="$root.isMe(goalDetails.user.uid)">
+                        <button class="lg-action-btn" ng-click="achieveOnGoal(goalDetails)" ng-class="(goalDetails.status == 'COMPLETED') ? 'active': '' ">
+                            <i class="lg-icon-tick-thick"></i>
+                            <span>Achieve</span>
+                        </button>
+                    </div>
+                    <div class="col col-center" ng-if="!$root.isMe(goalDetails.user.uid)">
+                        <button class="lg-action-btn" ng-click="$root.linkOrUnlink(goalDetails)" ng-class="(goalDetails.me.isLinked == 1) ? 'active': '' ">
+                            <i class="lg-icon-link-goal"></i>
+                            <span>{{(goalDetails.me.isLinked == 1) ? 'Linked': 'Link'}}</span>
+                        </button>
+                    </div>
+                    <div class="col col-center" ng-if="!$root.isMe(goalDetails.user.uid)">
+                        <button class="lg-action-btn" ng-click="$root.followOrUnfollow(goalDetails)" ng-class="(goalDetails.me.isFollower == 1) ? 'active': '' ">
+                            <i class="lg-icon-follow-goal"></i>
+                            <span>{{(goalDetails.me.isFollower == 1) ? 'Following': 'Follow'}}</span>
+                        </button>
+                    </div>-->
+                <!--div class="col col-center">
+                        <button class="lg-action-btn" ng-click="$root.shareGoal(goalDetails)">
+                            <i class="lg-icon-share"></i>
+                            <span>Share</span>
+                        </button>
+                    </div-->
+                <!--</div>-->
+                <div class="lg-br-top lg-thin-br ptn">
+                    <button class="lg-action-btn" ng-class="(goalDetails.me.isMotivated == 1) ? 'active': '' " ng-click="motivationOnGoal(goalDetails)">
+                        <i class="lg-icon-motivate-2"></i>
+                        <span>Motivate</span>
+                    </button>
+                    <button class="lg-action-btn" ng-if="$root.isMe(goalDetails.user.uid)" ng-click="achieveOnGoal(goalDetails)" ng-class="(goalDetails.status == 'COMPLETED') ? 'active': '' ">
+                        <i class="lg-icon-tick-thick"></i>
+                        <span>Achieve</span>
+                    </button>
+                    <button class="lg-action-btn" ng-if="!$root.isMe(goalDetails.user.uid)" ng-click="$root.linkOrUnlink(goalDetails)" ng-class="(goalDetails.me.isLinked == 1) ? 'active': '' ">
+                        <i class="lg-icon-link-goal"></i>
+                        <span>{{(goalDetails.me.isLinked == 1) ? 'Linked': 'Link'}}</span>
+                    </button>
+                    <button class="lg-action-btn" ng-if="!$root.isMe(goalDetails.user.uid)" ng-click="$root.followOrUnfollow(goalDetails)" ng-class="(goalDetails.me.isFollower == 1) ? 'active': '' ">
+                        <i class="lg-icon-follow-goal"></i>
+                        <span>{{(goalDetails.me.isFollower == 1) ? 'Following': 'Follow'}}</span>
+                    </button>
+                    <!--div class="col col-center">
+                        <button class="lg-action-btn" ng-click="$root.shareGoal(goalDetails)">
+                            <i class="lg-icon-share"></i>
+                            <span>Share</span>
+                        </button>
+                    </div-->
+                </div>
+            </div>
+            <!--Action Bar-->
+            <div class="lg-br-top lg-thin-br">
+                <div class="row row-center">
+                    <div class="col col-center" ng-if="goalDetails.status != 'COMPLETED' && $root.isMe(goalDetails.user.uid)" ng-click="updateProgress(goalDetails)">
+                        <span class="ft-14 gr-txt">Add progress to your goal...</span>
+                    </div>
+                    <div class="col col-center" ng-if="!$root.isMe(goalDetails.user.uid)" ng-click="GoalContribute(goalDetails)">
+                        <span class="ft-14 gr-txt">Add contribution to this goal...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- the rest of the content is up to you-->
+        <div class="list card" ng-if="goalDetails.stats.linkers">
+            <div class="lg-m-align">
+                <div class="ptm">
+                    <div class="lg-goal-card-heading">
+                        <div class="">
+                            <span class="card-inner-heading">
+                            <ng-pluralize count="goalDetails.stats.linkers" when="{'0': '', '1': '1 person is linked to this goal', 'other': '{{goalDetails.stats.linkers}} people are linked to this goal'}"></ng-pluralize>
+                            </span>
+                        </div>
+                        <div class="lg-clear-fix"></div>
+                    </div>
+                </div>
+                <div class="pam">
+                    <a>
+                        <span class="pro-pg-thumbs" ng-repeat="linkers in goalLinkers.users | limitTo:5 " on-tap="$root.navigateState('profile', {id: linkers.uid})">
+                          <img class="thumbnail" alt="" ng-src="{{linkers.profile.medium}}">
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="fm-bg ptl">
+            <div class="list card">
+                <div class="exp-heading">
+                    <div class="row">
+                        <div class="col lg-l-align">
+                            <span class="heading-title">Milestones</span>
+                        </div>
+                        <div class="col-20 lg-r-align pts prs" ng-if="goalMilestones.length == 0">
+                            <ang-if="goalDetails.status != 'COMPLETED' && $root.isMe(goalDetails.user.uid)" on-tap="$root.navigateState('goal_milestones',{id:goalDetails.id})" ng-if="isMyGoal" class="link-btn gr-txt ft-14">Add Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-bg">
+                    <!--Empty Data-->
+                    <!--<div class="lg-m-align pal" ng-if="goalMilestones.length == 0">
+                        <span class="emptydata-ico"><i class="lg-icon-milestone"></i></span>
+                        <div class="ptl pbl ft-16 txt-reg db-txt">No milestones added to this goal</div>
+                        <a ng-if="goalDetails.status != 'COMPLETED' && $root.isMe(goalDetails.user.uid)" on-tap="$root.navigateState('goal_milestones',{id:goalDetails.id})" ng-if="isMyGoal" class="gr-txt ft-14">Add new</a>
+                    </div>-->
+                    <div class="empty-data-new ed-bg-2 mam pam" ng-if="goalMilestones.length == 0 && $root.isMe(goalDetails.user.uid)" ng-hide="false">
+                        <div class="lg-m-align">
+                            <img src="img/emptydata/milestone.png" width="170" alt="Add a Milestone">
+                        </div>
+                        <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                            Add Milestones to stay on track
+                        </div>
+                    </div>
+                    <div class="empty-data-new ed-bg-2 mam pam" ng-if="goalMilestones.length == 0 && !$root.isMe(goalDetails.user.uid)" ng-hide="false">
+                        <div class="lg-m-align">
+                            <img src="img/emptydata/milestone.png" width="170" alt="Add a Milestone">
+                        </div>
+                        <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                            There are no milestones added
+                        </div>
+                    </div>
+                    <!--Empty Data-->
+                    <!--<div ng-repeat="milestones in goalMilestones | limitTo:5" class="lg-milestone-card"><span class="lg-milestone-count" ng-class="(milestone.status == 'ACTIVE') ? '': 'achieved'">{{$index+1}}</span>{{milestones.text}}</div>-->
+                    <div>
+                        <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+                            <ion-item ng-repeat="milestones in goalMilestones | limitTo:5" item="item milestone" class="item-remove-animate milestone" ng-class="(milestone.status == 'ACTIVE') ? '': 'achieve-milestone'">
+                                <div class="ft-14 db-txt txt-reg ws-nor">
+                                    <div class="row row-center pan">
+                                        <div class="col col-center pan"><span class="lg-milestone-count" ng-class="(milestones.status == 'ACTIVE') ? '': 'achieved'">{{$index+1}}</span>{{milestones.text}} </div>
+                                        <!--<div class="col col-15 col-center pan lg-r-align"><i class="lg-icon-achieve achievement-ico ft-18 gr-txt"></i></div>-->
+                                    </div>
+                                </div>
+                                <ion-option-button ng-if="milestones.status == 'ACTIVE' && $root.isMe(goalDetails.user.uid)" class="button-positive lg-m-align" ng-click="achieve(milestones)">
+                                    <i class="lg-icon-tick-thick ft-20"></i>
+                                </ion-option-button>
+                                <ion-option-button ng-if="$root.isMe(milestones.uid) && $root.isMe(goalDetails.user.uid)" class="button-dark lg-m-align" ng-click="delete(milestones)">
+                                    <i class="lg-icon-delete ft-24"></i>
+                                </ion-option-button>
+                                <ion-option-button ng-if="milestones.status == 'ACTIVE' && $root.isMe(goalDetails.user.uid) && goalDetails.status != 'COMPLETED'" class="button-balanced lg-m-align" ng-click="edit(milestones)">
+                                    <i class="lg-icon-edit ft-24 db-txt"></i>
+                                </ion-option-button>
+                                <!--ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button-->
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                    <div class="lg-br-top lg-thin-br pam lg-m-align lite-bg" ng-if="goalMilestones.length > 0">
+                        <a ng-if="goalDetails.status != 'COMPLETED' && $root.isMe(goalDetails.user.uid)" on-tap="$root.navigateState('goal_milestones',{id:goalDetails.id})" ng-if="isMyGoal" class="db-txt ft-14">See All</a>
+                    </div>
+                </div>
+            </div>
+            <div class="main-bg pbm">
+                <div class="exp-heading">
+                    <div class="row">
+                        <div class="col lg-l-align">
+                            <span class="heading-title">Media</span>
+                        </div>
+                        <div class="col-20 lg-r-align pts prs">
+                            <a on-tap="$root.navigateState('goal_media',{id:goalDetails.id})" class="link-btn ft-14" ng-show="media.length >0">See All <i class="lg-icon-caret-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!--Empty Data-->
+                <div class="lg-m-align" ng-if="media.length == 0">
+                    <img src="img/emptydata/media.png" width="140" alt="media">
+                </div>
+                <div class="empty-data-new ed-bg-11 mam pam" ng-if="media.length == 0 && $root.isMe(goalDetails.user.uid) " ng-hide="false">
+                    <div class="lg-m-align">
+                        <div class="gry-txt txt-reg ft-14">Upload media content on your goal to display your progress. </div>
+                    </div>
+                </div>
+                <div class="empty-data-new ed-bg-11 mam pam" ng-if="media.length == 0 && !$root.isMe(goalDetails.user.uid)" ng-hide="false">
+                    <div class="lg-m-align">
+                        <div class="gry-txt txt-reg ft-14">There are no images or videos for this goal.</div>
+                    </div>
+                </div>
+                <!--Empty Data-->
+            </div>
+            <div class="gallery-container main-bg" ng-if="media.length > 0">
+                <hscroller>
+                    <hcard index="{{$index}}" desc="" image="{{key.src}}" ng-repeat="key in media"></hcard>
+                </hscroller>
+            </div>
+            <div class="exp-heading mtm main-bg" ng-init="goalTab(1)">
+                <div class="row pan row-center lg-br-btm lg-thin-br">
+                    <div class="col col-center pan lg-m-align">
+                        <span class="pg-inner-tab" ng-class="{ active: isgoalTab(1) }" ng-click="goalTab(1)">Goal Progress</span>
+                    </div>
+                    <div class="col col-center pan lg-m-align" ng-if="isMyGoal">
+                        <span class="pg-inner-tab" ng-class="{ active: isgoalTab(2) }" ng-click="goalTab(2)">Linked Goals</span>
+                    </div>
+                    <div class="col col-center pan lg-m-align" ng-if="isMyGoal">
+                        <span class="pg-inner-tab" ng-class="{ active: isgoalTab(3) }" ng-click="goalTab(3)">Links Feed</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /Tabs -->
+            <section id="content1" ng-show="isgoalTab(1)">
+                <div class="">
+                    <div feeds activities="goalUpdates" top-bar-enabled="true"></div>
+                </div>
+            </section>
+            <section id="content2" ng-show="isgoalTab(2)" ng-if="isMyGoal">
+                <div class="fm-bg">
+                    <div class="main-bg pvm" ng-if="linkedGoals.length == 0">
+                        <!--Empty Data-->
+                        <div class="empty-data-new ed-bg-11 mam pam" ng-hide="false">
+                            <div class="lg-l-align">
+                                <div class="bl-txt txt-reg ft-14">No Linked Goals</div>
+                                <div class="gry-txt txt-reg ft-14">Connect your goal with other goals, to share and gain knowledge</div>
+                            </div>
+                        </div>
+                        <div class="img-box">
+                            <img src="img/emptydata/linked-goals.jpg" alt="link goal">
+                        </div>
+                        <!--Empty Data-->
+                    </div>
+                    <goal-bx goals="linkedGoals" actionsheet-btn-enabled="true"></goal-bx>
+                </div>
+            </section>
+            <section id="content3" ng-show="isgoalTab(3)" ng-if="isMyGoal">
+                <div class="fm-bg">
+                    <div class="main-bg pvm" ng-if="linkedFeed.length == 0">
+                        <!--Empty Data-->
+                        <div class="empty-data-new ed-bg-11 mam pam" ng-hide="false">
+                            <div class="lg-l-align">
+                                <div class="bl-txt txt-reg ft-14">No Links Feed</div>
+                                <div class="gry-txt txt-reg ft-14">Connect your goal with other goals, to share and gain knowledge</div>
+                            </div>
+                        </div>
+                        <div class="img-box list card">
+                            <img src="img/emptydata/links-feed.jpg" alt="link goal">
+                        </div>
+                        <!--Empty Data-->
+                    </div>
+                    <div feeds activities="linkedFeed" top-bar-enabled="true"></div>
+                </div>
+            </section>
+        </div>
+        <ion-infinite-scroll on-infinite="getContent(tab)" ng-if="isContentFinished(tab)" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

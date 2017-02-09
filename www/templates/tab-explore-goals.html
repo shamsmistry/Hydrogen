@@ -1,0 +1,44 @@
+<ion-view view-title="{{title}}">
+    <!--ion-nav-buttons side="left">
+        <button class="button-icon lg-icon-caret-left" ng-click="$ionicGoBack()"></button>
+    </ion-nav-buttons-->
+    <ion-nav-buttons side="right">
+        <button class="button-icon lg-icon-search" on-tap="$root.navigateState('search-page',{})"></button>
+    </ion-nav-buttons>
+    <ion-content class="fm-bg">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <!--<div ng-show="category.image || tag.image" class="category-banner lg-m-align" ng-style="{'background-color':category.color}">-->
+            <div ng-show="category.image || tag.image" class="category-banner lg-m-align" ng-style="{'background-color':'#ffffff'}">
+            <img alt="{{category.name || tag.name}}" ng-src="{{category.image.small || tag.image.small}}" class="mam" />
+            <div class="ft-16 bl-txt txt-reg">{{category.name || tag.name}}</div>
+        </div>
+
+
+        <!--<div ng-if="tag.id" class="category-banner lg-m-align" ng-style="{'background-color':tag.color}">-->
+            <div ng-if="tag.id" class="category-banner lg-m-align" ng-style="{'background-color':'#ffffff'}">
+            <img alt="{{tag.name}}" ng-src="{{tag.image.small}}" class="mam" />
+            <div class="ft-16 bl-txt txt-reg">{{tag.name}}</div>
+        </div>
+        <div ng-show="goals.length==0 && nogoal" class="card lg-m-align">No Goals Found</div>
+
+        <div ng-if="bgImage" class="lg-m-align" >
+          <img ng-src="{{bgImage}}" style="width: 100%" />
+        </div>
+        <div class="pam lg-br-top lg-thin-br main-bg" ng-if="category.tags">
+            <span class="lg-component-chips lg-relative mrm mbm" ng-class="tag.isMyInterest == 1 ? 'active':''" ng-repeat="tag in category.tags">
+        <a ng-if="true" ui-sref="tab.explore.category.subcategory({category_id: category.name, id: tag.name})" class="lg-chip-content">#{{tag.name}}</a>
+        <span ng-if="false" class="lg-chip-content">#{{tag.name}}</span>
+            <span class="chip-action-box">
+          <a class="lg-chip-action add" ng-click="$root.addRemoveInterestTag(tag);added()"><i class="lg-icon-create-small"></i></a>
+          <a class="lg-chip-action remove"><i class="lg-icon-cross"></i></a>
+          <a class="lg-chip-action added" ng-click="$root.addRemoveInterestTag(tag);removed()"><i class="lg-icon-tick"></i></a>
+        </span>
+            </span>
+        </div>
+        <div>
+            <goal-bx goals="goals" actionsheet-btn-enabled="true"></goal-bx>
+            <ion-infinite-scroll ng-if="!noMoreContent" on-infinite="getMoreGoals()" distance="1%"></ion-infinite-scroll>
+            <!--goal-box result-set="goals"></goal-box-->
+        </div>
+    </ion-content>
+</ion-view>

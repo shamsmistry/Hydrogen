@@ -1,0 +1,22 @@
+<div class="modal">
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="closeModal()"></button>
+        </div>
+        <h1 class="title">Location</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-click="vm.confirm(vm)">Done</button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="main-bg">
+        <div class="lg-staticPg-banner banner-bg-1">
+            <div class="lg-m-align">
+                <i class="lg-icon-location-2"></i>
+                <span class="lg-staticPg-banner-heading">Location</span>
+            </div>
+        </div>
+        <div class="phl">
+        <ion-google-place placeholder="Your address" ng-model="data.address" required name="address" location-changed="locationChanged" />
+        </div>
+    </ion-content>
+</div>

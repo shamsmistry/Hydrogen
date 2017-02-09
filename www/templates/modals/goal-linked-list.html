@@ -1,0 +1,16 @@
+<div class="modal">
+    <ion-header-bar>
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="vm.cancel()"></button>
+        </div>
+        <h1 class="title lg-m-align">Unlink {{currentParams.name}}</h1>
+        <div class="buttons">
+            <button class="button lg-header-txt-btn lg-r-float" ng-click="vm.confirm(vm.selected)">Done</button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="onboard">
+        <ion-list>
+            <ion-radio ng-click="vm.selectedItem(goal)" ng-repeat="goal in linkedgoals.goals">{{goal.name}}</ion-radio>
+        </ion-list>
+    </ion-content>
+</div>

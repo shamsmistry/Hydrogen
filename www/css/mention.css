@@ -1,0 +1,108 @@
+textarea[ui-mention],
+textarea[ui-mention] + * {
+    /*line-height: 1em;*/
+    font-size: 14px;
+    padding: 5px;
+    border: 1px;
+    font-family: 'Geomanist-Regular';
+    font-weight: normal;
+}
+
+textarea[ui-mention] {
+    min-height: 30px;
+    width: 100%;
+    display: block;
+    z-index: 2;
+    position: relative;
+}
+
+textarea[ui-mention][ui-mention] {
+    background: transparent;
+}
+
+.lg-contrib-box textarea[ui-mention] {
+    padding-right: 40px;
+    padding-left: 10px;
+}
+.ov-vis { overflow: visible;}
+
+.mention-container {
+    position: relative;
+}
+
+.mention-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 35px;
+    padding: 2px;
+    z-index: 1;
+    color: transparent;
+    white-space: pre-wrap;
+    border: 1px solid transparent;
+    width: 100%;
+    letter-spacing: 0px;
+    background-color: #ffffff;
+}
+
+.mention-highlight span {
+    border-radius: 3px;
+    background: rgba(153, 220, 211, 0.4);
+    box-shadow: none;
+    text-decoration: underline;
+    line-height: 23px;
+}
+
+
+.mention-dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.mention-dropdown .active {
+    background: #AAB7CA;
+    color: #fff;
+}
+
+.user-photo {
+    background-color: #ddd;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.user-search .list-group-item.active {
+    color: #151515;
+    background-color: #f1f2f3;
+    border-color: #f1f2f3;
+}
+
+.user-search .list-group-item {
+    list-style-type: none;
+    background: #fff;
+}
+
+.user-search .list-group-item a {
+    display: block;
+    padding: 8px;
+    min-height: 46px;
+}
+
+.user-search {
+    border-radius: 3px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .2);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .2);
+    background-clip: padding-box;
+    outline: 0;
+    padding-left: 0;
+    position: absolute;
+    width: 240px;
+    z-index: 4;
+    max-height: 138px;
+    overflow: auto;
+}
+.user-search.bottom-stick { bottom:44px;}

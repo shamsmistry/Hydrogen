@@ -1,0 +1,46 @@
+<ion-view class="startup-bg reveal-animation lg-m-align">
+    <ion-content scroll="false">
+        <div class="login-container">
+            <h1 class="heading mbs txt-book">Login</h1>
+            <!--<div class="errors ft-12">{{screen.error.message}}</div>
+            <div ng-repeat="err in screen.error">
+                <div class="errors ft-12">{{err.message}}</div>
+            </div>-->
+            <form ng-submit="doLogin()" autocomplete="off">
+                <div class="lg-m-align mtl">
+                    <div class="wtfb mna">
+                        <input class="wtif" type="text" placeholder="Username or Email" ng-model="user.username" autocorrect="off" autocapitalize="off" name="username">
+                        <hr class="mvn style-hr" />
+                        <input class="wtif mtl" placeholder="Password" type="password" ng-model="user.password" name="password">
+                        <hr class="mvn style-hr" />
+                    </div>
+                    <div class="mtl">
+                        <button class="mtl mbs startup-btn ft-16 txt-book" ng-disabled="isLoading" type="submit" ng-click="reset(form)">
+                            <span ng-show="isLoading"><wave-spinner></wave-spinner></span>
+                            <span ng-show="!isLoading">Login</span>
+                        </button>
+                    </div>
+                    <div class="mal fgt-pass hide-on-keyboard-open">
+                        <i class="lg-icon-forgot-key ft-16 lg-inline-bl lg-vm-align mrm"></i><a ui-sref="main.forgot" class="link ft-14 lg-inline-bl lg-vm-align">Forgot Password?</a>
+                    </div>
+                </div>
+            </form>
+            <!--div class="mal">
+                <button class="btn-fblogin" ng-click="fbLogin()">
+                    <i class="lg-icon-facebook"></i>
+                    <span class="lg-vm-align ptm mls lg-inline-bl">Login using Facebook</span>
+                </button>
+            </div-->
+        </div>
+        <div class="bottom-btn-box hide-on-keyboard-open">
+            <button class="button button-clear pg-shift-btn ft-16" ng-click="signUpScreen()">Join Linkagoal<hr class="mvn style-hr" /></button>
+        </div>
+    </ion-content>
+</ion-view>
+
+
+<!--<ion-nav-bar class="transparentHeader">
+  <ion-nav-buttons side="right">
+    <button class="no-bg no-br" ng-click=goMain();><i class="ion-close transparentBgIcon pos"></i></button>
+  </ion-nav-buttons>
+</ion-nav-bar>-->

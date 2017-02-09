@@ -1,0 +1,85 @@
+<ion-view title="Search">
+    <ion-content class="fm-bg">
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" ng-model="search.query" ng-keyup="searchNow()" placeholder="Search Profiles, Goals or Interests">
+            </label>
+            <button class="button button-clear" ng-show="search.query.length > 0" ng-click="resetSearch()">
+                Cancel
+            </button>
+        </div>
+        <!--Empty Data-->
+        <div class="lg-m-align pal" ng-hide="true">
+            <span class="emptydata-ico"><i class="lg-icon-search"></i></span>
+            <div class="ptl pbl ft-16 txt-reg db-txt">No results were found</div>
+        </div>
+        <!--Empty Data-->
+        <!-- <div class="list">
+            <div class="item no-border">
+                <span class="ft-14 txt-lite">Recent Searches</span>
+                <span class="item-note gr-txt">Clear</span>
+            </div>
+            <a href="#" class="item item-avatar">
+                <img class="user-thumb" ng-src="http://159.203.252.13:3000/resources/uploads/79/thumb/medium/lMrnWXOmzVanIb8ixG_geYXA.jpg"><span class="ft-12 txt-reg">Ralph Waldo Emersion</span>
+            </a>
+            <a href="#" class="item item-avatar">
+                <img class="user-thumb" ng-src="http://159.203.252.13:3000/resources/uploads/79/thumb/medium/lMrnWXOmzVanIb8ixG_geYXA.jpg"><span class="ft-12 txt-reg">Ralph Waldo Emersion</span>
+            </a>
+            <a class="item item-avatar" href="#">
+            <img src="http://159.203.252.13:3000/resources/uploads/532/thumb/medium/8H9-DlKOI0AB93WcVqeCHkSR.jpg">
+            <span class="ft-12 txt-reg">Eat, Love and Pray</span>
+            <p class="ft-12 txt-reg">Martha Smith</p>
+            </a>
+            <a href="#" class="item ptm pbm">
+                <span class="base-icon mrm"><i class="lg-icon-interest ft-16"></i></span><span class="ft-12 txt-reg">Rainbow monkeys</span>
+            </a>
+        </div> -->
+        <div class="card" ng-if="searchResult.users.length > 0">
+            <div class="pam no-border">
+                <span class="ft-14 txt-lite mls">People</span>
+            </div>
+            <div class="list">
+                <a on-tap="$root.navigateState('profile',{id:user.uid})" nav-direction="forward" class="item item-avatar" ng-repeat="user in searchResult.users | limitTo:3">
+                    <img class="user-thumb" ng-src="{{user.profile.medium}}"><span class="ft-12 txt-reg">{{user.name}}</span>
+                </a>
+                <a on-tap="$root.navigateState('search-users',{q:search.query})" class="item lg-m-align lite-bg">
+                    <span class="ft-14 txt-book db-txt" ng-if="searchResult.users.length > 3">See All</span>
+                </a>
+            </div>
+        </div>
+        <div class="card" ng-if="searchResult.goals.length > 0">
+            <div class="pam no-border">
+                <span class="ft-14 txt-lite mls">Goals</span>
+            </div>
+            <div class="list">
+                <a class="item item-avatar" on-tap="$root.navigateState('goal',{id: goal.id})" nav-direction="forward" ng-repeat="goal in searchResult.goals | limitTo:3">
+                    <img ng-src="{{goal.user.profile.medium}}">
+                    <span class="ft-12 txt-reg">{{goal.name}}</span>
+                    <p class="ft-12 txt-reg">{{goal.user.name}}</p>
+                </a>
+                <a on-tap="$root.navigateState('search-goals',{q:search.query})" class="item lg-m-align lite-bg">
+                    <span class="ft-14 txt-book db-txt" ng-if="searchResult.goals.length > 3">See All</span>
+                </a>
+            </div>
+        </div>
+        <div class="card" ng-if="searchResult.tags.length > 0">
+            <div class="pam no-border">
+                <span class="ft-14 txt-lite mls">Interest</span>
+            </div>
+            <div class="pam ft-14 lg-br-btm lg-thin-br">
+                <span class="lg-inline-bl" ng-repeat="tag in searchResult.tags | limitTo:6">
+                <span class="lg-chips {{tag.isMyInterest == 1 ? 'active' : ''}}" on-hold="$root.addRemoveInterestTag(tag)" on-tap="$root.navigateState('tags',{name:tag.tagname})">#{{tag.tagname}}</span>
+                </span>
+            </div>
+            <div class="list">
+                <!--<a on-tap="$root.navigateState('tags',{name:tag.tagname})" class="item ptm pbm" ng-repeat="tag in searchResult.tags | limitTo:3">
+                    <span class="base-icon mrm"><i class="lg-icon-interest ft-16"></i></span><span class="ft-12 txt-reg">#{{tag.tagname}}</span>
+                </a>-->
+                <a on-tap="$root.navigateState('search-tags',{q:search.query})" class="item lg-m-align lite-bg">
+                    <span class="ft-14 txt-book db-txt" ng-if="searchResult.tags.length > 3">See All</span>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

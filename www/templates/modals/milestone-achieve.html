@@ -1,0 +1,21 @@
+<div class="modal">
+    <ion-header-bar>
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="vm.cancel()"></button>
+        </div>
+    <h1 class="title lg-m-align">Achieve This Milestone </h1>
+    <div class="buttons">
+        <button class="button lg-header-txt-btn lg-r-float" ng-click="vm.confirm(vm.post)" ng-if="vm.post.text">Done</button>
+         <button class="button lg-header-txt-btn lg-r-float" ng-click="vm.confirm(vm.post)" ng-if="!vm.post.text">Skip</button>
+    </div>
+    </ion-header-bar>
+    <ion-content class="onboard">
+        <div class="list">
+           <label class="item item-input item-floating-label">
+                <span class="input-label">Share Your Experience</span>
+                <input type="text" ng-model="vm.post.text" placeholder="Share Your Experience">
+              </label>
+    </ion-content>
+
+
+</div>

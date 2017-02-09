@@ -1,0 +1,35 @@
+<div class="modal">
+    <!--     <ion-header-bar>
+        <h1 class="title">Time line</h1>
+        <div class="buttons">
+            <button class="button button-icon ion-ios-close-outline" ng-click="closeModal()"></button>
+        </div>
+    </ion-header-bar> -->
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="vm.cancel()"></button>
+        </div>
+        <h1 class="title">Add Timeline</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-click="vm.confirm(vm)">Done</button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="main-bg">
+        <div>
+            <div class="lg-m-align time-line-banner">
+                <div class="time-line-dial lg-icon-radial-grid lg-relative">
+                <div class="days-num txt-reg">{{vm.total_days != null ?  vm.total_days : 0 }}</div>
+                <div class="days-txt txt-reg">Days</div>
+                </div>
+            </div>
+            <div class="pal mal lg-m-align">
+                <div class="ft-14 db-txt txt-reg pvl lg-br-btm lg-thin-br" ng-click="openDatePicker()">
+                    <span class="db-txt txt-reg lg-inline-bl mrm">Start</span> {{vm.start_date}}
+                </div>
+                <div class="ft-14 db-txt txt-reg pvl" ng-click="openEndDatePicker()">
+                    <span class="db-txt txt-reg lg-inline-bl mrm">End</span> {{vm.end_date}}
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</div>

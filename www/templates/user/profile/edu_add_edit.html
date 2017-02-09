@@ -1,0 +1,66 @@
+<ion-view view-title="Education">
+    <ion-content class="main-bg">
+        <div class="list prl pll">
+            <label class="item item-input item-stacked-label no-border">
+                <div class="lg-br-btm">
+                    <span class="input-label">Program</span>
+                    <input type="text" ng-model="edu.program">
+                </div>
+            </label>
+            <label class="item item-input item-stacked-label no-border">
+                <div class="lg-br-btm">
+                    <span class="input-label">School Name</span>
+                    <input type="text" ng-model="edu.organization.name">
+                </div>
+            </label>
+            <div class="item item-input item-stacked-label no-border">
+                <div>
+                    <span class="input-label">Type</span>
+                    <div class="row row-center pan">
+                        <div class="col col-33 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm">
+                                <select placeholder="Select Major" ng-model="edu.type">
+                                    <option value="SCHOOL" ng-selected="edu.type == 'SCHOOL'">SCHOOL</option>
+                                    <option value="UNIVERSITY" ng-selected="edu.type == 'UNIVERSITY'">UNIVERSITY</option>
+                                    <option value="MIDDLE SCHOOL" ng-selected="edu.type == 'MIDDLE SCHOOL'">MIDDLE SCHOOL</option>
+                                    <option value="HIGH SCHOOL" ng-selected="edu.type == 'HIGH SCHOOL'">HIGH SCHOOL</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label no-border">
+                <div>
+                    <span class="input-label">Duration</span>
+                    <div class="row row-center pan">
+                        <div class="col col-30 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm mrm">
+                                <select ng-model="from_year" ng-change="updateFromYear(from_year)" placeholder="From">
+                                    <option value="{{year}}" ng-repeat="year in [2015,1900] | makeRange" ng-selected="year == from_year">{{year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-30 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm mrm">
+                                <select ng-model="to_year" ng-change="updateToYear(to_year)" placeholder="To">
+                                    <option value="{{year}}" ng-repeat="year in [2015,1900] | makeRange" ng-selected="year == to_year">{{year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-center col-offset-10 pan">
+                            <div class="squaredTwo lg-vm-align">
+                                <input type="checkbox" id="squaredTwo" ng-model="edu.graduated" ng-false-value="0" ng-true-value="1" />
+                                <label for="squaredTwo"></label>
+                            </div>
+                            <span class="lg-inline-bl lg-vm-align mlm txt-reg ft-14">Graduated</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mtl"><button class="box-btn active" type="submit" ng-click="addOrUpdate()">{{id==0 ? 'Add' : 'Update'}}</button></div>
+<!--             <button class="box-btn active" type="submit" ng-click="addNewEduInfo()">Add</button>
+ -->        </div>
+    </ion-content>
+</ion-view>

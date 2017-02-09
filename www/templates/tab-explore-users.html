@@ -1,0 +1,34 @@
+<ion-view view-title="{{title}}">
+    <ion-nav-buttons side="right">
+        <button class="button-icon lg-icon-search" on-tap="$root.navigateState('search-page',{})"></button>
+    </ion-nav-buttons>
+    <ion-content class="fm-bg">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <div ng-if="bgImage" class="lg-m-align" >
+          <img ng-src="{{bgImage}}" style="width: 100%" />
+        </div>        
+        <div ng-repeat="user in users">
+            <div class="item mbm mtm item-body lg-m-align no-border">
+                <div class="profilePg-title-box pbm lg-m-align">
+                    <img class="round-img-lrg" ng-src="{{user.profile.medium}}" on-tap="$root.navigateState('profile',{id:user.uid})" alt="{{user.name}}">
+                    <div class="txt-book db-txt ft-14 ptm" nav-direction="forward" on-tap="$root.navigateState('profile',{id:user.uid})">{{user.name}}</div>
+                    <div class="txt-reg gry-txt mts ft-12">{{user.bio | limitTo:100}}</div>
+                </div>
+                <div ng-if="!$root.isMe(user.uid)">
+                    <!--Follow Profile Button-->
+                    <span class="box-btn pan" ng-class="(user.me.isFollowing == 0) ? '': 'active'" ng-click="$root.followUnfollowUser(user)">
+                    <span class="follow">
+                        <i class="lg-icon-follow-user mrm lg-vm-align"></i>
+                        <span class="lg-vm-align">Follow</span>
+                    </span>
+                    <span class="following">
+                        <i class="lg-icon-following-user mrm lg-vm-align"></i>
+                        <span class="lg-vm-align">Following</span>
+                    </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="!noMoreContent" on-infinite="getMoreUsers()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

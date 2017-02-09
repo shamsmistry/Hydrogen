@@ -1,0 +1,34 @@
+<ion-view view-title="Interests">
+    <ion-content class="main-bg">
+        <!--<div class="card-inner-heading prm plm ptl">Interest</div>
+    	<div class="pam">
+        	<span class="lg-component-chips lg-relative mrs mbm" ng-repeat="interest in userInterest ">
+            <a class="lg-chip-content ng-binding" href="/tagged/kidscorner">#{{interest.tagname}}</a>
+            <span class="chip-action-box">
+            	<a class="lg-chip-action add" href="#" ><i class="lg-icon-create-small"></i></a>
+                <a class="lg-chip-action added" href="#"><i class="lg-icon-tick"></i></a>
+            </span>
+            </span>
+        </div>-->
+        <!-- <div class="lg-r-align ft-12 pbs db-txt">People with similar interests</div> -->
+        <div class="list list-a" ng-repeat="interest in userInterest">
+            <div class="item" on-tap="$root.navigateState('tags',{name:interest.name})">
+                <span class="lg-inline-bl ptm pbm db-txt">{{interest.name}}</span>
+               <!--  <span class="item-note">
+                <a href="#/tab/me/profile/users-list">
+                    <span class="pro-pg-thumbs">
+                        <img class="thumbnail" alt="" src="http://159.203.252.13:3000/resources/uploads/79/thumb/medium/lMrnWXOmzVanIb8ixG_geYXA.jpg">
+                    </span>
+                <span class="pro-pg-thumbs">
+                        <img class="thumbnail" alt="" src="http://159.203.252.13:3000/resources/uploads/79/thumb/medium/lMrnWXOmzVanIb8ixG_geYXA.jpg">
+                    </span>
+                <span class="pro-pg-thumbs">
+                        <img class="thumbnail" alt="" src="http://159.203.252.13:3000/resources/uploads/79/thumb/medium/lMrnWXOmzVanIb8ixG_geYXA.jpg">
+                    </span>
+                </a>
+                </span> -->
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="!noMoreContent" on-infinite="getMoreInterests()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

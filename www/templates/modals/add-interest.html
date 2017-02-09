@@ -1,0 +1,38 @@
+<div class="modal">
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="closeModal()"></button>
+        </div>
+        <h1 class="title">Add Interest</h1>
+        <div class="buttons">
+            <button class="button button-clear lg-l-float" ng-click="vm.confirm(vm)">Done</button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="padding ptl lg-m-align">
+<!--             <div class="lg-text-area" contenteditable="true" placeholder="Add #tags to your goal ..."></div> -->
+                    <div class="add-interest ft-14 ptm pbm lg-br-btm lg-thin-br">
+                        <a on-touch="removeHashTag($event)" data-index="{{$index}}"" class="hash-tag lg-vm-align" ng-repeat="hashtag in hashtags">{{hashtag}}</a>
+                        <span class="button button-small button-clear lg-vm-align" contenteditable ng-keypress="keypress($event)" ng-focus="focus($event)" ng-blur="blur($event)" ng-keydown="keydown($event)">Add #tags to your goal ...</span>
+                    </div>
+
+            <div class="pal lg-l-align" ng-hide="true">
+                <div class="ptl">
+                    <div class="lg-m-align ptm pbm">Popular Tags</div>
+                    <span class="lg-chips">#Alpha</span>
+                    <span class="lg-chips">#Bravo</span>
+                    <span class="lg-chips">#Charlie</span>
+                </div>
+            </div>
+            <div class="pal lg-l-align">
+                <div class="ptl">
+                    <div class="lg-m-align ptm pbm">Popular Tags</div>
+                    <div class="lg-m-align mtl" ng-if="isLoading">
+                        <ion-spinner></ion-spinner>
+                    </div>
+                    <span class="lg-chips {{featTagsClass[$index]}}" ng-click="selectFeatureTag($index, tag)" ng-repeat="tag in featTags">#{{tag.tagname}}</span>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</div>

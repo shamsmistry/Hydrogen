@@ -1,0 +1,88 @@
+<!--Message Screen-->
+<ion-view view-title="Messages" hide-nav-bar="true">
+    <div class="bar bar-header bar-positive no-top">
+        <h1 class="title"><div class="txt-med" style="text-align: center;">Messages</div>
+        </h1>
+        <div class="buttons" nav-direction="forward" ng-click="$ionicGoBack()">
+            <a class="button button-icon lg-icon-cross-small"></a>
+        </div>
+    </div>
+    <!-- <ion-nav-buttons side="secondary">
+        <button class="button button-icon lg-icon-cross-small" ng-click="$ionicGoBack()" nav-direction="forward"></button>
+    </ion-nav-buttons> -->
+    <ion-header-bar class="bar bar-subheader pan">
+        <div class="plm prm pbs pts full-width">
+            <div class="row pan row-center">
+                <!--             <div class="col pas col-center">
+                <img class="header-user-thumb mlm" ng-src="http://159.203.252.13:3000/resources/uploads/79/thumb/medium/lMrnWXOmzVanIb8ixG_geYXA.jpg">
+            </div>
+            <div class="col col-67 pan lg-m-align col-center">
+                <span class="ft-14 txt-reg">Available</span>
+            </div>
+            <div class="col pas col-center lg-r-align">
+                <button class="button-icon lg-icon-settings white-txt" ng-click="doSomething()"></button>
+            </div>-->
+                <div class="col-10 col-center">
+                    <i class="button button-icon lg-icon-search lg-l-float"></i>
+                </div>
+                <div class="col lg-m-align pan col-center">
+                    <input type="text" ng-model="searchQuery" class="full-width new-msg-input" placeholder="Search in your connections to start conversation">
+                </div>
+                <div class="col-10 col-center" ng-show="searchQuery.length > 0">
+                    <button class="button button-icon lg-icon-cross-small lg-r-float" ng-click="searchQuery = ''"></button>
+                </div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="main-bg msg-list">
+        <div class="lg-m-align mtl" ng-if="!$root.chatFactory.show_screen && !$root.chatCache">
+            <ion-spinner></ion-spinner>
+        </div>
+        <div class="list" ng-if="!showlist && searchResult.length > 0">
+            <a class="item item-avatar no-border" ng-repeat="user in searchResult" type="item-text-wrap" on-tap="$root.chatFactory.chatOnProfileUser(user)">
+                <img ng-src="{{user.profile.small}}">
+                <div class="ptm pbm lg-br-btm">
+                    <span class="ft-14 txt-reg">{{user.name}}</span>
+                </div>
+            </a>
+        </div>
+        <div class="list" ng-if="showlist && !$root.chatCache">
+            <!--<a class="item item-avatar" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+                <img class="user-thumb" ng-src="{{chat.face}}"><span class="lg-online-status"></span>
+                <span class="lg-chat-txt txt-reg lg-vm-align">{{chat.name}}
+            <p class="ft-10">{{chat.lastText}}</p>
+            </span>
+            </a>-->
+            <a class="item item-avatar no-border ptn chat-list pbn {{ $root.chatFactory.mainObj.chatSpecific[chat.key][$root.chatFactory.mainObj.chatSpecific[chat.key].length-1].seen == false ?'unread-msg' : '' }} " ng-repeat="chat in $root.chatFactory.mainObj.user" type="item-text-wrap" ng-click="navigateToChat(chat.key, chat.user.uid)">
+                <img ng-src="{{chat.user.image}}"><span class="lg-online-status {{ chat.user.status == 'online' ? 'active' : '' }}"></span>
+                <div class="ptm pbm lg-br-btm">
+                    <span class="ft-14 txt-book">{{chat.user.name}}</span>
+                    <span class="time-loc-right ft-12 txt-reg gry-txt">
+                    <span>{{$root.chatFactory.mainObj.chatSpecific[chat.key][$root.chatFactory.mainObj.chatSpecific[chat.key].length-1].createdTime | readableTime}}</span>
+                    </span>
+                    <p class="ft-12 txt-reg"><span class="txt-book db-txt" ng-if="$root.chatFactory.mainObj.chatSpecific[chat.key][$root.chatFactory.mainObj.chatSpecific[chat.key].length-1].senderId == sessionUser.uid">You: </span>{{$root.chatFactory.mainObj.chatSpecific[chat.key][$root.chatFactory.mainObj.chatSpecific[chat.key].length-1].content}}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="list" ng-if="showlist && $root.chatCache">
+            <!--<a class="item item-avatar" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+                <img class="user-thumb" ng-src="{{chat.face}}"><span class="lg-online-status"></span>
+                <span class="lg-chat-txt txt-reg lg-vm-align">{{chat.name}}
+            <p class="ft-10">{{chat.lastText}}</p>
+            </span>
+            </a>-->
+            <a class="item item-avatar no-border ptn chat-list pbn {{ $root.chatCache.mainObj.chatSpecific[chat.key][$root.chatCache.mainObj.chatSpecific[chat.key].length-1].seen == false ?'unread-msg' : '' }} " ng-repeat="chat in $root.chatCache.mainObj.user" type="item-text-wrap" ng-click="navigateToChat(chat.key, chat.user.uid)">
+                <img ng-src="{{chat.user.image}}"><span class="lg-online-status {{ chat.user.status == 'online' ? 'active' : '' }}"></span>
+                <div class="ptm pbm lg-br-btm">
+                    <span class="ft-14 txt-book">{{chat.user.name}}</span>
+                    <span class="time-loc-right ft-12 txt-reg gry-txt">
+                    <span>{{$root.chatCache.mainObj.chatSpecific[chat.key][$root.chatCache.mainObj.chatSpecific[chat.key].length-1].createdTime | readableTime}}</span>
+                    </span>
+                    <p class="ft-12 txt-reg"><span class="txt-book db-txt" ng-if="$root.chatCache.mainObj.chatSpecific[chat.key][$root.chatCache.mainObj.chatSpecific[chat.key].length-1].senderId == sessionUser.uid">You: </span>{{$root.chatCache.mainObj.chatSpecific[chat.key][$root.chatCache.mainObj.chatSpecific[chat.key].length-1].content}}</p>
+                </div>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
+<!--Message Screen-->

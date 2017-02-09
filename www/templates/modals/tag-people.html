@@ -1,0 +1,30 @@
+<div class="modal">
+    <ion-header-bar>
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-1 lg-l-float" ng-click="closeModal(users)"></button>
+        </div>
+        <h1 class="title lg-m-align">Tag People</h1>
+        <div class="buttons">
+            <button class="button lg-header-txt-btn lg-r-float" ng-click="closeModal(users)">Done</button>
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" ng-model-options="{debounce: 300}" ng-model="search.query" placeholder="Search for Users">
+        </label>
+        <button class="button button-clear" ng-show="search.query.length > 0" ng-click="vm.resetSearch()">
+            Cancel
+        </button>
+    </div>
+    <ion-content class="has-subheader pts">
+        <ul class="list">
+            <li class="item item-avatar-right item-checkbox" ng-repeat="user in users">
+                <img ng-src="{{user.profile.medium}}">
+                <label class="checkbox"><input type="checkbox" ng-model="user.checked"></label>
+                <h2>{{user.name}}</h2>
+                <p>{{user.bio}}</p>
+            </li>
+        </ul>
+    </ion-content>
+</div>

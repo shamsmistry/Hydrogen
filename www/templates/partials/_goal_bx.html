@@ -1,0 +1,33 @@
+<div class="list card fx-fade-up fx-dur-600 fx-ease-expo fx-stagger-50" ng-repeat="goal in goals">
+    <div class="goal_img img-box no-border" nav-direction="forward" on-tap="$root.navigateState('goal',{id: goal.id})">
+        <img ng-src="{{goal.cover.large}}">
+    </div>
+    <div class="item item-body pbn no-border">
+        <div class="card-content-txt txt-book">
+            <a on-tap="$root.navigateState('goal',{id: goal.id})" nav-direction="forward" class="lg-gen">{{goal.name}}</a>
+        </div>
+        <span class="card-hashtag">
+            <span class="mrs" on-tap="$root.navigateState('tags',{name:tag.name})" nav-direction="forward" ng-repeat="tag in goal.tags">#{{tag.name}}</span>
+        </span>
+    </div>
+    <div class="item pan no-border">
+        <div class="row row-center">
+            <div class="col col-center">
+                <div class="no-border pas">
+                    <img on-tap="$root.navigateState('profile',{id:goal.user.uid})" nav-direction="forward" class="user-thumb-in" ng-src="{{goal.user.profile.medium}}">
+                    <span on-tap="$root.navigateState('profile',{id:goal.user.uid})" nav-direction="forward" class="ft-12 mls txt-book"><span class="lg-gen" nav-direction="forward" on-tap="$root.navigateState('profile',{id:goal.user.uid})">{{goal.user.name}}</span></span>
+                </div>
+            </div>
+            <!--div class="col-15 col-center pan prs" ng-if="!$root.isMe(goal.user.uid)">
+                <button class="button button-small button-outline lg-action-btn">Link</button>
+            </div-->
+            <div class="col-50 col-center lg-r-align phn pvs prm">
+                <button ng-if="linkBtnEnabled.uid != goal.user.uid" class="button button-small button-outline button-positive phm lg-vm-align" ng-click="$root.linkOrUnlink(goal)">Link</button>
+                <button ng-if="linkBtnEnabled.uid != goal.user.uid" class="button button-small button-outline button-positive phm lg-vm-align" ng-class="(goal.me.isFollower == 0) ? '': 'active'" ng-click="$root.followUnfollowGoal(goal);">{{(goal.me.isFollower == 0) ? 'Follow': 'Following'}}</button>
+                <button class="button button-small icon lg-action-btn lg-vm-align"  ng-if="actionsheetBtnEnabled" ng-click="$root.goalActions(goal, $index)">
+                    <i class="lg-icon-more-vertical"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

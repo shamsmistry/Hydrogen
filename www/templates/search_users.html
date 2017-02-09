@@ -1,0 +1,11 @@
+<ion-view view-title="{{query}}">
+    <ion-content class="fm-bg">
+        <!--User list-->
+        <div>
+        	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+            <user-list users="users"></user-list>
+            <ion-infinite-scroll ng-if="noMoreContent" on-infinite="getMoreUsers()" distance="1%"></ion-infinite-scroll>
+        </div>
+        <!--User list--> 
+    </ion-content>
+</ion-view>

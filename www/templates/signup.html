@@ -1,0 +1,96 @@
+<ion-view class="startup-bg reveal-animation lg-m-align">
+    <!--<div class="into-content mtl">
+        <div class="logo-full mal"></div>
+    </div>-->
+    <ion-content scroll="false" class="startup-bg" style="background-color: #64b3f4">
+        <!-- Container B -->
+        <ion-slide-box class="full-height" show-pager="false" ng-init="disableSwipe()">
+            <ion-slide>
+                <div class="fullscreen">
+                    <div class="signup-container-a">
+                        <h1 class="heading mbs txt-book">Get Started</h1>
+                        <!--<div class="caption mbl ft-14">Everyone has a Goal</div>-->
+                        <!--<div class="errors ft-12" ng-if="submitted && form.name.$error.required">Name is required</div>
+                        <div class="errors ft-12" ng-if="submitted && form.email.$error.required">Email is required</div>-->
+                        <!--<div class="errors ft-12" ng-if="submitted && !form.email.$valid && !form.email.$error.required">Not a valid email</div>-->
+                        <form autocomplete="off" name="form">
+                            <div class="lg-m-align mtl">
+                                <div class="wtfb mna">
+                                    <input class="wtif" type="text" placeholder="Name" name="name" ng-model="user.name" autocorrect="off" autocapitalize="off" required>
+                                    <hr class="mvn style-hr" />
+                                     <input class="wtif mtl" type="text" placeholder="Email" name="name" ng-model="user.user_email" autocorrect="off" autocapitalize="off" required>
+                                    <hr class="mvn style-hr" />
+                                    <!-- <input type="email" class="wtif mtl" placeholder="Email" name="email" ng-model="user.email" ng-pattern="regex" required>
+                                    <hr class="mvn style-hr" /> -->
+                                </div>
+                                <div class="ft-14 txt-reg ptl mtl fgt-pass hide-on-keyboard-open" ng-click="deactivate()">By signing up you agree to our <a ui-sref="tab.more-terms()" class="startup-link">Terms and Conditions</a></div>
+                                <div class="">
+                                    <button class="mtl mbs startup-btn ft-16 txt-book" type="submit" ng-click="slideTo(1)" >Get Started
+                                    </button>
+                                </div>  
+                            </div>
+                        </form>
+                        <!--div class="mal">
+                            <button class="btn-fblogin" ng-click="fbLogin()">
+                                <i class="lg-icon-facebook"></i>
+                                <span class="lg-vm-align ptm mls lg-inline-bl">Signup using facebook</span>
+                            </button>
+                        </div-->
+                    </div>
+                    <div class="bottom-btn-box hide-on-keyboard-open">
+                        <button class="button button-clear pg-shift-btn ft-16" ng-click="loginScreen()">Login into account<hr class="mvn style-hr" /></button>
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="fullscreen">
+                    <div class="signup-container-b">
+                        <h1 class="heading mbs txt-book">Almost there</h1>
+                        <!--<div class="errors ft-12" ng-if="submitted2 && form1.username.$error.required">Username is required</div>
+                        <div class="errors ft-12" ng-if="submitted2 && form1.password.$error.required">Password is required</div>-->
+                        <!--<div ng-repeat="err in screen.error">
+                            <div class="errors ft-12">{{err.message}}</div>
+                        </div>-->
+                        <form autocomplete="off" name="form1">
+                            <div class="lg-m-align mtl">
+                                <div class="wtfb mna">
+                                    <input type="text" class="wtif" placeholder="Username" ng-model="user.username" name="username" required>
+                                    <hr class="mvn style-hr" />
+                                    <input class="wtif mtl" placeholder="Password" type="password" ng-model="user.password" name="password" required>
+                                    <hr class="mvn style-hr" />
+                                    <div class="ptl mtl">
+                                        <span class="radio-box mlm mvm">
+                                            <input type="radio" name="radio" value="male" ng-model="user.gender" id="radio1" class="radio" checked/>
+                                            <label for="radio1">male</label>
+                                        </span>
+                                        <span class="radio-box mlm mvm">
+                                            <input type="radio" name="radio" value="female" ng-model="user.gender" id="radio2" class="radio"/>
+                                            <label for="radio2">female</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <button class="mtl mbs startup-btn ft-16 txt-book" type="submit" ng-click="doLogin()">
+                                        <span ng-show="isLoading"><wave-spinner></wave-spinner></span>
+                                        <span ng-show="!isLoading">Sign Up</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!--div class="mal">
+                            <button class="btn-fblogin" ng-click="fbLogin()">
+                                <i class="lg-icon-facebook"></i>
+                                <span class="lg-vm-align ptm mls lg-inline-bl">Signup using facebook</span>
+                            </button>
+                        </div-->
+                    </div>
+                    <div class="bottom-btn-box hide-on-keyboard-open">
+                        <button class="button icon-left ion-chevron-left button-clear pg-shift-btn ft-16" ng-disabled="btnLoading" type="submit" ng-click="slideTo(0)">
+                            Go back
+                        </button>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-view>

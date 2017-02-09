@@ -1,0 +1,36 @@
+<ion-view view-title="Notification">
+    <ion-content class="main-bg">
+        <div class="lg-m-align mtl" ng-if="isLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+        <ul class="list">
+            <li class="item item-toggle lg-pd-toggle no-border" ng-if="notiType == 1" ng-repeat="settings in notificationsSettings ">
+                <span class="toggle-content">{{settings.type | notificationkeyStrings}}</span>
+                <label class="toggle toggle-lg">
+                    <input type="checkbox" ng-true-value="1" ng-change="switchLocal(settings)" ng-false-value="0" ng-model="settings.toast">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle lg-pd-toggle no-border" ng-if="notiType == 2" ng-repeat="settings in notificationsSettings ">
+                <span class="toggle-content">{{settings.type | notificationkeyStrings}}</span>
+                <label class="toggle toggle-lg">
+                    <input type="checkbox" ng-true-value="1" ng-change="switchMobile(settings)" ng-false-value="0" ng-model="settings.mobile">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle lg-pd-toggle no-border" ng-if="notiType == 3" ng-repeat="settings in notificationsSettings ">
+                <span class="toggle-content">{{settings.type | notificationkeyStrings}}</span>
+                <label class="toggle toggle-lg">
+                    <input type="checkbox" ng-true-value="1" ng-change="switchEmail(settings)" ng-false-value="0" ng-model="settings.email">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

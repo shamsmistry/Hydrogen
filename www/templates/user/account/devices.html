@@ -1,0 +1,22 @@
+<ion-view view-title="Devices">
+    <ion-content class="main-bg">
+    	<ion-item class="lg-br-btm lg-more-navigation" ng-repeat="session in userSessions">
+            <div class="row">
+                <div class="col-20 lg-m-align">
+                    <i class="icon main-ico-more gr-txt lg-icon-device"></i>
+                </div>
+                <div class="col pan">
+                    <div class="ft-14 txt-reg">{{session.location.city | onEmpty: 'Unknown'}} , {{session.location.countryName}} {{session.location.ip}}</div>
+                    <div class="ft-12 gry-txt txt-reg pts">Your current sessions</div>
+                    <div class="ft-12 gry-txt txt-reg pts">{{session.os | onEmpty: 'Unknown Device'}} on {{session.osVersion | onEmpty: 'Unknown version'}}</div>
+                    <div class="ft-14 txt-reg ptl">Location</div>
+                    <div class="ft-12 gry-txt txt-reg pts" ng-if="!session.location.city && !session.location.countryName">Unknown Location</div>
+                    <div class="ft-12 gry-txt txt-reg pts">{{session.location.city}} {{session.location.countryName}}</div>
+                    <div class="ft-14 txt-reg ptl">Signed in</div>
+                    <div class="ft-12 gry-txt txt-reg pts">{{session.created | readableTime}}</div>
+                    <button class="lg-r-float" ng-if="client_id != session.clientid" ng-click="revokeSession(session.SessionId, $index)" md-button>Revoke</button>
+                </div>
+            </div>
+        </ion-item>
+	</ion-content>
+</ion-view>

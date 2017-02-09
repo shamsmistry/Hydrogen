@@ -1,0 +1,123 @@
+<!--<ion-view title="Make Connections" >
+  <ion-nav-buttons side="right">
+    <button class="button button-clear button-primary ft14" ui-sref="aftersignup.about-you">Skip</button>
+  </ion-nav-buttons>
+	<div class="bar bar-subheader pd0">
+		<div class="row bg-color pd7">
+			<div class="col make-con">Follow 5 profiles
+				<span class="r-float">
+				<span class="profile-pick {{(fCount>n) ? 'active':''}}" ng-repeat="n in [1,2,3,4,5]"><i class="lg-icon-check"></i></span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<ion-content class="has-subheader" has-header="true">
+	<div class="list userList">
+		<div class="item item-button-right item-avatar" ng-repeat="user in UserList">
+		  <img ng-src="{{user.user.profile_img}}" ng-click="openUserProfile({{user.user.uid}})">
+		  <h3 ng-click="openUserProfile({{user.user.uid}})">{{user.user.name}}</h3>
+		  <h4><span>{{user.reputation_score}} pts</span> | <span>{{user.goals}} goals</i></span></h4>
+	      <button ng-hide="isMe(user.user.uid)" class="button {{user.following_or_not==0 ? 'btn-follow' : 'btn-following'}} mtm" ng-click="followProfile({{user.user.uid}}); checkFollowingCount(user.following_or_not==0);(user.following_or_not==0) ? user.following_or_not=1 : user.following_or_not=0">{{user.following_or_not==0 ? 'Follow' : 'Following'}}</button>
+		</div>
+	</div>
+  <ion-infinite-scroll spinner="dots" distance="1%" on-infinite="loadMoreData()" ng-if="moreDataCanBeLoaded"></ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>-->
+
+<ion-view hide-nav-bar="false" title="Seek your network" can-swipe-back="false">
+    <ion-content class="onboard main-bg">
+        <div class="lg-m-align pbl prm plm ft-16 txt-lite db-txt">People with similar interest</div>
+        <!--div class="row lg-m-align">
+            <div class="col col-center">
+                <span class="lg-outerPg-social lg-colored-btn" ng-class="connectTab == 1 ? 'lg-colored-btn':''" ng-click="changeConnectTab(1)" role="button" tabindex="0"><i class="lg-icon-interest"></i></span>
+                <div class="mts ft-12">Interest</div>
+            </div>
+            <div class="col col-center">
+                <span class="lg-outerPg-social" role="button" ng-class="connectTab == 2 ? 'lg-colored-btn':''" ng-click="changeConnectTab(2)" tabindex="0"><i class="lg-icon-facebook"></i></span>
+                <div class="mts ft-12">Facebook</div>
+            </div>
+            <div class="col col-center">
+                <span class="lg-outerPg-social" role="button" ng-class="connectTab == 3 ? 'lg-colored-btn':''" ng-click="changeConnectTab(3)" tabindex="0"><i class="lg-icon-twitter"></i></span>
+                <div class="mts ft-12">Twitter</div>
+            </div>
+            <div class="col col-center">
+                <span class="lg-outerPg-social" role="button" ng-class="connectTab == 4 ? 'lg-colored-btn':''" ng-click="changeConnectTab(4)" tabindex="0"><i class="lg-icon-email"></i></span>
+                <div class="mts ft-12">Email</div>
+            </div>
+        </div-->
+        <div class="exp-heading pll prl">
+            <div class="row pan pts">
+                <!--<div class="col col-center lg-m-align">
+                    <span class="heading-title">People with similar interest</span>
+                </div>-->
+                <!--div class="col-20 col-center lg-r-align pts">
+                    <span class="lg-outerPg-social-min lg-m-align" role="button" tabindex="0">
+                        <i class="lg-icon-following-user"></i></span>
+                    </span>
+                </div-->
+            </div>
+        </div>
+
+        <div class="lg-m-align mtl" ng-if="isLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+        <div ng-show="connectTab == 1">
+            <div class="plm prm lg-l-align" ng-show="users.length > 0">
+                <div class="list lg-list-view mbn" ng-repeat="user in users">
+                    <div class="item item-avatar item-icon-right no-border ">
+                        <img class="user-thumb" ng-src="{{user.profile.medium}}">
+                        <span class="lg-user-list-txt lg-vm-align mlm">
+                            <h2 class="user-name"><a class="lg-gen">{{user.name}}</a></h2>
+                            <span>{{user.bio | limitTo:100}}</span>
+                        </span>
+                        <span class="icon list-ico prs lg-vm-align">  
+                        <i class="lg-icon-follow-user follow" ng-class="user.me.isFollowing == 1 ? 'lg-icon-following-user active': 'lg-icon-follow-user'" ng-click="$root.followUnfollowUser(user)"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="lg-white-bg pas mas lg-m-align" ng-click="loadMoreUsers()" ng-if="!disableLoadMore">
+                    <wave-spinner ng-hide="!isLoadingLinkagoalUsers"></wave-spinner>
+                    <span ng-hide="isLoadingLinkagoalUsers" style="display: block;"><i class="lg-icon-more gry-txt ft-28"></i></span>
+                </div>
+                <div class="pal"></div>
+            </div>
+        </div>
+
+        <div ng-show="connectTab == 2">
+            <div class="plm prm lg-l-align" ng-show="users.length > 0">
+                Login with fb
+            </div>
+        </div>
+
+        <div ng-show="connectTab == 3">
+            <div class="plm prm lg-l-align" ng-show="users.length > 0">
+                Login with tw
+            </div>
+        </div>
+
+         <div ng-show="connectTab == 4">
+            <div class="plm prm lg-l-align" ng-show="users.length > 0">
+                Email
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="custom-lg-bar lg-br-top lg-thin-brt">
+        <div class="row gry-txt pan pbs prm plm lg-full-width">
+            <div class="col col-center">
+                <a nav-direction="forward" class="button icon-right ion-chevron-left button-clear db-txt" ui-sref="aftersignup.interest()">&nbsp;</a>
+            </div> 
+            <div class="col col-30 col-center">
+                <div class="lg-progress-bullet">
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                </div>
+            </div>
+            <div class="col col-30 col-center lg-r-align"><a class="button icon-right ion-chevron-right button-clear db-txt" ui-sref="aftersignup.create-first-goal()">Continue &nbsp;</a></div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

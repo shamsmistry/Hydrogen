@@ -1,0 +1,59 @@
+<div class="list card man" ng-repeat="goal in goals">
+		
+			<div class="item item-avatar no-border">
+				<img class="user-thumb" ng-src="{{goal.user.profile.medium}}">
+				<h2 class="user-name"><a href="{{goal.user.link}}" class="lg-gen">{{goal.user.name}}</a></h2>
+				<span class="time-loc-right ft-12 txt-reg gry-txt">{{goal.created | readableTime}}</span>
+			</div>
+			
+			<div class="item item-body ptn no-border">
+				<div class="card-content-txt">
+					<a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen">{{goal.name}}</a> <span ng-if="activity.post.location.id">&middot; {{goal.user.location.locality}}, {{goal.user.location.administrative_area_level_1}}</span>
+				</div>
+				<span class="card-hashtag"><a href="#" ng-repeat="tag in goal.tags" class="lg-gen" ng-if="goals.tags.length > 0">#{{tag.name}}</a></span>
+			</div>
+			<div class="item-image">
+				<a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><img ng-src="{{goal.cover.large}}" /></a>
+			</div>
+			<div class="item-stats no-border">
+		        <div class="row row-center">
+		            <div class="col col-center plm pbn ptn">
+		            <a href="#" class="subdued card-stats">
+		            	<ng-pluralize count="goal.stats.motivations" when="{'0': '', '1': '1 Motivation', 'other': '{{goal.stats.motivations}} Motivations'}"></ng-pluralize>
+		            </a>
+		            <span class="md">&middot;</span>
+		            <a href="#" class="subdued card-stats"> <ng-pluralize count="goal.stats.contribution" when="{'0': '', '1': '1 Contribution', 'other': '{{goal.stats.contribution}} Contributions'}"></ng-pluralize></a>
+		            <span class="md">&middot;</span>
+		            <a href="#" class="subdued card-stats"> <ng-pluralize count="goal.stats.views" when="{'0': '', '1': '1 View', 'other': '{{goal.stats.views}} Views'}"></ng-pluralize></a>
+		            </div>
+		        </div>
+        	</div>
+		
+			<div class="item pan no-border">
+		        <div class="row row-center lg-br-top lg-thin-br">
+		            <div class="col col-center">
+		            <button class="lg-action-btn">
+		                <i class="lg-icon-motivate-2 lg-vm-align"></i>
+		                <span class="lg-vm-align">Motivate</span>
+		            </button>
+		            </div>
+		            <div class="col col-center">
+		            <button class="lg-action-btn">
+		                <i class="lg-icon-contribute-2 lg-vm-align"></i>
+		                <span class="lg-vm-align">Contribution</span>
+		            </button>
+		            </div>
+		            <div class="col-20 pas col-center">
+		            <button class="lg-action-btn">
+		                <i class="lg-icon-share lg-vm-align"></i>
+		                <span class="lg-vm-align">Share</span>
+		            </button>
+		            </div>
+		            <div class="col-10 pas col-center">
+		            <button class="lg-action-btn">
+		                <i class="lg-icon-more-vertical lg-vm-align"></i>
+		            </button>
+		            </div>
+		        </div>
+	        </div>
+   		</div>

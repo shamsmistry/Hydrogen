@@ -1,0 +1,88 @@
+
+
+<ion-view view-title="Edit">
+    <ion-nav-buttons side="secondary">
+      <button class="button button-clear" ng-click="updateProfile()">Update</button>
+    </ion-nav-buttons>
+    <ion-content class="main-bg">
+        <div class="img-box lg-relative">
+            <a ng-click="updateCoverImage()" class="upload-ico-bg"><i class="lg-icon-camera"></i></a>
+            <img ng-src="{{sessionUser.cover}}" alt="">
+        </div>
+        <div class="profilePg-title-box pbm lg-m-align">
+            <a ng-click="updateProfileImage()" class="lg-inline-bl"><img class="profile-owner-pic" ng-src="{{sessionUser.image}}" alt="{{user.name}}"></a>
+        </div>
+        <div class="pam ptl lg-m-align ft-12 db-txt">Tap on the avatar to change your profile image</div>
+        <div class="list prl pll">
+            <label class="item item-input item-stacked-label no-border">
+                <div class="lg-br-btm">
+                    <span class="input-label">Name</span>
+                    <input type="text" ng-model="user.name">
+                </div>
+            </label>
+            <label class="item item-input item-stacked-label no-border">
+                <div class="lg-br-btm">
+                    <span class="input-label">Bio</span>
+                    <input type="text" ng-model="user.bio">
+                </div>
+            </label>
+            <label class="item item-input item-stacked-label no-border">
+                <div class="lg-br-btm">
+                    <span class="input-label">Location</span>
+                   <!--  <input ng-if="!$root.isEmpty(user.location)" type="text" ng-model="user.location.formatted_address"> -->
+                    <ion-google-place placeholder="Your address" ng-model="user.location.formatted_address" required name="address" location-changed="locationChanged" />
+                </div>
+            </label>
+            <div class="item item-input item-stacked-label no-border">
+                <div>
+                    <span class="input-label">Date of Birth</span>
+                    <div class="row row-center pan">
+                        <div class="col col-20 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm mrm">
+                                <select ng-model="userMonth" ng-change="updateDobMonth(userMonth)" placeholder="Month">
+                                    <option value="{{month}}" ng-repeat="month in months" ng-selected="month == userMonth">{{month}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-20 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm mrm">
+                                <select ng-model="userDate" ng-change="updateDobDate(userDate)" placeholder="Day">
+                                    <option value="{{day}}" ng-repeat="day in [1,31] | makeRange" ng-selected="day == userDate">{{day}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-20 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm mrm">
+                                <select ng-model="userYear" ng-change="updateDobYear(userYear)" placeholder="Year">
+                                    <option value="{{year}}" ng-repeat="year in [2016,1900] | makeRange" ng-selected="year == userYear">{{year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-center col-offset-10 pan">
+                            <div class="squaredTwo lg-vm-align">
+                                <input type="checkbox" id="squaredTwo" ng-model="user.dob_show" ng-false-value="'PUBLIC'" ng-true-value="'PRIVATE'" />
+                                <label for="squaredTwo"></label>
+                            </div>
+                            <span class="lg-inline-bl lg-vm-align mlm txt-reg ft-14">Hidden</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label no-border">
+                <div>
+                    <span class="input-label">Gender</span>
+                    <div class="row row-center pan">
+                        <div class="col col-20 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm">
+                                <select placeholder="Select Gender" ng-model="user.gender">
+                                    <option value="Male" ng-selected="user.gender == 'MALE'">Male</option>
+                                    <option value="Female" ng-selected="user.gender == 'FEMALE'">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

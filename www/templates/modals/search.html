@@ -1,0 +1,60 @@
+<!-- <div class="modal"  ng-controller="SearchGoalsProfilesTagsCtrl">
+    <ion-header-bar class="lg-br-btm">
+        <div class="row pan row-center">
+            <div class="col pas col-center">
+                <button class="button button-icon lg-icon-search lg-l-float" ng-click="closeModal()"></button>
+            </div>
+            <div class="col col-75 pan lg-m-align col-center">
+                <input type="text" ng-model="searchQuery" ng-keyup="searchNow()" class="full-width" placeholder="Search">
+            </div>
+            <div class="col pas col-center">
+                <button class="button button-icon lg-icon-cross-small lg-l-float" ng-click="closeModal()"></button>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="">
+        <div class="card" ng-if="searchResult.users.length > 0">
+            <div class="pam no-border">
+                <span class="ft-14 txt-lite mls">People</span>
+            </div>
+            <div class="list">
+                <a href="#" class="item item-avatar" ng-repeat="user in searchResult.users | limitTo:3">
+                    <img class="user-thumb" ng-src="{{user.profile.medium}}"><span class="ft-12 txt-reg">{{user.name}}</span>
+                </a>
+                <a href="#" class="item lg-m-align">
+                    <span class="ft-14 txt-book gr-txt">See All</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="card" ng-if="searchResult.goals.length > 0">
+            <div class="pam no-border">
+                <span class="ft-14 txt-lite mls">Goals</span>
+            </div>
+            <div class="list">
+                <a class="item item-avatar" href="#" ng-repeat="goal in searchResult.goals | limitTo:3">
+                <img ng-src="{{goal.user.profile.small}}">
+                <span class="ft-12 txt-reg">{{goal.name}}</span>
+                <p class="ft-12 txt-reg">{{goal.user.name}}</p>
+                </a>
+                <a href="#" class="item lg-m-align">
+                    <span class="ft-14 txt-book gr-txt">See All</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="card" ng-if="searchResult.tags.length > 0">
+            <div class="pam no-border">
+                <span class="ft-14 txt-lite mls">Interest</span>
+            </div>
+            <div class="list">
+                <a href="#" class="item ptm pbm" ng-repeat="tag in searchResult.tags | limitTo:3">
+                    <span class="base-icon mrm"><i class="lg-icon-interest ft-16"></i></span><span class="ft-12 txt-reg">#{{tag.tagname}}</span>
+                </a>
+                <a href="#" class="item lg-m-align">
+                    <span class="ft-14 txt-book gr-txt">See All</span>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</div> -->

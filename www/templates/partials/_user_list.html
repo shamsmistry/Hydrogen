@@ -1,0 +1,10 @@
+<div class="ptm lg-l-align">
+    <div class="list mbn" ng-repeat="user in users">
+        <div class="item item-avatar pbl ptl  item-icon-right no-border">
+            <img class="user-thumb" on-tap="$root.navigateState('profile',{id:user.uid})" ng-src="{{user.profile.medium}}"><span class="ft-14 txt-book db-txt" on-tap="$root.navigateState('profile',{id: user.uid})">{{user.name}}</span>
+            <span class="icon list-ico" ng-if="!$root.isMe(user.uid)">  
+               <i class="lg-icon-follow-user follow" ng-class="user.me.isFollowing == 1 ? 'lg-icon-following-user active': 'lg-icon-follow-user'" ng-click="$root.followUnfollowUser(user)"></i>
+            </span>
+        </div>
+    </div>
+</div>

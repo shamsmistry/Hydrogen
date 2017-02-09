@@ -1,0 +1,82 @@
+<!-- <ion-view view-title="Miletstones">
+<ion-header-bar class="">
+
+
+    <ion-nav-title>
+        <div class="bar bar-header">
+          <button class="button button-clear button-positive" nav-direction="forward" on-tap="$root.navigateState('search-page',{})">Add more</button>
+            <div class="h1 title">Miletstones</div>
+        </div>
+    </ion-nav-title>
+
+    <ion-content class="main-bg">
+
+      <h1>{{milestones}}</h1>
+      <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+
+        <ion-item ng-repeat="milestone in milestones" 
+                  item="item"
+                  href="#/item/{{item.id}}" class="item-remove-animate">
+          <div class="ft-14 db-txt txt-reg ws-nor">{{milestone.name}}</div>
+          <ion-option-button class="button-positive lg-m-align"
+                             ng-click="edit(item)">
+            <i class="lg-icon-tick-thick ft-20"></i>
+          </ion-option-button>
+          <ion-option-button class="button-dark lg-m-align"
+                             ng-click="onItemDelete(item)">
+            <i class="lg-icon-delete ft-24"></i>
+          </ion-option-button>
+          <ion-option-button class="button-balanced lg-m-align"
+                             ng-click="share(item)">
+            <i class="lg-icon-edit ft-24 db-txt"></i>
+          </ion-option-button>
+          <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+        </ion-item>
+        <ion-item class="item">
+        <form ng-submit="addNewStep()" >
+          <input type="text" placeholder="Add New" class="add-new" ng-blur="addNewStep()" />
+        </form>
+      </ion-item>
+
+      </ion-list>
+
+    </ion-content>
+</ion-view> -->
+<ion-view view-title="Milestones">
+<!--     <ion-header-bar align-title="left" class="bar-positive">
+        <div class="row pan row-center">
+            <div class="col-10 pln col-center">
+                <button class="button button-icon lg-icon-caret-left lg-l-float" nav-direction="back" ng-click="$ionicGoBack()"></button>
+            </div>
+        </div>
+    </ion-header-bar> -->
+    <ion-content class="main-bg">
+        <div class="lg-m-align mtl" ng-if="isLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+        <div ng-show="!isLoading && (milestones.length == 0) && !$root.isMe(ownerId)" class="pal txt-book gry-txt ft-14 mtl lg-m-align">Milestones not added to this goal</div>
+        <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+            <ion-item ng-repeat="milestone in milestones" item="item milestone" class="item-remove-animate milestone" ng-class="(milestone.status == 'ACTIVE') ? '': 'achieve-milestone'">
+                <div class="ft-14 db-txt txt-reg ws-nor">
+                    <div class="row row-center pan">
+                        <div class="col col-center pan"><span class="lg-milestone-count" ng-class="(milestone.status == 'ACTIVE') ? '': 'achieved'">{{$index+1}}</span>{{milestone.text}} </div>
+                        <div class="col col-15 col-center pan lg-r-align"><i class="lg-icon-achieve achievement-ico ft-18 gr-txt"></i></div>
+                    </div></div>
+                <ion-option-button ng-if="milestone.status == 'ACTIVE' && $root.isMe(goalDetails.user.uid)" class="button-positive lg-m-align" ng-click="achieve(milestone)">
+                    <i class="lg-icon-tick-thick ft-20"></i>
+                </ion-option-button>
+                <ion-option-button ng-if="$root.isMe(milestone.uid) && $root.isMe(goalDetails.user.uid)" class="button-dark lg-m-align" ng-click="delete(milestone)">
+                    <i class="lg-icon-delete ft-24"></i>
+                </ion-option-button>
+                <ion-option-button ng-if="milestone.status == 'ACTIVE' && $root.isMe(goalDetails.user.uid) && goalDetails.status != 'COMPLETED'" class="button-balanced lg-m-align" ng-click="edit(milestone)">
+                    <i class="lg-icon-edit ft-24 db-txt"></i>
+                </ion-option-button>
+                <!--ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button-->
+            </ion-item>
+            <ion-item class="item" ng-if="goalDetails.status != 'COMPLETED' && $root.isMe(ownerId)" >
+                   <input type="text" ng-model="newMilestone.text" placeholder="Add New" ng-blur="addMilestone()" class="add-new" />
+            </ion-item>
+        </ion-list> 
+            
+    </ion-content>
+</ion-view>

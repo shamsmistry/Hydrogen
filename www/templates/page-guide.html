@@ -1,0 +1,79 @@
+<!-- Page guide -->
+<ion-view hide-nav-bar="true" can-swipe-back="false">
+	<ion-content scroll="false">
+		<ion-slide-box class="full-height startup page-guide" on-slide-changed="slideHasChanged($index)" slide-interval="10000">
+		  <ion-slide> 
+		    <div class="fullscreen-intro page-guide-inner">
+                <!--div class="into-content mtm">
+                    <button class="button button-clear wt-top-btn" nav-transition="fade">Skip <i class="lg-icon-skip"></i></button>
+                </div-->
+                <div class="heading-pageguide">Welcome {{user.first_name}}</div>
+                <div class="content-pageguide pam">A quick glance of what to find where</div>
+		    	<div class="img-box clearfix">
+					<img alt="welcome" src="img/page-guide/screen-1.png" />
+		    	</div>
+		    </div>
+		  </ion-slide>
+		  <ion-slide> 
+		    <div class="fullscreen-intro ptm">
+                <div class="mtm">
+                    <img alt="welcome" class="anim-img" src="img/page-guide/home.gif" />
+                </div>
+                <div class="heading-pageguide ft-16">Home</div>
+                <div class="content-pageguide ptm pll prl pbm">Where you find updates from people &amp; goals you’re connected with</div>
+		    	<div class="img-box clearfix">
+					<img alt="welcome" src="img/page-guide/screen-2.png" />
+		    	</div>
+		    </div>
+		  </ion-slide>
+          <ion-slide> 
+		    <div class="fullscreen-intro ptm">
+                <div class="mtm">
+                   <img alt="welcome" class="anim-img" src="img/page-guide/explore.gif" />
+                </div>
+                <div class="heading-pageguide ft-16">Explore</div>
+                <div class="content-pageguide ptm pll prl pbm">Follow what you like! Get inspired by our featured goals &amp; profiles</div>
+		    	<div class="img-box clearfix">
+					<img alt="welcome" src="img/page-guide/screen-3.png" />
+		    	</div>
+		    </div>
+		  </ion-slide>
+          <ion-slide> 
+		    <div class="fullscreen-intro ptm">
+                <div class="mtm">
+                    <img alt="welcome" class="anim-img" src="img/page-guide/goal.gif" />
+                </div>
+                <div class="heading-pageguide ft-16">Goal</div>
+                <div class="content-pageguide ptm pll prl pbm">Stay on track by updating your goal on daily basis. </div>
+		    	<div class="img-box clearfix">
+					<img alt="welcome" src="img/page-guide/screen-4.png" />
+		    	</div>
+		    </div>
+		  </ion-slide>
+          <ion-slide> 
+		    <div class="fullscreen-intro ptm">
+                <div class="mtm">
+                    <img alt="welcome" class="anim-img" src="img/page-guide/me.gif" />
+                </div>
+                <div class="heading-pageguide ft-16">Me</div>
+                <div class="content-pageguide ptm pll prl pbm">Your Space To Galvanize! uplift your profile &amp; interact with connections</div>
+		    	<div class="img-box clearfix">
+					<img alt="welcome" src="img/page-guide/screen-5.png" />
+		    	</div>
+		    </div>
+		  </ion-slide>
+          <ion-slide> 
+		    <div class="fullscreen-intro ptm">
+                <div class="mtm">
+                    <img alt="welcome" class="anim-img" src="img/page-guide/linkagoal-logo.png" />
+                </div>
+                <div class="heading-pageguide">All covered for now</div>
+                <div class="content-pageguide ptm pll prl pbm">Get going! The world is your oyester</div>
+		    	<div class="pal mtl">
+                    <button class="custom-btn-page-guide mtl" nav-direction="forward" ui-sref="tab.dashboard()">Right On!</button>
+                </div>
+		    </div>
+		  </ion-slide>		  
+		</ion-slide-box>
+	</ion-content>
+</ion-view>

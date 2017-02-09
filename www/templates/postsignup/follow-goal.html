@@ -1,0 +1,31 @@
+<ion-view hide-nav-bar="false" title="Get Inspired" can-swipe-back="true">
+    <ion-content class="welcome fm-bg">
+        <div class="lg-m-align main-bg pbl prm plm ft-16 txt-lite db-txt">Follow goals that inspires you</div>
+        <div>
+            <!--Module-->
+<!--             <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+ -->        <goal-bx-onboarding goals="goalSuggestion" follow-btn-enabled="true" actionsheet-btn-enabled="false" class="mbl"></goal-bx-onboarding>
+            <ion-infinite-scroll ng-if="!isLoading" on-infinite="getGoalsSuggestion()" distance="1%"></ion-infinite-scroll>
+            <!--Module-->
+        </div>
+    </ion-content>
+    <ion-footer-bar class="custom-lg-bar lg-br-top lg-thin-brt" keyboard-attach>
+        <div class="row gry-txt pan pbs prm plm lg-full-width">
+            <div class="col col-center">
+                <a nav-direction="forward" class="button icon-right ion-chevron-left button-clear db-txt" ui-sref="aftersignup.create-first-goal()">&nbsp;</a>
+            </div>
+            <div class="col col-30 col-center">
+                <div class="lg-progress-bullet">
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet"></span>
+                </div>
+            </div>
+            
+            <div class="col col-30 col-center lg-r-align"><a nav-direction="forward" class="button icon-right ion-chevron-right button-clear db-txt" ui-sref="aftersignup.app-guide()">Continue &nbsp;</a></div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

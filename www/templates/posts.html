@@ -1,0 +1,18 @@
+<ion-view view-title="Activity" title="Search">
+    <!-- <ion-header-bar align-title="left" class="bar-stable">
+        <div class="row pan row-center">
+            <div class="col-10 pln col-center">
+                <button class="button button-icon lg-icon-caret-left lg-l-float" nav-direction="back" ng-click="$ionicGoBack()"></button>
+            </div>
+            <div class="col col-80 pan lg-m-align col-center">
+                Activity
+            </div>
+        </div>
+    </ion-header-bar> -->
+    <ion-content class="main-bg">
+        <div ng-if="isLoading" class="lg-m-align">
+            <ion-spinner></ion-spinner>
+        </div>
+        <div class=" mtx" feeds activities="posts" top-bar-enabled="false" top-goal-enabled="true"></div>
+    </ion-content>
+</ion-view>

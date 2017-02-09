@@ -1,0 +1,52 @@
+<ion-view hide-nav-bar="false" title="Let's know you better" can-swipe-back="true">
+    <ion-content class="welcome main-bg" overflow-scroll="true">
+        <div class="lg-m-align mtl" ng-if="isLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+        <div ng-show="!isLoading">
+            <div class="lg-m-align pbl prm plm ft-16 txt-lite db-txt">Select the areas of your interest</div>
+            <div class="pbl mbl">
+                <div ng-repeat="category in categories">
+                    <div class="exp-heading">
+                        <div class="row">
+                            <div class="col lg-l-align">
+                                <span class="heading-title">{{category.name}}</span>
+                            </div>
+                            <div class="col-20 lg-r-align pts prs">
+                                <a href="#" class="link-btn">{{category.tags.length}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cat-container">
+                        <hscroller>
+                            <span ng-repeat="tag in category.tags" class="lg-cat-anchor lg-relative" ng-class="tag.isMyInterest == 1 ? 'active': ''" ng-click="toggleInterest(tag)">
+                                <hcard index="{{tag.id}}" ng-style="{'background-color':tag.default_color}" desc="{{tag.name}}" image="{{tag.image.small}}"></hcard>
+                                <span class="tick-selected"><i class="lg-icon-tick-thick"></i></span>
+                                <div class="interest-overlay"></div>
+                            </span>
+                        </hscroller>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="custom-lg-bar lg-br-top lg-thin-brt" keyboard-attach>
+        <div class="row gry-txt pan pbs prm plm lg-full-width">
+           <div class="col col-center">
+                <a nav-direction="forward" class="button icon-right ion-chevron-left button-clear db-txt" ui-sref="aftersignup.about-you()">&nbsp;</a>
+            </div> 
+            <div class="col col-30 col-center">
+                <div class="lg-progress-bullet">
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet active"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                </div>
+            </div>
+            <!--div class="col col-center lg-m-align"><span ng-click="onboardInterest()" class="bucket lg-relative"><i class="lg-icon-interest"></i><span class="count-bubble">5</span></span></div-->
+            <div class="col col-30 col-center lg-r-align"><button class="button icon-right ion-chevron-right button-clear db-txt" ng-disabled="selectedInterest < 5" ui-sref="aftersignup.make-new-connections()">Continue &nbsp;</button></div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,33 @@
+<ion-view title="New Connections" view-title="New Connections">
+    <ion-content class="main-bg">
+        <div class="card-band">
+            <div class="card-band-txt ft-14 pvs">
+                <span class="card-band-name">
+                    <span class="bl-txt txt-book">People in your network have new connections</span>
+                </span>
+            </div>
+        </div>
+        <div ng-repeat="followdata in activities">
+            <div class="lg-br-btm-thick">
+                <div class="card-band ptm pbs lg-no-brb">
+                    <div class="card-band-txt">
+                        <!-- <span class="card-band-name"><a nav-direction="forward" class="lg-gen"><b class="gr-txt">Chris Harris</b></a></span> -->
+                        <span class="card-band-name" ng-repeat="users_from in followdata.users_from | limitTo:2"><a nav-direction="forward" class="lg-gen" on-tap="$root.navigateState('profile',{id: users_from.uid})"><b class="gr-txt">{{users_from.name}}</b></a><span ng-if="followdata.totalUsersCount == 2"> and </span><span ng-if="followdata.totalUsersCount > 2">, </span></span>
+                        <span ng-if="(followdata.users_from.length > 2)"> and </span><a href="#" class="card-band-name" ng-if="(followdata.users_from.length > 2)">{{followdata.users_from.length - 2}} <ng-pluralize count="followdata.users_from.length" when="{'3': ' other', 'other': ' other'}"></ng-pluralize></a><span> has followed</span>
+                    </div>
+                </div>
+                <div class="item item-avatar follow-feed item-button-right no-border">
+                    <img class="user-thumb" alt="{{followdata.user_to.name}}" on-tap="$root.navigateState('profile',{id: followdata.user_to.uid})"
+                        ng-src="{{followdata.user_to.profile.small}}">
+                    <span class="lg-user-list-txt lg-vm-align mlm">
+                        <h2 class="user-name"><a on-tap="$root.navigateState('profile',{id: followdata.user_to.uid})" class="lg-gen ng-binding">{{followdata.user_to.name}}</a></h2>
+                        <span class="">{{followdata.user_to.bio | limitTo:50}}</span>
+                    </span>
+                    <button class="button button-small follow-feed button-outline button-positive phm lg-vm-align" ng-class="followdata.user_to.me.isFollowing == 1 ? 'active' : ''"
+                        on-tap="$root.followUnfollowUser(followdata.user_to)">{{followdata.user_to.me.isFollowing == 1 ? 'Following' : 'Follow'}}</button>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="noMoreContent" on-infinite="getFollowingNetworkList(activity)" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

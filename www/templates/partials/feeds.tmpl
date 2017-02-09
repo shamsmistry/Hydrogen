@@ -1,0 +1,411 @@
+<div id="container" create-post-pending iscreating="$root.iscreating" post="$root.posttext" images="$root.totalFiles"></div>
+<div class="list card fx-fade-up fx-dur-600 fx-ease-expo fx-stagger-50" ng-repeat="activity in activities">
+    <div ng-if="activity.feed_type == 'USER_FOLLOWED_NETWORK'">
+        <div class="card-band lg-thin-br">
+            <div class="card-band-txt ft-14 pvs">
+                <span class="card-band-name bl-txt txt-book">
+                        <span>People in your network have new connections</span>
+                </span>
+            </div>
+        </div>
+        <div ng-repeat="followdata in activity.list">
+            <div class="lg-br-btm-thick">
+                <div class="card-band lg-no-brb">
+                    <div class="card-band-txt">
+                        <!-- <span class="card-band-name"><a nav-direction="forward" class="lg-gen"><b class="gr-txt">Chris Harris</b></a></span> -->
+                        <span class="card-band-name" ng-repeat="users_from in followdata.users_from | limitTo:2">
+                                <a nav-direction="forward" class="lg-gen" on-tap="$root.navigateState('profile',{id: users_from.uid})"><b class="gr-txt">{{::users_from.name}}</b></a>
+                                <span ng-if="followdata.totalUsersCount >= 2 && !$last"> and </span>
+                        </span>
+                        
+                        <a href="#" class="card-band-name" ng-if="(followdata.totalUsersCount > 2)">
+                            <span ng-if="(followdata.totalUsersCount > 2)"> and </span>
+                            {{::followdata.totalUsersCount - 2}}
+                            <ng-pluralize count="followdata.totalUsersCount" when="{'3': ' other', 'other': ' others'}"></ng-pluralize>
+                            </a>
+                        <span> has followed</span>
+                    </div>
+                </div>
+                <div class="item item-avatar follow-feed item-button-right no-border ">
+                    <img class="user-thumb" alt="{{followdata.user_to.name}}" on-tap="$root.navigateState('profile',{id: followdata.user_to.uid})" ng-src="{{followdata.user_to.profile.small}}">
+                    <span class="lg-user-list-txt lg-vm-align mlm">
+                            <h2 class="user-name ft-14 db-txt"><a on-tap="$root.navigateState('profile',{id: followdata.user_to.uid})" class="lg-gen ng-binding">{{::followdata.user_to.name}}</a></h2>
+                            <span class="ft-12">{{::followdata.user_to.bio | limitTo:50}}</span>
+                    </span>
+                    <button class="button button-small follow-feed button-outline button-positive phm lg-vm-align" ng-class="followdata.user_to.me.isFollowing == 1 ? 'active' : ''" on-tap="$root.followUnfollowUser(followdata.user_to)">{{followdata.user_to.me.isFollowing == 1 ? 'Following' : 'Follow'}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="item pan no-border">
+            <div class="lg-br-top lg-thin-br lg-m-align lite-bg">
+                <button ng-click="$root.setActivity(activity, 'user')" class="lg-action-btn lite-bg">
+                    <span class="lg-vm-align txt-book db-txt">See All Updates</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-if="activity.feed_type == 'GOAL_FOLLOWED_NETWORK'">
+        <div class="card-band lg-thin-br">
+            <div class="card-band-txt ft-14 pvs">
+                <span class="card-band-name bl-txt txt-book">
+            <span>People in your network are now following new goals</span>
+            </div>
+        </div>
+        <div ng-repeat="followdata in activity.list"> 
+            <div class="lg-br-btm-thick">
+                <div class="card-band">
+                    <div class="card-band-txt">
+                        <span class="card-band-name" ng-repeat="users_from in followdata.users_from | limitTo:2"><a on-tap="$root.navigateState('profile' , {id: users_from.uid})" nav-direction="forward" class="lg-gen" ><b class="gr-txt">{{::users_from.name}}</b></a>
+                        <span ng-if="followdata.totalUsersCount == 2"> and </span>
+                        <span ng-if="followdata.totalUsersCount > 2">, </span>
+                        </span>
+                        <span ng-if="(followdata.users_from.length > 2)"> and </span>
+                        <a href="#" class="card-band-name" ng-if="(followdata.users_from.length > 2)">
+                    {{::followdata.users_from.length - 2}}
+                    <ng-pluralize count="followdata.users_from.length" when="{'3': ' other', 'other': ' other'}"></ng-pluralize>
+                    </a>
+                        <span class="ng-binding"> has followed</span>
+                    </div>
+                </div>
+                <div on-tap="$root.navigateState('goal', {id: followdata.goal.id})" class="goal_img img-box no-border" nav-direction="forward">
+                    <img ng-src="{{followdata.goal.cover.large}}">
+                </div>
+                <div class="item item-body pbn no-border">
+                    <div class="card-content-txt txt-book">
+                        <a on-tap="$root.navigateState('goal', {id: followdata.goal.id})" nav-direction="forward" class="lg-gen ng-binding">{{::followdata.goal.name}}</a>
+                    </div>
+                    <span class="card-hashtag" ng-repeat="tag in followdata.goal.tags">#{{::tag.name}}</span>
+                </div>
+                <div class="item pan no-border">
+                    <div class="row row-center lg-br-btm lg-thin-br">
+                        <div class="col col-center">
+                            <div class="no-border pas">
+                                <img on-tap="$root.navigateState('profile', {id: followdata.goal.user.uid})" nav-direction="forward" class="user-thumb-in" ng-src="{{followdata.goal.user.profile.small}}">
+                                <span on-tap="$root.navigateState('profile', {id: followdata.goal.user.uid})" nav-direction="forward" class="ft-12 mls txt-book"><span class="lg-gen" nav-direction="forward">{{::followdata.goal.user.name}}</span></span>
+                            </div>
+                        </div>
+                        <div class="col-50 col-center lg-r-align phn pvs prm">
+                            <button class="button button-small button-outline button-positive phm lg-vm-align" on-tap="$root.linkOrUnlink(followdata.goal)">Link</button>
+                            <button class="button button-small button-outline button-positive phm lg-vm-align" ng-class="(followdata.goal.me.isFollower == 0) ? '': 'active'" on-tap="$root.followOrUnfollow(followdata.goal)">Follow</button>
+                            <button ng-hide="true" class="button button-small icon lg-action-btn lg-vm-align">
+                                <i class="lg-icon-more-vertical"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item pan no-border">
+            <div class="lg-br-top lg-thin-br lg-m-align pvs lite-bg">
+                <button ng-click="$root.setActivity(activity, 'goal')" class="lg-action-btn lite-bg">
+                    <span class="lg-vm-align txt-book db-txt">See All Updates</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-band" ng-if="topBarEnabled" ng-if="activity.feed_type != 'USER_FOLLOWED_NETWORK' || activity.feed_type != 'GOAL_FOLLOWED_NETWORK'">
+        <div class="card-band-txt" ng-if="activity.feed_type == 'GOAL_CREATED'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})" class="lg-gen"><b>{{::activity.goal.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} created a </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>goal</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'MILESTONE_CREATED'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} added a <i class="lg-icon-milestone gry-txt ft-12"></i> milestone on </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>goal</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'MILESTONE_COMPLETED'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} achieved milestone on this goal </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal.name}}</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'PROGRESS_UPDATED'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} added a progress on </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal.name}}</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'GOAL_IMAGE_UPDATED'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} updated an image to this goal </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal.name}}</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'GOAL_FOLLOWED'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} followed a goal </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal.name}}</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'LINK_GOAL'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} linked <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal_from.name}}</b></a> goal to </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal_to.name}}</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'GOAL_ACHIEVED'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} achieved a goal </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal.name}}</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'USER_FOLLOWED'">
+            <span class="card-band-name">
+                <a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a>
+            </span>
+            <span> {{::$root.hasHave(activity.post.user.uid)}} started following </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.user_to.uid})" class="lg-gen">
+                <b>{{::activity.user_to.name | YouFilter:activity.user_to.uid}}</b>
+            </a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'CONTRIBUTION'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} contributed on a goal </span>
+            <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen"><b>{{::activity.goal.name}}</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'ALBUM'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span><span> {{::$root.hasHave(activity.post.user.uid)}} added new images </span>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'STATUS_UPDATE'">
+            <span class="card-band-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name | YouFilter:activity.post.user.uid}}</b></a></span>
+            <span> {{::$root.hasHave(activity.post.user.uid)}} shared a </span>
+            <a nav-direction="forward" ng-click="$root.navigateState('post',{id: activity.post.id})" class="lg-gen"><b>post</b></a>
+            <a ng-if="activity.post.media[0].small.source" nav-direction="forward" class="lg-gen"><b>image</b></a>
+            <a ng-if="activity.post.fetched_url.id" nav-direction="forward" class="lg-gen" ng-click="$root.openBrowser(activity.post.fetched_url.url)"><b>link</b></a>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'PROFILE_PICTURE_UPDATED'">
+            <span class="card-band-name">
+                <a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name}}</b></a>
+            </span>
+            <span> {{$root.hasHave(activity.post.user.uid)}} updated profile image </span>
+        </div>
+        <div class="card-band-txt" ng-if="activity.feed_type == 'PROFILE_COVER_UPDATED'">
+            <span class="card-band-name">
+                <a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" class="lg-gen"><b>{{::activity.post.user.name}}</b></a>
+            </span>
+            <span> {{$root.hasHave(activity.post.user.uid)}} updated cover image </span>
+        </div>
+
+        <div class="card-band-txt" ng-if="activity.feed_type == 'SHARE_GOAL'">
+            <span class="card-band-name">
+                <a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.user.uid})" class="lg-gen"><b>{{::activity.user.name}}</b></a>
+            </span>
+            <span> {{$root.hasHave(activity.user.uid)}} shared</span>
+            <a ng-if="activity.user.uid != activity.goal.user.uid" nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})" class="lg-gen"><b> {{::activity.goal.user.name}}'s</b></a>
+            <span> goal</span>
+        </div>
+        <!--{{::activity.feed_type}}-->
+    </div>
+    <div ng-if="activity.feed_type == 'GOAL_CREATED'">
+        <div class="item item-avatar no-border">
+            <img class="user-thumb" ng-src="{{::activity.goal.user.profile.medium}}">
+            <h2 class="user-name"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})" class="lg-gen">{{::activity.goal.user.name}}</a></h2>
+            <p class="ft-12 txt-reg gry-txt">
+                <span>{{::activity.post.created | readableTime}}</span>
+            </p>
+            <button ng-if="!$root.isMe(activity.goal.user.uid)" class="button button-small button-outline button-positive custom-goal-feed-btn phm lg-vm-align" ng-class="(activity.goal.me.isFollower == 0) ? '': 'active'" ng-click="$root.followOrUnfollow(activity.goal);">{{(activity.goal.me.isFollower == 0) ? 'Follow': 'Following'}}</button>
+        </div>
+        <div class="item item-body no-border">
+            <div class="card-content-txt">
+                <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen">{{::activity.goal.name}}</a>
+                <span class="gry-txt ft-13" ng-if="activity.goal.location.formatted_address"> &middot; {{::activity.goal.location.formatted_address}}</span>
+            </div>
+            <span class="card-hashtag"><a nav-direction="forward" on-tap="$root.navigateState('tags',{name:tag.name})" class="lg-gen mrs" ng-repeat="tag in activity.goal.tags">#{{::tag.name}}</a></span>
+        </div>
+        <div class="item-image" nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})">
+            <img ng-src="{{::activity.goal.cover.medium}}">
+        </div>
+    </div>
+    <div ng-if="activity.feed_type == 'GOAL_FOLLOWED' || activity.feed_type == 'LINK_GOAL' || activity.feed_type == 'SHARE_GOAL'">
+        <span ng-init="activity.goal = (activity.goal_to) ?  activity.goal_to : activity.goal"></span>
+        <div class="img-box no-border" ng-if="activity.goal.cover.large" nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})">
+            <img ng-src="{{::activity.goal.cover.large}}">
+        </div>
+        <div class="item item-body pbn no-border">
+            <div class="card-content-txt txt-book">
+                <a nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})" class="lg-gen">{{::activity.goal.name}}</a>
+            </div>
+            <span class="card-hashtag">
+                <a class="mrs" nav-direction="forward" on-tap="$root.navigateState('tags',{name:tag.name})" ng-repeat="tag in activity.goal.tags">#{{::tag.name}}</a>
+            </span>
+        </div>
+        <div class="item pan no-border">
+            <div class="row row-center">
+                <div class="col col-center">
+                    <div class="no-border pas">
+                        <img class="user-thumb-in" nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})" ng-src="{{::activity.goal.user.profile.medium}}">
+                        <span class="ft-12 mls txt-reg"><a nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})" class="lg-gen">{{::activity.goal.user.name}}</a></span>
+                    </div>
+                </div>
+                <div class="col-50 col-center lg-r-align phm pvs prm">
+                    <button class="button button-small button-outline button-positive phm lg-vm-align" ng-if="!$root.isMe(activity.goal.user.uid)" ng-click="$root.linkOrUnlink(activity.goal)" ng-class="(activity.goal.me.isLinked == 1) ? 'active': '' ">{{(activity.goal.me.isLinked == 1) ? 'Linked': 'Link'}}</button>
+                    <button class="button button-small button-outline button-positive phm lg-vm-align" ng-if="!$root.isMe(activity.goal.user.uid)" ng-class="(activity.goal.me.isFollower == 0) ? '': 'active'" ng-click="$root.followOrUnfollow(activity.goal);">{{(activity.goal.me.isFollower == 0) ? 'Follow': 'Following'}}</button>
+                    <button class="button button-small lg-vm-align icon lg-action-btn" ng-click="goalActions(activity.goal)">
+                        <i class="lg-icon-more-vertical"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="activity.feed_type == 'USER_FOLLOWED'">
+        <div class="item item-body lg-m-align no-border">
+            <div class="profilePg-title-box pbm lg-m-align">
+                <img class="round-img-lrg" ng-src="{{::activity.user_to.profile.medium}}" alt="{{::activity.user_to.name}}">
+                <div class="txt-book db-txt ft-14 ptm" nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.user_to.uid})">{{::activity.user_to.name}}</div>
+                <div class="txt-reg gry-txt mts ft-12">{{::activity.user_to.bio | limitTo:100}}</div>
+            </div>
+            <div ng-if="!$root.isMe(activity.user_to.uid)">
+                <!--Follow Profile Button-->
+                <span class="box-btn pan" ng-class="(activity.user_to.me.isFollowing == 0) ? '': 'active'" ng-click="$root.followUnfollowUser(activity.user_to)">
+                    <span class="follow">
+                        <i class="lg-icon-follow-user mrm lg-vm-align"></i>
+                        <span class="lg-vm-align">Follow</span>
+                </span>
+                <span class="following">
+                        <i class="lg-icon-following-user mrm lg-vm-align"></i>
+                        <span class="lg-vm-align">Following</span>
+                </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="(activity.feed_type == 'PROGRESS_UPDATED' || activity.feed_type == 'CONTRIBUTION' || activity.feed_type == 'MILESTONE_CREATED' || activity.feed_type == 'MILESTONE_COMPLETED' || activity.feed_type == 'GOAL_ACHIEVED') && topGoalEnabled == true">
+        <div class="goal_img img-box no-border" nav-direction="forward" on-tap="$root.navigateState('goal',{id: activity.goal.id})">
+            <img ng-src="{{::activity.goal.cover.large}}">
+        </div>
+        <div class="mbm lg-br-btm">
+            <div class="item item-body no-border">
+                <div class="card-content-txt txt-book">
+                    <a on-tap="$root.navigateState('goal',{id: activity.goal.id})" nav-direction="forward" class="lg-gen">{{::activity.goal.name}}</a>
+                </div>
+                <span class="card-hashtag">
+                    <span class="mrs" on-tap="$root.navigateState('tags',{name:tag.name})" nav-direction="forward" ng-repeat="tag in activity.goal.tags">#{{::tag.name}}</span>
+                </span>
+                <div class="row pan ptm row-center">
+                    <div class="col pan col-center">
+                        <div class="no-border">
+                            <img on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})" nav-direction="forward" class="user-thumb-in" ng-src="{{::activity.goal.user.profile.medium}}">
+                            <span on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})" nav-direction="forward" class="ft-12 mls txt-book"><span class="lg-gen" nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.goal.user.uid})">{{::activity.goal.user.name}}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="activity.feed_type == 'PROGRESS_UPDATED' || activity.feed_type == 'MILESTONE_CREATED' || activity.feed_type == 'MILESTONE_COMPLETED' || activity.feed_type == 'GOAL_IMAGE_UPDATED' || activity.feed_type == 'STATUS_UPDATE' || activity.feed_type == 'GOAL_ACHIEVED' || activity.feed_type == 'CONTRIBUTION' || activity.feed_type == 'ALBUM' || activity.feed_type == 'PROFILE_PICTURE_UPDATED' || activity.feed_type == 'PROFILE_COVER_UPDATED'">
+        <div class="item item-avatar no-border pvm">
+            <img class="user-thumb" nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})" ng-src="{{::activity.post.user.profile.medium}}">
+            <h2 class="user-name"><a class="lg-gen" nav-direction="forward" on-tap="$root.navigateState('profile',{id:activity.post.user.uid})">{{::activity.post.user.name}}</a></h2>
+            <span class="time-loc-right ft-12 txt-reg gry-txt">
+                <span>{{::activity.post.created | readableTime}}</span>
+            <!-- span ng-if="activity.post.location.id">&middot; {{::activity.post.location.country}}</span -->
+            </span>
+        </div>
+        <div class="item item-body no-border ptn pbs">
+            <div class="card-content-txt">
+                <span ng-if="activity.feed_type != 'MILESTONE_CREATED'" ng-bind-html="::activity.post.text" open-link link="::activity.post.text" post="::activity.post"></span>
+                <div class="row row-center pan db-txt" ng-if="activity.feed_type == 'MILESTONE_CREATED'">
+                    <div class="col-10 col-center lg-l-align"><span class="base-icon-b fm-bg"><i class="lg-icon-milestone ft-16"></i></span></div>
+                    <div class="col col-center ft-15 pvn">
+                        <div>
+                            <span ng-bind-html="::activity.milestone.text" class="txt-book"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pal mtm lg-br-all lg-thin-br br-radii lg-m-align" ng-if="activity.feed_type == 'MILESTONE_COMPLETED'">
+                <div class="profilePg-title-box">
+                    <span class="achievement-badge"><i class="lg-icon-milestone"></i></span>
+                    <div class="txt-book db-txt ft-14 ptm mbm pbm mll mrl lg-br-btm lg-thin-br">Milestone Achieved</div>
+                    <div class="ft-14 bl-txt txt-reg" ng-bind-html="::activity.milestone.text"></div>
+                </div>
+            </div>
+            <div class="pal mtm lg-br-all lg-thin-br br-radii lg-m-align" ng-if="activity.feed_type == 'GOAL_ACHIEVED'">
+                <div class="profilePg-title-box">
+                    <span class="achievement-badge"><i class="lg-icon-goal"></i></span>
+                    <div class="txt-book db-txt ft-14 ptm mbm pbm mll mrl lg-br-btm lg-thin-br">Goal Achieved</div>
+                    <div class="img-box mbm">
+                        <img ng-src="{{::activity.goal.cover.large}}">
+                    </div>
+                    <div class="ft-14 bl-txt txt-reg">{{::activity.goal.name}}</div>
+                </div>
+            </div>
+        </div>
+        <!--         <div class="multi-view clearfix" ng-if="activity.post.media.info.totalFiles > 1">
+            <img ng-if="image.type == 'IMAGE'" on-tap="openImageModal(image.source.large.src)" ng-src="{{image.source.square.src}}" ng-repeat="image in activity.post.media.files">
+            on-tap="goToSlide(activity.post.media.files, image.source.large,$index)"
+        </div> -->
+        <div class="multi-view mts clearfix" ng-if="activity.post.media.info.totalFiles > 1">
+            <span class="feed-multi-img lg-relative {{::activity.post.media.info.totalFiles > 6 && $index == 5? 'lastchild' : ''}}" ng-style="multiImageStyle(activity.post.media.info.totalFiles)" ng-repeat="image in activity.post.media.files"><img ng-if="image.type == 'IMAGE'" 
+            on-tap="goToSlide(activity.post.media.files, image.source.large,$index, activity.id,activity.post.parent_id )" ng-src="{{image.source.square.src}}"><span on-tap="goToSlide(activity.post.media.files, image.source.large,$index, activity.id,activity.post.parent_id )" ng-if="activity.post.media.info.totalFiles > 6 && $index == 5" class="img-count">+{{::activity.post.media.info.totalFiles-6}}</span></span>
+        </div>
+        <div class="item-image mts lg-relative" ng-if="activity.post.media.info.totalFiles == 1">
+            <img ng-if="image.type == 'IMAGE'" on-tap="openImageModal(image.source.large.src)" ng-src="{{image.source.medium.src}}" ng-repeat="image in activity.post.media.files">
+            <span ng-if="activity.post.media.files[0].mimeType == 'image/gif'" class="gif-badge txt-book">GIF</span>
+        </div>
+        <div class="item-image mas lg-br-all lg-thin-br" ng-if="activity.post.fetched_url.id" ng-click="$root.openBrowser(activity.post.fetched_url.url)">
+            <img ng-if="activity.post.fetched_url.image.medium.source" ng-src="{{::activity.post.fetched_url.image.medium.source}}">
+            <div class="pam lg-l-align">
+                <div class="card-content-txt ft-14">{{::activity.post.fetched_url.title}}</div>
+                <div class="card-lg-url pvs">{{::activity.post.fetched_url.host}}</div>
+                <div class="card-lg-url-desc ft-13">{{::activity.post.fetched_url.description | limitTo:80}}<span ng-if="activity.post.fetched_url.description.length > 80">...</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-stats" ng-if="activity.feed_type == 'GOAL_CREATED' || activity.feed_type == 'PROGRESS_UPDATED' || activity.feed_type == 'MILESTONE_CREATED' || activity.feed_type == 'MILESTONE_COMPLETED' || activity.feed_type == 'GOAL_IMAGE_UPDATED' || activity.feed_type == 'STATUS_UPDATE' || activity.feed_type == 'MILESTONE_COMPETED' || activity.feed_type == 'GOAL_ACHIEVED' || activity.feed_type == 'CONTRIBUTION' || activity.feed_type == 'ALBUM' || activity.feed_type == 'PROFILE_PICTURE_UPDATED' || activity.feed_type == 'PROFILE_COVER_UPDATED' || activity.feed_type == 'SHARE_GOAL'">
+        <div class="row row-center ptn" ng-show="activity.post.stats.motivations != 0 || activity.post.stats.comments != 0 || activity.post.stats.views != 0">
+            <div class="col col-center plm ptn">
+                <span on-tap="$root.navigateState('post_motivators',{id: activity.post.id})" ng-if="activity.post.stats.motivations != 0" class="subdued card-stats mrm">
+                    <span>{{::activity.post.stats.motivations | nrFormat}}</span>
+                    <ng-pluralize count="activity.post.stats.motivations" when="{'0': '', '1': 'Motivation', 'other': 'Motivations'}"></ng-pluralize>
+                </span>
+                <span on-tap="$root.navigateState('posts-comments', {id:activity.post.id })" ng-if="activity.post.stats.comments != 0" class="subdued card-stats mrm">
+                    <span>{{::activity.post.stats.comments | nrFormat}}</span>
+                    <ng-pluralize count="activity.post.stats.comments" when="{'0': '', '1': 'Comment', 'other': 'Comments'}"></ng-pluralize>
+                </span>
+                <span ng-if="activity.post.stats.views != 0" class="subdued card-stats">
+                    <span>{{::activity.post.stats.views | nrFormat}}</span>
+                    <ng-pluralize count="activity.post.stats.views" when="{'0': '', '1': 'View', 'other': 'Views'}"></ng-pluralize>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="item pan no-border" ng-if="activity.feed_type == 'GOAL_CREATED' || activity.feed_type == 'PROGRESS_UPDATED' || activity.feed_type == 'MILESTONE_CREATED' || activity.feed_type == 'MILESTONE_COMPLETED' || activity.feed_type == 'GOAL_IMAGE_UPDATED' || activity.feed_type == 'STATUS_UPDATE' || activity.feed_type == 'MILESTONE_COMPETED' || activity.feed_type == 'GOAL_ACHIEVED' || activity.feed_type == 'CONTRIBUTION' || activity.feed_type == 'ALBUM' || activity.feed_type == 'PROFILE_PICTURE_UPDATED' || activity.feed_type == 'PROFILE_COVER_UPDATED' || activity.feed_type == 'SHARE_GOAL'">
+        <!--<div class="row row-center lg-br-top lg-thin-br">
+            <div class="col col-center">
+                <button class="lg-action-btn" ng-class="(activity.post.me.isMotivated == 1) ? 'active': ''   " ng-click="motivationOnPost(activity.post)">
+                    <i class="lg-icon-motivate-2 lg-vm-align"></i>
+                    <span class="lg-vm-align">Motivate</span>
+                </button>
+            </div>
+            <div class="col col-center">
+                <button class="lg-action-btn" nav-direction="forward" ui-sref="app.posts-comments({id:activity.post.id})">
+                    <i class="lg-icon-comment lg-vm-align"></i>
+                    <span class="lg-vm-align">Comment</span>
+                </button>
+            </div>
+            <div class="col-20 col-center pas">
+                <button class="lg-action-btn" ng-click="$root.sharePost(activity.post)">
+                    <i class="lg-icon-share lg-vm-align"></i>
+                    <span class="lg-vm-align">Share</span>
+                </button>
+            </div>
+            <div class="col-10 col-center pas">
+                <button ng-click="$root.showGoalActionSheet(activity.post)" class="lg-action-btn">
+                    <i class="lg-icon-more-vertical lg-vm-align"></i>
+                </button>
+            </div>
+        </div>-->
+        <div class="lg-br-top lg-thin-br">
+            <button class="lg-action-btn txt-uc" ng-class="(activity.post.me.isMotivated == 1) ? 'active': ''   " ng-click="motivationOnPost(activity.post)">
+                <i class="lg-icon-motivate-2 lg-vm-align"></i>
+                <span class="lg-vm-align">Motivate</span>
+            </button>
+            <!-- <button class="lg-action-btn" nav-direction="forward" ui-sref="app.posts-comments({id:activity.post.id})"> -->
+            <button class="lg-action-btn txt-uc" nav-direction="forward" on-tap="$root.navigateState('posts-comments', {id:activity.post.id })" ng-click="$root.navigateMe()">
+                <i class="lg-icon-comment lg-vm-align"></i>
+                <span class="lg-vm-align">Comment</span>
+            </button>
+            <button class="lg-action-btn txt-uc" ng-click="$root.sharePost(activity.post)">
+                <i class="lg-icon-share lg-vm-align"></i>
+                <span class="lg-vm-align">Share</span>
+            </button>
+            <button on-tap="$root.showGoalActionSheet(activity.post, $index, activity.feed_type)" class="lg-action-btn txt-uc">
+                <i class="lg-icon-more-vertical lg-vm-align"></i>
+            </button>
+        </div>
+    </div>
+    <!-- div class="list mbn lg-br-top" ng-if="activity.post.comments" ng-repeat="comment in activity.post.comments | orderBy:'-':true">
+      <div class="item item-avatar no-border comment">
+            <img class="user-thumb" ng-src="{{comment.user.profile.small}}">
+            <div class="txt-book ft-14 bl-txt comment-area"><a href="{{comment.user.link}}" class="lg-gen">{{comment.user.name}} </a><span class="txt-reg ft-12 dg-txt">{{comment.comment}}</span></div> 
+            <p class="time-loc ft-12 dg-txt">{{comment.created | readableTime}}</p>
+        </div>
+    </div -->
+</div>

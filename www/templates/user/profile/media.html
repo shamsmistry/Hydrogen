@@ -1,0 +1,12 @@
+<ion-view view-title="Media">
+    <ion-content class="main-bg">
+        <!--Empty Data-->
+        <div class="lg-m-align pal" ng-hide="true">
+            <span class="emptydata-ico"><i class="lg-icon-gallery"></i></span>
+            <div class="ptl pbl ft-16 txt-reg db-txt">No media available</div>
+        </div>
+        <!--Empty Data-->
+    	<ion-gallery ion-gallery-items="media"></ion-gallery>
+    	<ion-infinite-scroll ng-if="noMoreContent" on-infinite="getMoreImages()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

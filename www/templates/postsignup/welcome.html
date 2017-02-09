@@ -1,0 +1,22 @@
+<ion-view hide-nav-bar="false" title="Greetings {{loggedInUser.name}}!" can-swipe-back="false">
+    <ion-content class="welcome main-bg">
+        <div class="lg-m-align pbl prm plm ft-16 txt-lite db-txt">Let’s get you started by following these simple steps</div>
+        <div class="img-box pll prl ptl"><img ng-src="img/onboarding/welcome.gif" /></div>
+    </ion-content>
+    <ion-footer-bar class="custom-lg-bar lg-br-top lg-thin-brt">
+        <div class="row gry-txt pan pbs prm plm lg-full-width">
+            <div class="col col-30 col-center">
+                <div class="lg-progress-bullet">
+                    <span class="bullet active"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                    <span class="bullet"></span>
+                </div>
+            </div>
+            <div class="col col-center"></div>
+            <div class="col col-30 col-center lg-r-align"><a class="button icon-right ion-chevron-right button-clear gr-txt" ui-sref="aftersignup.about-you()">Continue &nbsp;</a></div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

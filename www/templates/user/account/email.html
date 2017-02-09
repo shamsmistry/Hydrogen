@@ -1,0 +1,26 @@
+<ion-view view-title="Email Settings">
+    <ion-content class="main-bg">
+        <ion-item class="no-border lg-more-navigation item-input">
+            <div class="row row-center">
+                <div class="col-25 col-center pas"><span class="ft-14 gry-txt txt-reg">Primary</span></div>
+                <div class="col col-center pan lg-br-btm"><span class="ft-14 txt-reg"><input type="email" ng-model="user.user_email"></span></div>
+            </div>
+        </ion-item>
+        <div class="col col-center"><span class="ft-14 gr-txt txt-reg">{{msg}}</span></div>
+        <!-- <ion-item class="no-border lg-more-navigation item-input">
+            <div class="row">
+                <div class="col-25 pas"><span class="ft-14 gry-txt txt-reg">Secondary</span></div>
+                <div class="col pan">
+                    <div class="lg-br-btm"><span class="ft-14 txt-reg"><input type="text" ng-model="user.user_email"></span></div>
+                    <div class="row">
+                        <div class="col"><span class="ft-14 gr-txt txt-reg">Make Primary </span></div>
+                        <div class="col-10 col-center pts"><i class="icon dir-ico-more lg-icon-cross-small"></i></div>
+                    </div>
+                </div>
+            </div>
+        </ion-item> -->
+        <div class="lg-r-align ptl">
+            <button ng-click="updateEmail()" md-button class="lg-controller-btn">SAVE</button>
+        </div>
+    </ion-content>
+</ion-view>

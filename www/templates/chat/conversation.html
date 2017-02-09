@@ -1,0 +1,125 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<style type="text/css">
+[scroll-glue-bottom],
+[scroll-glue] {
+    height: 100%;
+    padding-bottom: 20px;
+    overflow-y: auto;
+}
+
+.msg-name {
+    line-height: 18px;
+    text-transform: capitalize;
+    margin-left: 10%;
+}
+
+.msg-typing {
+    line-height: 14px;
+    margin-left: 10%;
+}
+
+.msg-chat .has-footer {
+    bottom: 57px;
+}
+</style>
+<ion-view view-title="{{title}}" hide-nav-bar="true" class="msg-chat">
+    <div class="bar bar-header bar-positive no-top">
+        <!-- <div style="border: none;" class="bar-positive no-top"> -->
+        <div class="buttons">
+            <button class="button button-icon lg-icon-caret-left" nav-direction="back" ng-click="$ionicGoBack(); "></button>
+        </div>
+        <h1 class="title"><div class="ft-16 txt-med lg-l-align msg-name mts">{{title}}</div>
+        <div class="ft-12 msg-typing txt-book lg-l-align">{{header_text}}
+        </div>
+        </h1>
+        <div class="buttons" ng-click="actionSheet($root.chatFactory.mainObj.chatSpecific[conversationId])" ng-if="!$root.isMe(user.uid)">
+            <a class="button button-icon lg-icon-more-vertical"></a>
+        </div>
+        <!-- </div> -->
+    </div>
+    <ion-content id="{{conversationId}}" on-scroll="onChatScroll(5)" delegate-handle="chat-convo-handle" class="has-header main-bg lg-chat-bg">
+        <div class="lg-m-align mtl" ng-disabled="isDisabled" ng-if="isLoading && $root.isChatLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+        <div class="pbm" ng-if="!$root.chatCache">
+            <!-- <div scroll-glue when-scrolled="doRefresh()"> -->
+            <div id="conversation.messageId" ng-repeat="conversation in $root.chatFactory.mainObj.chatSpecific[conversationId]">
+                <div class="msg-thread lg-m-align gry-txt ft-12 pam" ng-if="(conversation.createdTime - chatObject[$index-1].createdTime)> 86400/2"><span class="side-line"></span><span class="lg-inline-bl lg-vm-align mhl">{{conversation.createdTime * 1000 |  datetime}}</span><span class="side-line"></span></div>
+                <div on-hold="onhold(conversation.messageId, $index, conversation.content)" ng-if="conversation.senderId == sessionUser.uid ? true : false" class="message-wrapper" ng-init="readabletime = conversation.createdTime">
+                    <div>
+                        <div class="chat-bubble right">
+                            <div class="message txt-reg" open-link-with-feed link="conversation.content"></div>
+                            <div class="ft-10 lg-r-align gry-txt" ng-show="($index == (chatObject.length-1)) && ($root.chatFactory.seen == true)">Seen</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div ng-if="($index == (chatObject.length -1)) || chatObject[$index+1].senderId != sessionUser.uid" class="ft-12 txt-reg db-txt lg-r-align prl">
+                        <span am-time-ago="message.date" readable-time-filter time="conversation.createdTime" converted="readabletime">{{ readabletime }} </span>
+                    </div>
+                </div>
+                <div on-hold="onhold(conversation.messageId, $index, conversation.content)" ng-if="conversation.senderId != sessionUser.uid ? true : false" class="message-wrapper">
+                    <div>
+                        <img ng-if="chatObject[$index-1].senderId == sessionUser.uid || ((conversation.createdTime - chatObject[$index-1].createdTime)> 86400/2)" class="profile-pic left" ng-src="{{$root.chatFactory.mainObj.chatSpecific[conversationId].user.image || user_image}}" onerror="onProfilePicError(this)">
+                        <div class="chat-bubble left">
+                            <div class="message txt-reg" open-link-with-feed link="conversation.content"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div ng-if="($index == (chatObject.length -1)) || chatObject[$index+1].senderId == sessionUser.uid" class="ft-12 txt-reg gr-txt lg-l-align pll mll">
+                        <span class="lg-inline-bl mlm pll" am-time-ago="message.date" readable-time-filter time="conversation.createdTime" converted="readabletime">{{ readabletime}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pbm" ng-if="$root.chatCache">
+            <!-- <div scroll-glue when-scrolled="doRefresh()"> -->
+            <div id="conversation.messageId" ng-repeat="conversation in $root.chatCache.mainObj.chatSpecific[conversationId]">
+                <div class="msg-thread lg-m-align gry-txt ft-12 pam" ng-if="(conversation.createdTime - chatObject[$index-1].createdTime)> 86400/2"><span class="side-line"></span><span class="lg-inline-bl lg-vm-align mhl">{{conversation.createdTime * 1000 |  datetime}}</span><span class="side-line"></span></div>
+                <div on-hold="onhold(conversation.messageId, $index, conversation.content)" ng-if="conversation.senderId == sessionUser.uid ? true : false" class="message-wrapper" ng-init="readabletime = conversation.createdTime">
+                    <div>
+                        <div class="chat-bubble right">
+                            <div class="message txt-reg" open-link-with-feed link="conversation.content"></div>
+                            <div class="ft-10 lg-r-align gry-txt" ng-show="($index == (chatObject.length-1)) && ($root.chatCache.seen == true)">Seen</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div ng-if="($index == (chatObject.length -1)) || chatObject[$index+1].senderId != sessionUser.uid" class="ft-12 txt-reg db-txt lg-r-align prl">
+                        <span am-time-ago="message.date" readable-time-filter time="conversation.createdTime" converted="readabletime">{{ readabletime }} </span>
+                    </div>
+                </div>
+                <div on-hold="onhold(conversation.messageId, $index, conversation.content)" ng-if="conversation.senderId != sessionUser.uid ? true : false" class="message-wrapper">
+                    <div>
+                        <img ng-if="chatObject[$index-1].senderId == sessionUser.uid || ((conversation.createdTime - chatObject[$index-1].createdTime)> 86400/2)" class="profile-pic left" ng-src="{{$root.chatCache.mainObj.chatSpecific[conversationId].user.image || user_image}}" onerror="onProfilePicError(this)">
+                        <div class="chat-bubble left">
+                            <div class="message txt-reg" open-link-with-feed link="conversation.content"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div ng-if="($index == (chatObject.length -1)) || chatObject[$index+1].senderId == sessionUser.uid" class="ft-12 txt-reg gr-txt lg-l-align pll mll">
+                        <span class="lg-inline-bl mlm pll" am-time-ago="message.date" readable-time-filter time="conversation.createdTime" converted="readabletime">{{ readabletime}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <!-- Chatscreen Footer -->
+    <ion-footer-bar class="custom-lg-bar lg-br-top sb-bg" keyboard-attach>
+        <div class="row pan">
+            <!-- <div class="col col-10 col-center pan hide-on-android">
+                <a class="button button-icon icon ft-16 gry-txt lg-icon-emoji pan"></a>
+            </div> -->
+            <div class="col col-center pan lead emoji-picker-container pls">
+                <textarea id="txtbox1" ng-keyup="keyup()" ng-focus="focus=true" ng-blur="focus=false" ng-keydown="keydown()" ng-blur="blur()" ng-change="change()" class="lg-text-area sb-bg" rows="1" msd-elastic ng-model="$root.chatFactory.msg_txt" placeholder="Type your message..." data-emojiable="true"></textarea>
+            </div>
+            <div class="col col-10 col-center lg-r-align pan">
+                <ion-label class="icon lg-icon-send ft-18 gry-txt" ng-if="focus" ng-click="sendMessage($root.chatFactory.msg_txt, $root.chatFactory.mainObj.chatSpecific[conversationId].user.uid || newuid)" ></ion-label>
+                <!-- <a class="button button-icon icon ft-16 gry-txt lg-icon-send" ng-click="sendMessage($root.chatFactory.msg_txt, $root.chatFactory.mainObj.chatSpecific[conversationId].user.uid || newuid)"></a> -->
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

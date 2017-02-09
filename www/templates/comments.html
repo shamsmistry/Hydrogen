@@ -1,0 +1,67 @@
+<ion-view title="Comments" view-title="Comments" cache-view="false">
+    <!-- <ion-header-bar class="bar-positive">
+        <div class="row pan row-center">
+            <div class="col-10 pln col-center">
+                <button class="button button-icon lg-icon-caret-left lg-l-float" nav-direction="back" ng-click="GoBack()"></button>
+            </div>
+            <div class="col col-80 pan lg-m-align col-center">
+                Comments
+            </div>
+        </div>
+    </ion-header-bar> -->
+    <ion-content class="main-bg ptm" ng-click="keyboardhide()" delegate-handle="comment-handle">
+        <ion-refresher pulling-text="Load more comments..." ng-if="noMoreContent" on-refresh="loadPreviousComments()"></ion-refresher>
+        <div class="lg-m-align mtl" ng-if="isLoading">
+            <ion-spinner></ion-spinner>
+        </div>
+        <div class="list lg-br-top" ng-if="(comments.length > 0)">
+            <div class="item item-avatar no-border comment rem-ellipsis" ng-repeat="comment in comments">
+                <img class="user-thumb" ng-src="{{comment.user.profile.small}}" on-tap="$root.navigateState('profile',{id:comment.user.uid})" />
+                <div class="txt-book ft-14 bl-txt comment-area"><a on-tap="$root.navigateState('profile',{id:comment.user.uid})" class="lg-gen">{{comment.user.name}} </a><span class="txt-reg ft-14 dg-txt" ng-bind-html="comment.comment" open-link link="comment.comment" post="comment"></span></div>
+                <div class="comment-img" ng-if="::comment.image.medium">
+                    <img on-tap="openImageModal(comment.image.medium)" class="disable-user-behavior" ng-src="{{::comment.image.medium}}">
+                    <span ng-if="comment.image.mimeType == 'image/gif'" class="gif-badge txt-book">GIF</span>
+                </div>
+                <p class="time-loc ft-12 dg-txt">{{comment.created | readableTime}}</p>
+            </div>
+        </div>
+        <!--Empty Data-->
+            <!-- <div class="lg-m-align pal" ng-if="!isLoading && (comments.length == 0)">
+            <span class="emptydata-ico"><i class="lg-icon-comment"></i></span>
+            <div class="ptl pbl ft-16 txt-reg db-txt">No comments</div>
+        </div> -->
+        <div class="empty-data-new ed-bg-11 mam pam" ng-if="!isLoading && (comments.length == 0)">
+            <div class="lg-m-align">
+                <img src="img/emptydata/no-comments.png" width="114" alt="Goals">
+            </div>
+            <div class="txt-reg ft-14 ptm pbm lg-m-align gry-txt">
+                Be the first to comment
+            </div>
+        </div>
+        <!--Empty Data-->
+    </ion-content>
+    <ion-footer-bar class="custom-lg-bar lg-br-top sb-bg" keyboard-attach>
+        <div class="row pan">
+            <div class="col col-15 col-center pan" ng-hide="true">
+                <a class="button button-icon icon ft-16 gry-txt lg-icon-camera-small pan"></a>
+            </div>
+            <div class="col col-center pan">
+                <!--<textarea class="lg-text-area sb-bg" rows="1" msd-elastic ng-model="newcomment" placeholder="Type your comment..."></textarea>-->
+                <div class="mention-container">
+                    <textarea ui-mention mention-list focus-me="postfocus" ng-model="newcomment" placeholder="Type your comment..." ng-trim="false" msd-elastic class="lg-text-area ft-14 comment-bx" rows="1" focus-on-keyboard-open hidekeyboard="hidekeyboard"></textarea>
+                    <div class="mention-highlight"></div>
+                    <ul ng-if="$mention.choices.length" class="user-search bottom-stick list-group-item active man">
+                        <li ng-repeat="choice in $mention.choices" ng-class="{active:$mention.activeChoice==choice}" class="list-group-item">
+                            <a ng-click="$mention.select(choice)">
+                                <img ng-src=" {{choice.profileImage}}" class="user-photo mrm"> {{::choice.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-15 col-center lg-m-align pan">
+                <span class="button ft-14 txt-book" ng-class="(newcomment.length == 0) ? 'gry-txt': 'gr-txt'" ng-disabled="isCommentPosting || newcomment.length == 0" ng-click="comment(id)">Post</span>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

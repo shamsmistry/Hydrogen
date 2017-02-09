@@ -1,0 +1,349 @@
+<ion-view view-title="{{user.name}}" hide-nav-bar="true">
+    <ion-pane class="lg-custom-profile" ion-cover-header="180">
+        <!-- regular ionic header bar -->
+        <ion-header-bar style="border: none;" class="bar-positive no-top">
+            <div class="buttons">
+                <button class="button button-icon lg-icon-caret-left" nav-direction="back" ng-click="$ionicGoBack()"></button>
+            </div>
+            <h1 class="title">{{user.name}}</h1>
+            <div class="buttons" ng-click="profileActionSheet(user)" ng-if="!$root.isMe(user.uid)">
+                <a class="button button-icon lg-icon-more-vertical"></a>
+            </div>
+        </ion-header-bar>
+        <!-- end of ionic header bar -->
+        <ion-content class="fm-bg" overflow-scroll="true">
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="getUserData()"></ion-refresher>
+            <div class="lg-m-align mtl" ng-if="isLoading">
+                <ion-spinner></ion-spinner>
+            </div>
+            <div ng-if="!isLoading">
+                <div class="profile-info" style=" background-color:#ebebeb;" ng-style="{'background': '-webkit-linear-gradient(top, rgba(0,0,0,0.56) 0%,rgba(102,101,101,0.3) 40%,rgba(255,252,252,0) 100%), url(' + user.cover.medium + ') center center'}">
+                </div>
+                <!-- end of the profile header-->
+                <div class="profilePg-title-box pbm lg-m-align">
+                    <img class="profile-owner-pic" on-tap="openImageModal()" ng-src="{{user.profile.medium}}" alt="{{user.name}}">
+                    <div class="row row-center ptn">
+                        <div class="col pbn"></div>
+                        <div class="col col-70 pbn"></div>
+                        <div class="col pbn"></div>
+                    </div>
+                    <div class="card-content-txt mtl ptl ft-20 txt-book">{{user.name}}</div>
+                    <div ng-if="user.bio" class="card-hashtag mts plm prm" open-bio link="user.bio"></div>
+                    <!--  <div class="card-hashtag mts plm prm" >{{user.bio}}</div> -->
+                </div>
+                <div class="lg-m-align main-bg pbm">
+                    <!--Follow Profile Button-->
+                    <span class="box-btn pan" ng-show="user" ng-if="!$root.isMe(user.uid)" ng-class="(user.me.isFollowing == 1) ? 'active': ''" ng-click="$root.followUnfollowUser(user)">
+                    <span class="follow">
+                        <i class="lg-icon-follow-user mrs lg-vm-align"></i>
+                        <span class="lg-vm-align">Follow</span>
+                    </span>
+                    <span class="following">
+                        <i class="lg-icon-following-user mrs lg-vm-align"></i>
+                        <span class="lg-vm-align">Following</span>
+                    </span>
+                    </span>
+                    <!--span class="box-btn pan active" ng-if="!$root.isMe(user.uid)">
+                    <span class="lg-vm-align">
+                        <i class="lg-icon-chat mrs lg-vm-align"></i>
+                        <span class="lg-vm-align">Message</span>
+                    </span>
+                    <span class="lg-vm-align mlm">
+                       <i class="lg-icon-more-vertical lg-vm-align" ng-click="profileActionSheet(user)"></i>
+                    </span>
+                </span-->
+                    <!--span class="box-btn pan active" ng-if="$root.isMe(user.uid)" on-tap="$root.navigateState('profile-edit',{})">
+                <span class="lg-vm-align">
+                    <i class="lg-icon-edit mrs lg-vm-align"></i>
+                    <span class="lg-vm-align">Edit</span>
+                </span>
+            </span-->
+                </div>
+                <div class="side-space-box db-txt main-bg">
+                    <div class="lg-br-top lg-thin-br ptm" ng-if="userWorkInfo.length > 0  || userEduInfo.length > 0 || user.location.country">
+                        <div class="row row-center mbs" ng-if="userWorkInfo.length > 0">
+                            <div class="col-10 col-center lg-m-align"><i class="lg-icon-work gr-txt lg-vt-align ft-20"></i></div>
+                            <div class="col col-center ft-14">
+                                <div ng-repeat="workHistory in userWorkInfo | limitTo:1">
+                                    <span class="lg-vm-align">{{workHistory.position}}</span>
+                                    <span class="lg-vm-align"> at {{workHistory.organization.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-center mbs" ng-if="userEduInfo.length > 0">
+                            <div class="col-10 col-center lg-m-align"><i class="lg-icon-education gr-txt ft-20 lg-vt-align"></i></div>
+                            <div class="col col-center ft-14">
+                                <div ng-repeat="eduInfo in userEduInfo | limitTo:1">
+                                    <span class="lg-vm-align">{{eduInfo.program}}</span>
+                                    <span class="lg-vm-align"> from {{eduInfo.organization.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-center mbs" ng-if="user.location.country">
+                            <div class="col-10 col-center lg-m-align"><i class="lg-icon-location-2 gr-txt lg-vm-align ft-20"></i></div>
+                            <div class="col col-center ft-14">
+                                <div>
+                                    <span class="lg-vm-align">Lives in {{user.location.country}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="lg-br-top lg-thin-br pam db-txt">
+                            <span on-tap="$root.navigateState('goals', { id: user.uid } )" class="stats-char" ng-if="user.stats.goal.total">
+                            <span class="stats">
+                                <span class="stats-num mrs gr-txt">{{user.stats.goal.total | nrFormat}}</span>
+                            <span class="stats-char mrm">
+                                    <ng-pluralize count="user.stats.goal.total" when="{'0': '', '1': 'Goal', 'other': 'Goals'}"></ng-pluralize>
+                                </span>
+                            </span>
+                            </span>
+                            <span on-tap="$root.navigateState('followers', { id: user.uid } )" class="stats-char" ng-if="user.stats.connections.followersCount">
+                            <span class="stats">
+                                <span class="stats-num mrs gr-txt">{{user.stats.connections.followersCount | nrFormat}}</span>
+                            <span class="stats-char mrm">
+                                    <ng-pluralize count="user.stats.connections.followersCount" when="{'0': '', '1': 'Follower', 'other': 'Followers'}"></ng-pluralize>
+                                </span>
+                            </span>
+                            </span>
+                            <span on-tap="$root.navigateState('followings', { id: user.uid } )" class="stats-char" ng-if="user.stats.connections.followingCount">
+                            <span class="stats">
+                                <span class="stats-num mrs gr-txt">{{user.stats.connections.followingCount | nrFormat}}</span>
+                            <span class="stats-char mrm">
+                                    <ng-pluralize count="user.stats.connections.followingCount" when="{'0': '', '1': 'Following', 'other': 'Following'}"></ng-pluralize>
+                                </span>
+                            </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="list card" ng-if="!$root.isMe(user.uid) && connections.mutualFollowings.count != 0" ng-show="connections" on-tap="$root.navigateState('profile-mutual-connections',{id:user.uid})" nav-direction="forward">
+                        <div class="lg-m-align">
+                            <div class="ptm">
+                                <div class="lg-goal-card-heading">
+                                    <div class="">
+                                        <span class="card-inner-heading">You and {{user.name}} have {{connections.mutualFollowings.count}} mutual followers</span>
+                                    </div>
+                                    <div class="lg-clear-fix"></div>
+                                </div>
+                            </div>
+                            <div class="pam">
+                                <span>
+                            <span class="pro-pg-thumbs" ng-repeat="user in connections.mutualFollowings.users | limitTo:5">
+                              <img class="thumbnail" alt="" ng-src="{{user.profile.small}}">
+                            </span>
+                                <span class="pro-pg-thumbs" ng-if="connections.mutualFollowings.count > 5"><span class="list-call">{{connections.mutualFollowings.count - 5}}</span></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="card-inner-heading prm plm ptl">Recent Activities</div>
+                        <div>
+                            <!--Empty Data-->
+                            <div class="empty-data-new ed-bg-6 mam pam" ng-if="UserRecentActivities.length==0 && $root.isMe(user.uid)">
+                                <div class="lg-m-align">
+                                    <img src="img/emptydata/activities.png" width="140" alt="Activities">
+                                </div>
+                                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                                    You have not yet performed any activities. Head over to Explore page to make new contacts, and follow goals.
+                                </div>
+                            </div>
+                            <div class="empty-data-new ed-bg-6 mam pam" ng-if="UserRecentActivities.length==0 && !$root.isMe(user.uid)">
+                                <div class="lg-m-align">
+                                    <img src="img/emptydata/activities.png" width="140" alt="Activities">
+                                </div>
+                                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                                    There are no activities to show.
+                                </div>
+                            </div>
+                            <!--Empty Data-->
+                            <div class="row row-center pam db-txt" ng-repeat="activity in UserRecentActivities" ng-if="UserRecentActivities.length > 0">
+                                <div class="col-10 col-center lg-l-align"><span class="base-icon-b"><i class="{{activity.feed_type | ActivityIcons}} ft-16"></i></span></div>
+                                <div class="col col-center ft-14">
+                                    <div>
+                                        <span>{{activity.title.text}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg-br-top lg-thin-br pam lg-m-align lite-bg" ng-if="UserRecentActivities.length > 0" on-tap="$root.navigateState('profile-activities',{id:user.uid})" nav-direction="forward">
+                            <span class="see-all-link">See all goals, posts and activities</span>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="card-inner-heading prm plm ptl">Work & Education</div>
+                        <div>
+                            <!--Empty Data-->
+                            <!--<div class="lg-m-align pal" ng-if="userEduInfo.length == 0 && userWorkInfo.length == 0" ng-hide="false">
+                            <span class="emptydata-ico"><i class="lg-icon-education"></i></span>
+                            <div class="ptl pbl ft-16 txt-reg db-txt">No background information is added</div>
+                        </div>-->
+                            <div class="empty-data-new ed-bg-9 mam pam" ng-if="userEduInfo.length == 0 && userWorkInfo.length == 0 && $root.isMe(user.uid)">
+                                <div class="lg-m-align">
+                                    <img src="img/emptydata/work-education.png" width="170" alt="Work & Education">
+                                </div>
+                                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                                    Make a strong profile to gain attention
+                                </div>
+                            </div>
+                            <div class="empty-data-new ed-bg-9 mam pam" ng-if="userEduInfo.length == 0 && userWorkInfo.length == 0 && !$root.isMe(user.uid)">
+                                <div class="lg-m-align">
+                                    <img src="img/emptydata/work-education.png" width="170" alt="Work & Education">
+                                </div>
+                                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                                    There are no work or education added.
+                                </div>
+                            </div>
+                            <!--Empty Data-->
+                            <!-- Work -->
+                            <div class="row row-center pam db-txt" ng-if="userWorkInfo.length > 0" ng-repeat="workHistory in userWorkInfo | limitTo:2">
+                                <div class="col-15 col-center"><span class="base-icon"><i class="lg-icon-work ft-16"></i></span></div>
+                                <div class="col col-center plm ft-14">
+                                    <div>
+                                        <span><b>{{workHistory.position}}</b></span>
+                                        <span> | {{workHistory.organization.name}}</span>
+                                        <div>
+                                            <span>{{workHistory.from_year | date:'yyyy'}}</span>
+                                            <span ng-if="workHistory.is_working==0"> - {{workHistory.to_year | date:'yyyy'}}</span>
+                                            <span ng-if="workHistory.is_working==1"> - Present</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Work -->
+                            <!-- Education -->
+                            <div class="row row-center prm plm pbm db-txt" ng-if="userEduInfo.length > 0" ng-repeat="eduInfo in userEduInfo | limitTo:2">
+                                <div class="col-15 col-center"><span class="base-icon"><i class="lg-icon-education ft-16"></i></span></div>
+                                <div class="col col-center plm ft-14">
+                                    <div>
+                                        <span><b>{{eduInfo.program}}</b></span>
+                                        <span> | {{eduInfo.organization.name}}</span>
+                                        <div>
+                                            <span>{{eduInfo.from_year | date:'yyyy'}}</span>
+                                            <span ng-if="eduInfo.graduated==1"> - {{eduInfo.to_year | date:'yyyy'}}</span>
+                                            <span ng-if="eduInfo.graduated==0"> - Present</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Education -->
+                        </div>
+                        <div class="lg-br-top lg-thin-br pam lg-m-align lite-bg">
+                            <a nav-direction="forward" on-tap="$root.navigateState('profile_work_edu',{id: user.uid})" ng-if="userEduInfo.length == 0 && userWorkInfo.length == 0  && $root.isMe(user.uid)" class="see-all-link"> Add work & Education </a>
+                            <a nav-direction="forward" on-tap="$root.navigateState('profile_work_edu',{id: user.uid})" ng-if="userEduInfo.length > 0 || userWorkInfo.length > 0 || !$root.isMe(user.uid)" ng-hide="userEduInfo.length == 0 && userWorkInfo.length == 0" class="see-all-link">See All</a>
+                        </div>
+                    </div>
+                    <div class="list card" ng-if="false">
+                        <div class="card-inner-heading prm plm ptl">Skills</div>
+                        <div>
+                            <!--Empty Data-->
+                            <div class="empty-data-new ed-bg-10 mam pam" ng-hide="false">
+                                <div class="lg-m-align">
+                                    <img src="img/emptydata/skills.png" width="140" alt="Skills">
+                                </div>
+                                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                                    Flaunt your expertise
+                                </div>
+                            </div>
+                            <!--Empty Data-->
+                            <div class="pam card-content">Cooking, Pet-Care, Programming in Java/C++, French, Swimming, Playing Soccer.</div>
+                        </div>
+                        <div class="lg-br-top lg-thin-br pam lg-m-align lite-bg">
+                            <a href="#/tab/me/profile/skills" class="see-all-link">See All</a>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="card-inner-heading prm plm ptl">Interests</div>
+                        <div>
+                            <!--Empty Data-->
+                            <div class="empty-data-new ed-bg-4 mam pam" ng-if="userInterest.length == 0 && $root.isMe(user.uid)" ng-hide="false">
+                                <div class="lg-m-align">
+                                    <img src="img/emptydata/interest.png" width="140" alt="Interests">
+                                </div>
+                                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                                    What is that you take most interest in? Share it here.
+                                </div>
+                            </div>
+                            <div class="empty-data-new ed-bg-4 mam pam" ng-if="userInterest.length == 0 && !$root.isMe(user.uid)" ng-hide="false">
+                                <div class="lg-m-align">
+                                    <img src="img/emptydata/interest.png" width="140" alt="Interests">
+                                </div>
+                                <div class="txt-reg ft-14 ptm pbm lg-m-align txt-white">
+                                    There are no interests to show.
+                                </div>
+                            </div>
+                            <!--Empty Data-->
+                            <div class="pam">
+                                <span class="lg-component-chips lg-relative mrs mbm" ng-class="interest.isMyInterest == 1 ? 'active':''" ng-repeat="interest in userInterest | limitTo:6 " ng-if="userInterest.length > 0">
+                                    <a  class="lg-chip-content ng-binding" on-tap="$root.navigateState('tags',{name:interest.name})">#{{interest.name}}</a>
+                                    <span class="chip-action-box">
+                                        <a class="lg-chip-action add" ng-click="$root.addRemoveInterestTag(interest);"><i class="lg-icon-create-small"></i></a>
+                                        <a class="lg-chip-action remove"><i class="lg-icon-cross"></i></a>
+                                        <a class="lg-chip-action added" ng-click="$root.addRemoveInterestTag(interest);"><i class="lg-icon-tick"></i></a>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="lg-br-top lg-thin-br pam lg-m-align lite-bg">
+                            <a on-tap="$root.navigateState('profile-interest',{id:user.uid})" nav-direction="forward" ng-if="userInterest.length > 0" class="see-all-link">See All</a>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="card-inner-heading pam ptl">Followers</div>
+                        <div class="lg-br-btm lg-thin-br pam" on-tap="$root.navigateState('followers', { id: user.uid } )" nav-direction="forward">
+                            <a>
+                                <span class="pro-pg-thumbs" ng-repeat="user in userFollowers.followers.users | limitTo:5 ">
+                          <img class="thumbnail" alt="" ng-src="{{user.profile.small}}">
+                       </span>
+                                <span class="pro-pg-thumbs" ng-if="userFollowers.followers.count > 5"><span class="list-call">{{userFollowers.followers.count - 5}}</span></span>
+                            </a>
+                        </div>
+                        <div class="card-inner-heading pam ptl">Following</div>
+                        <div class="pam" on-tap="$root.navigateState('followings', { id: user.uid } )" nav-direction="forward">
+                            <a>
+                                <span class="pro-pg-thumbs" ng-repeat="user in userFollowing.followings.users | limitTo:5 ">
+                                    <img class="thumbnail" alt="" ng-src="{{user.profile.small}}">
+                                </span>
+                                <span class="pro-pg-thumbs" ng-if="userFollowing.followings.count > 5"><span class="list-call">{{userFollowing.followings.count - 5}} </span> </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="card-inner-heading pam ptl">Media</div>
+                        <!--Empty Data-->
+                        <div class="lg-m-align" ng-if="media.length == 0">
+                            <img src="img/emptydata/media.png" width="140" alt="media">
+                        </div>
+                        <div class="empty-data-new ed-bg-11 mam pam" ng-if="media.length == 0 && $root.isMe(user.uid)" ng-hide="false">
+                            <div class="lg-m-align">
+                                <div class="gry-txt txt-reg ft-14">Upload media content on your goal to display your progress. </div>
+                            </div>
+                        </div>
+                        <div class="empty-data-new ed-bg-11 mam pam" ng-if="media.length == 0 && !$root.isMe(user.uid)" ng-hide="false">
+                            <div class="lg-m-align">
+                                <div class="gry-txt txt-reg ft-14">There are no images or videos added. </div>
+                            </div>
+                        </div>
+                        <!--Empty Data-->
+                        <div class="gallery-container mbm" ng-if="media.length > 0">
+                            <hscroller>
+                                <hcard ng-repeat="image in media | limitTo:15" index="{{$index}}" desc="" on-tap="goToSlide(mediaOrignal, mediaOrignal[$index],$index)" image="{{image.src}}">
+                                </hcard>
+                                <!-- <hcard index="12" desc="" image="http://lorempixel.com/60/60/">
+                            <span class="overlay-gallery">
+                            <span class="count">+15 ></span>
+                            </span>
+                        </hcard> -->
+                            </hscroller>
+                        </div>
+                        <div ng-if="media.length > 0" class="lg-br-top lg-thin-br pam lg-m-align lite-bg">
+                            <a on-tap="$root.navigateState('profile-media',{id:{{uid}}})" class="see-all-link">See All</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+    </ion-pane>
+</ion-view>

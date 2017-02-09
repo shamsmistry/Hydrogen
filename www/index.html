@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/nifty.modal.css" rel="stylesheet">
+    <link href="css/mention.css" rel="stylesheet">
+    <link href="css/ion-place-autocomplete.css" rel="stylesheet">
+    <link href="lib/spinkit/angular-spinkit.min.css" rel="stylesheet">
+    <link href="lib/gallery/ion-gallery.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="lib/ngprogress/ngProgress.css">
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+    <script src="cordova.js"></script>
+    <script src="lib/ng-cordova/ng-cordova.min.js"></script>
+    <script src="lib/jquery/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="lib/ngprogress/build/ngprogress.js"></script>
+    <!-- your app's js -->
+    <!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry"></script-->
+    <script src="js/underscore-min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/services-api.js"></script>
+    <script src="js/pushwoosh.service.js"></script>
+    <script src="js/scrollglue.js"></script>
+    <script src="js/OpenUrlService.js"></script>
+    <script src="js/ionic.ui.modalService.js"></script>
+    <script src="js/ionic.hscrollcards.js"></script>
+    <script src="js/ion-place-autocomplete.js"></script>
+    <script src="js/socket.io.js"></script>
+    <script src="js/mention.js"></script>
+    <script src="js/socket.io-1.4.5.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="lib/ng-touch/angular-touch.min.js"></script>
+    <script src="lib/spinkit/angular-spinkit.min.js"></script>
+    <script src="lib/md-elastic/elastic.js"></script>
+    <script src="lib/gallery/ion-gallery.js"></script>
+    <script src="lib/ion-google-place/ion-google-place.js"></script>
+    <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <script type="text/javascript" src="lib/angular-local-storage.min.js"></script>
+    <script src="js/ion-cover-header.js"></script>
+    <script type="text/javascript" src="lib/ng-fx/ngFx.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+</head>
+<body ng-app="starter">
+    <!-- <div id="custom-overlay"><i class="lg-icon-logo"></i></div> -->
+    <div id="custom-overlay"  class="m-app-loading" data-ng-animate-children>
+        <style type="text/css" >
+            .wrap {position: fixed; left: 0; right: 0; bottom: 0; top: 0;z-index: 100;background-color: #1bbc9b}
+            .box { top: 50%; margin-top: -94px; position: absolute; }
+            .box,.wrap{width:100%}.box{float:left;overflow:hidden}.text{text-align:center;color:#ffffff;font-size:24px;font-family:Geomanist-Light}.animated{animation-duration:2.5s;animation-fill-mode:both;animation-iteration-count:infinite}.logo-change{color:#fff}.logo-change,.pulse{animation-duration:2s}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(.7)}}.pulse{animation-name:pulse}@keyframes logoChange{0%{transform:scale(.5);color:#ebebeb}100%{transform:scale(1);color:#fff}}.logo-change i{font-size: 70px;}.logo-change{animation-name:logoChange}@media all and (max-width:680px){.box,.wrap{width:100%}.box{clear:both;}.text{font-size: 120px}}
+        </style>
+        <div id="wrap-loading" class="wrap startup-bg">
+            <div class="box">
+              <div class="text animated pulse"><i class="lg-icon-logo"></i></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The nav bar that will be updated as we navigate between views. -->
+    <!--ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>-->
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+</body>
+
+</html>

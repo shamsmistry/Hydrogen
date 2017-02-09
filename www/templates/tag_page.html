@@ -1,0 +1,26 @@
+<ion-view hide-nav-bar="true">
+    <ion-header-bar class="lg-custom-header bar-positive">
+        <div class="buttons">
+            <button class="buttons button-icon lg-icon-caret-left" nav-direction="back" ng-click="$ionicGoBack()"></button>
+        </div>
+        <h1 class="title">#{{title}}</h1>
+        <!--div class="buttons">
+            <a class="button button-icon ion-ios-search"></a>
+        </div-->
+    </ion-header-bar>
+    <ion-content class="fm-bg">
+        <div ng-if="tag.image.medium" class="hashtag-banner lg-relative lg-m-align main-bg" ng-style="{'background-color': tag.color}" style="background: #fff url({{tag.image.medium}}) scroll 50% no-repeat; background-size: 30%;">
+            <!-- <span class="ft-16 bl-txt txt-reg hashtag-title">#{{title}}</span> -->
+        </div>
+        <!-- <div ng-if="!tag.banner.medium" class="hashtag-banner lg-relative lg-m-align" ng-style="{'background-color': tag.color}">
+            <span class="ft-16 bl-txt txt-reg hashtag-title">#{{title}}</span>
+        </div> -->
+        <!--User list-->
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <div>
+            <goal-bx goals="goals" actionsheet-btn-enabled="true"></goal-bx>
+        </div>
+        <!--User list-->
+        <ion-infinite-scroll ng-if="noMoreContent" on-infinite="getMoreGoals()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

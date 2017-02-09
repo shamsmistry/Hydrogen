@@ -1,0 +1,6 @@
+<ion-view view-title="Images">
+    <ion-content class="main-bg">
+    	<ion-gallery ion-gallery-items="media"></ion-gallery>
+    	<ion-infinite-scroll ng-if="noMoreContent" on-infinite="getMoreImages()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

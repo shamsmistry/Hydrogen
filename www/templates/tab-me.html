@@ -1,0 +1,68 @@
+<ion-view view-title="Me">
+    <!--ion-nav-buttons side="left">
+        <button class="button-icon lg-icon-chat" nav-direction="back" ui-sref="chat.main()"></button>
+    </ion-nav-buttons-->
+
+    <ion-nav-buttons side="right">
+        <button class="button-icon lg-icon-search" nav-direction="forward" on-tap="$root.navigateState('search-page',{})"></button>
+    </ion-nav-buttons>
+    <ion-content class="main-bg">
+        <div class="me-banner white-txt lg-relative">
+            <div class="me-cover" ng-style="{'background': '-webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.5) 100%), url(' + user.cover.medium + ') center center','background-size': 'cover'}" style="background-color:#ebebeb"></div>
+            <div class="row row-center">
+                <div class="col-20 col-center">
+                    <a class="full-banner-link mtm mrm mlm" nav-direction="forward" on-tap="$root.navigateState('profile',{id:user.uid})">
+                        <img class="profile-owner" ng-src="{{user.profile.medium}}" />
+                    </a>
+                </div>
+                <div class="col col-center">
+                    <a class="full-banner-link mtm" nav-direction="forward" on-tap="$root.navigateState('profile',{id:user.uid})">
+                        <div class="name-bar">{{user.name}}</div>
+                        <span class="lg-vm-align">View Profile</span> <i class="lg-icon-caret-right view-more"></i>
+                    </a>
+                </div>
+                <div class="col-10 lg-m-align">
+                    <a class="settings-icon-me" nav-direction="forward" on-tap="$root.navigateState('profile-edit',{})"><i class="ion-gear-a ft-24"></i></a>
+                </div>
+            </div>
+            <div class="pam mtl white-txt">
+                <span on-tap="$root.navigateState('followers', { id: user.uid } )" class="stats mlm"><span class="stats-char txt-book mrm ft-14"><ng-pluralize count="followerCount" when="{'0': '', '1': '1 Follower', 'other': '{{followerCount}} Followers'}"></ng-pluralize></span></span>
+                <span on-tap="$root.navigateState('followings', { id: user.uid } )" class="stats"><span class="stats-char txt-book mrm ft-14"><ng-pluralize count="followingCount" when="{'0': '', '1': '1 Following', 'other': '{{followingCount}} Following'}"></ng-pluralize></span></span>
+                <!--<span class="stats"><span class="stats-num mrs">101</span><span class="stats-char mrm">Activities</span></span>-->
+            </div>
+        </div>
+        <div class="card-inner-heading pam"><span class="pls txt-book">Notifications</span></div>
+        <!--Empty Data-->
+        <!--<div class="lg-m-align pal" ng-if="(data.notifications.length == 0) && !noMoreContent">
+            <span class="emptydata-ico"><i class="lg-icon-notification"></i></span>
+            <div class="ptl pbl ft-16 txt-reg db-txt">All caught up for today</div>
+        </div>-->
+        
+        
+        <div class="empty-data-new ed-bg-1 mam pam" ng-if="(data.notifications.length == 0) && !noMoreContent">
+            <div class="row row-center">
+                <div class="col-25 col-center img-box">
+                <img src="img/emptydata/notification.png" alt="">
+                </div>
+                <div class="col col-center txt-reg ft-14 txt-white">
+                Connect with other goals and profiles to start receiving notifications.
+                </div>
+            </div>
+        </div>
+        <!--Empty Data-->
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+
+        <div class="list lg-list-view lg-notification">
+            <span class="item item-avatar lg-br-btm lg-thin-brb" ng-class="{touchactive : (active==true), unread: (notification.read == 0)}" nav-direction="forward" on-tap="$root.notificaitonNavigator(notification)" on-release="active=false" on-touch="active=true" ng-repeat="notification in data.notifications">
+                <img class="user-thumb" ng-src="{{notification.actor_user.profile.medium}}">
+                <span class="lg-notification-txt mlm txt-reg lg-bl ptm pbm lg-vm-align">
+                    <span ng-bind-html="notification.title.text | notificationHighlight: notification.title.entities[0].offset:notification.title.entities[0].length"></span>
+                    <div class="time-loc">{{notification.created | readableTime}}</div>
+                </span>
+                <!--<span class="selected-icon lg-vm-align"><i class="lg-icon-caret-right"></i></span>-->
+                <span class="lg-notify-dot" ng-show="notification.read == 0"></span>
+            </span>
+        </div>
+        <ion-infinite-scroll ng-if="noMoreContent && noMoreLoadMore" on-infinite="loadNotifications()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

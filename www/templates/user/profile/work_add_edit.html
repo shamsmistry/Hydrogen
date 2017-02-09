@@ -1,0 +1,49 @@
+<ion-view view-title="Work">
+    <ion-content class="main-bg">
+        <div class="list prl pll">
+            <label class="item item-input item-stacked-label no-border">
+                <div class="lg-br-btm">
+                    <span class="input-label">Position</span>
+                    <input type="text" ng-model="work.position" required>
+                </div>
+            </label>
+            <label class="item item-input item-stacked-label no-border">
+                <div class="lg-br-btm">
+                    <span class="input-label">Company</span>
+                    <input type="text" ng-model="work.organization.name" required>
+                </div>
+            </label>
+            <div class="item item-input item-stacked-label no-border">
+                <div>
+                    <span class="input-label">Duration</span>
+                    <div class="row row-center pan">
+                        <div class="col col-30 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm mrm">
+                                <select ng-model="from_year" ng-change="updateFromYear(from_year)" placeholder="From" required>
+                                    <option value="{{year}}" ng-repeat="year in [2015,1900] | makeRange" ng-selected="year == from_year">{{year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-30 col-center pan">
+                            <div class="lg-relative item-select lg-br-btm mrm">
+                                <select ng-model="to_year" ng-change="updateToYear(to_year)" placeholder="To" ng-disabled="work.is_working == 1" required>
+                                    <option value="{{year}}" ng-repeat="year in [2015,1900] | makeRange" ng-selected="year == to_year">{{year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-center col-offset-10 pan">
+                            <div class="squaredTwo lg-vm-align">
+                                <input type="checkbox" id="squaredTwo" ng-model="work.is_working" ng-false-value="0" ng-true-value="1"/>
+                                <label for="squaredTwo"></label>
+                            </div>
+                            <span class="lg-inline-bl lg-vm-align mlm txt-reg ft-14">Working</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mtl"><button class="box-btn active" type="submit"  ng-click="addOrUpdate()">{{id==0 ? 'Add' : 'Update'}}</button></div>
+            <!-- <button class="box-btn active" type="submit" ng-disabled="form.$invalid" ng-click="addNewWorkInfo()">Add</button> -->
+           
+        </div>
+    </ion-content>
+</ion-view>

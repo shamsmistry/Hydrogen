@@ -1,0 +1,56 @@
+<ion-view view-title="Account Settings">
+    <ion-content class="main-bg">
+        <ion-list class="white-bg">
+            <ion-item class="no-border lg-more-navigation">
+                <div class="row row-center">
+                    <div class="col-25 col-center pas"><span class="ft-14 gry-txt txt-reg">Email</span></div>
+                    <div class="col col-center"><span class="ft-14 txt-reg">{{sessionUser.email}} </span></div>
+                    <div class="col-10 col-center lg-r-align pan">
+                        <!--i class="icon dir-ico-more ion-ios-information-outline" ng-click="checkSettings(sessionUser)"></i-->
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="no-border lg-more-navigation"> <!-- href="#/tab/more/account/username" -->
+                <div class="row row-center">
+                    <div class="col-25 col-center pas"><span class="ft-14 gry-txt txt-reg">Username</span></div>
+                    <div class="col col-center"><span class="ft-14 txt-reg">{{sessionUser.username}} </span></div>
+                    <div class="col-10 col-center lg-r-align pan">
+                        <!--i class="icon dir-ico-more lg-icon-caret-right"></i-->
+                    </div>
+                </div>
+            </ion-item>
+            <!--ion-item href="#/tab/more/account/change-password" class="no-border lg-more-navigation">
+                <div class="row row-center">
+                    <div class="col-25 col-center pas"><span class="ft-14 gry-txt txt-reg">Password</span></div>
+                    <div class="col col-center"><span class="ft-14 txt-reg">Change Password</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item-->
+            <!--ion-item href="#/tab/more/account/notificaiton/list" class="lg-more-navigation">
+                <div class="row row-center">
+                    <div class="col-25 col-center pas"><span class="ft-14 gry-txt txt-reg lg-inline-bl ptm">Connect</span></div>
+                    <div class="col col-center">
+                        <span class="connect-ico mrl"><i class="lg-icon-facebook"></i></span>
+                        <span class="connect-ico mrl active"><i class="lg-icon-twitter"></i></span>
+                        <span class="connect-ico mrl"><i class="lg-icon-google"></i></span>
+                    </div>
+                </div>
+            </ion-item-->
+
+            <ion-item href="#/tab/more/account/devices" class="no-border lg-more-navigation">
+                <div class="row row-center">
+                    <div class="col-15 col-center lg-m-align"><i class="icon main-ico-more gr-txt lg-icon-device"></i></div>
+                    <div class="col col-center"><span class="ft-14 txt-reg">Devices</span></div>
+                    <div class="col-10 col-center lg-r-align pan"><i class="icon dir-ico-more lg-icon-caret-right"></i></div>
+                </div>
+            </ion-item>
+            <!--ion-item ng-click="deactivate()" class="no-border lg-more-navigation">
+                <div class="row row-center">
+                    <div class="col-20 col-center lg-m-align"><i class="icon main-ico-more gr-txt lg-icon-speechless"></i></div>
+                    <div class="col col-center"><span class="ft-14 txt-reg">Deactivate Account</span></div>
+                    <div class="col-10 col-center lg-r-align pan"></div>
+                </div>
+            </ion-item-->
+        </ion-list>
+    </ion-content>
+</ion-view>

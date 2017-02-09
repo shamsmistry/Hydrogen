@@ -1,0 +1,80 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon lg-icon-cross-small lg-r-float" ng-click="closeModal()"></button>
+        </div>
+        <h1 class="title">Create Goal</h1>
+        <div class="buttons">
+            <!--<button class="button button-clear lg-l-float" ng-disabled="isReady" ng-click="submitGoal()">Create</button>-->
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader">
+        <div class="row row-center pan">
+            <div class="col-50" ng-click="selectCategory()">
+                <button class="lg-custom-icon-btn txt-reg ft-12"><i class="lg-icon-list lg-vs-align"></i>{{(selectedCategory == null) ? 'Select Category' : selectedCategory.name}}</button>
+            </div>
+            <div class="col-50" ng-click="selectPrivacy()">
+                <button class="lg-custom-icon-btn txt-reg ft-12"><i ng-class="(seletedPrivacyScope == null) ? 'lg-icon-public-2':seletedPrivacyScope.icon" class="lg-vs-align"></i>{{seletedPrivacyScope == null ? 'Privacy':seletedPrivacyScope.scope}}</button>
+            </div>
+        </div>
+    </div>
+    <ion-content class="has-subheader pts" scroll="false">
+        <div class="row">
+            <div class="col-20 lg-m-align pam"><img class="thumbnail" alt="" ng-src="{{user.profile.medium}}"></div>
+            <div class="col prm">
+                <div class="lg-br-btm">
+                    <textarea class="lg-text-area" rows="1" msd-elastic="\n" ng-model="goal.goal_name" placeholder="Write your goal here ..." maxlength="90"></textarea>
+                    <span class="{{ (90 - goal.goal_name.length)==0 ? 'ft-12 rd-txt' : 'ft-12 gry-txt'}}" ng-if="goal.goal_name">{{90 - goal.goal_name.length}} Characters left</span>
+                    <!--span class="ft-12 gry-txt txt-reg lg-inline-bl pbm" ng-hide="false">from 6 Apr'16 to 7 Nov'16</span-->
+                </div>
+                <textarea class="lg-text-area" rows="1" msd-elastic="\n" ng-model="goal.goal_description" placeholder="Add a description"></textarea>
+                <div>
+                    <div ng-if="insertStartDate == 1" class="row pln ft-12 gry-txt txt-reg pbl">
+                        Duration : <span class="db-txt txt-book lg-inline-bl mlm mrm">{{goal.start_date}}</span> - 
+                        <span ng-if="insertEndDate == 1" class="db-txt txt-book lg-inline-bl mlm">{{goal.end_date}}</span>
+                    </div>
+                </div>
+                <div ng-if="insertTags == 1">
+                    <div>
+                        <span ng-repeat="hashtag in hashtags">
+                            <span class="button button-small pln button-clear icon-right gr-txt tags-c" on-touch="removeHashTag($event)" data-index="{{$index}}">{{hashtag}}</span>
+                        </span>
+                        <span ng-if="false" class="button button-small button-clear" contenteditable ng-keypress="keypress($event)" ng-focus="focus($event)" ng-blur="blur($event)" ng-keydown="keydown($event)">Add hashtag</span>
+                    </div>
+                </div>
+                <div ng-if="insertLocation == 1">
+                    <div class="row pln ptl">
+                        <div class="col col-10 pan">
+                            <i class="lg-icon-location-2 ft-22 db-txt lg-inline-bl"></i>
+                        </div>
+                        <!-- <div class="col"><div class="db-txt ft-14 txt-reg">Linkagoal Inc, San Fransisco, CA. {{data.address}}</div></div> -->
+                        <div class="col ptn">
+                            <div class="db-txt ft-14 txt-reg">
+                                {{location}}
+                                <!-- <ion-google-place placeholder="Your address" ng-model="goal.location" required name="address" location-changed="locationChanged" /></ion-google-place> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ptl">
+                    <div ng-if="goal.image" class=""><img class="uploaded-img" ng-src="{{goal.image}}"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+        </div>
+    </ion-content>
+    
+    <ion-footer-bar class="custom-lg-bar lg-br-top" keyboard-attach>
+        <div class="db-txt pls prs lg-full-width">
+            <button class="lg-custom-icon-btn" ng-click="addGoalImage()"><i class="lg-icon-camera"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="selectTimeline()"><i class="lg-icon-timeline"></i></button>
+            <!--             <button class="lg-custom-icon-btn" ng-click="insertTimeline = 0; insertTags=1; insertLocation = 0; addInterest()"><i class="lg-icon-interest"></i></button> -->
+            <button class="lg-custom-icon-btn" ng-click="selectInterest()"><i class="lg-icon-interest"></i></button>
+            <button class="lg-custom-icon-btn" ng-click="selectLocation()"><i class="lg-icon-location-2"></i></button>
+        </div>
+        <div class="controller-button">
+            <button class="button sub-btn" ng-disabled="isReady" ng-click="submitGoal()">Create</button>
+        </div>
+    </ion-footer-bar>
+</ion-modal-view>

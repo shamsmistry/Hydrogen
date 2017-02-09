@@ -1,0 +1,234 @@
+/* Linkagoal Hybrid App CSS */
+/* Started on 9th of October 2015 */
+/* By Salman Ahmed (UI/UX Develper) */
+
+/* Font Family (Geomanist) */
+@font-face {
+    font-family: 'Geomanist-Light';
+    src: url('../fonts/geomanist/geomanist-light-webfont.woff2') format('woff2'),
+         url('../fonts/geomanist/geomanist-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Geomanist-Regular';
+    src: url('../fonts/geomanist/geomanist-regular-webfont.woff2') format('woff2'),
+         url('../fonts/geomanist/geomanist-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Geomanist-Book';
+    src: url('../fonts/geomanist/geomanist-book-webfont.woff2') format('woff2'),
+         url('../fonts/geomanist/geomanist-book-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Geomanist-Medium';
+    src: url('../fonts/geomanist/geomanist-medium-webfont.woff2') format('woff2'),
+         url('../fonts/geomanist/geomanist-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* End of Font Family (Geomanist) */
+
+.bar-positive {z-index: 2;}
+
+.bar-subheader {z-index: 1;-webkit-transition: top 0.25s ease;transition: top 0.25s ease;}
+.bar-subheader-slide-away .bar-subheader {top: 0 !important;}
+.bar-subheader-slide-away .has-subheader {top: 44px;}
+
+/* Elements */
+body, .ionic-body { font-family: 'Geomanist-Regular'; }
+button, input, select, textarea { font-family: 'Geomanist-Book'; }
+textarea { resize:none; }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { font-weight: 500; font-family: 'Geomanist-Light'; line-height: 1.2; }
+b { font-weight: normal !important; font-family: "Geomanist-Book" !important;}
+/* End of Elements */
+
+/* Position & Placement */
+.lg-fixed { position: fixed; }
+.lg-relative { position: relative; }
+.lg-absolute { position: absolute; }
+.lg-l-float { float: left; }
+.lg-r-float { float: right; }
+.lg-no-float { float: none; }
+.lg-clearfix { clear: both; }
+/* End of Position & Placement */
+
+/* Alignments */
+.lg-l-align { text-align: left; }
+.lg-r-align { text-align: right; }
+.lg-m-align { text-align: center; }
+/* End of Alignments */
+
+/* Font Sizes */
+.ft-8 { font-size: 8px; }
+.ft-10 { font-size: 10px; }
+.ft-12 { font-size: 12px; }
+.ft-13 { font-size: 13px; }
+.ft-14 { font-size: 14px; }
+.ft-16 { font-size: 16px; }
+.ft-18 { font-size: 18px; }
+.ft-20 { font-size: 20px; }
+.ft-24 { font-size: 24px; }
+.ft-32 { font-size: 32px; }
+.ft-40 { font-size: 40px; }
+/* End of Font sizes */
+ 
+/* Margins */
+.lg-m-5 { margin: 5px; }
+.lg-m-10 { margin: 10px; }
+.lg-m-15 { margin: 15px; }
+.lg-m-20 { margin: 20px; }
+.lg-m-25 { margin: 25px; }
+.lg-m-30 { margin: 30px; }
+.lg-m-35 { margin: 35px; }
+.lg-m-40 { margin: 40px; }
+.lg-m-45 { margin: 45px; }
+.lg-m-50 { margin: 50px; }
+/* Margin Top */
+.lg-mt-5 { margin: 5px; }
+.lg-mt-10 { margin: 10px; }
+.lg-mt-15 { margin: 15px; }
+.lg-mt-20 { margin: 20px; }
+.lg-mt-25 { margin: 25px; }
+.lg-mt-30 { margin: 30px; }
+.lg-mt-35 { margin: 35px; }
+.lg-mt-40 { margin: 40px; }
+.lg-mt-45 { margin: 45px; }
+.lg-mt-50 { margin: 50px; }
+/* Margin Right */
+.lg-mr-5 { margin: 5px; }
+.lg-mr-10 { margin: 10px; }
+.lg-mr-15 { margin: 15px; }
+.lg-mr-20 { margin: 20px; }
+.lg-mr-25 { margin: 25px; }
+.lg-mr-30 { margin: 30px; }
+.lg-mr-35 { margin: 35px; }
+.lg-mr-40 { margin: 40px; }
+.lg-mr-45 { margin: 45px; }
+.lg-mr-50 { margin: 50px; }
+/* Margin Bottom */
+.lg-mb-5 { margin: 5px; }
+.lg-mb-10 { margin: 10px; }
+.lg-mb-15 { margin: 15px; }
+.lg-mb-20 { margin: 20px; }
+.lg-mb-25 { margin: 25px; }
+.lg-mb-30 { margin: 30px; }
+.lg-mb-35 { margin: 35px; }
+.lg-mb-40 { margin: 40px; }
+.lg-mb-45 { margin: 45px; }
+.lg-mb-50 { margin: 50px; }
+/* Margin Left */
+.lg-ml-5 { margin: 5px; }
+.lg-ml-10 { margin: 10px; }
+.lg-ml-15 { margin: 15px; }
+.lg-ml-20 { margin: 20px; }
+.lg-ml-25 { margin: 25px; }
+.lg-ml-30 { margin: 30px; }
+.lg-ml-35 { margin: 35px; }
+.lg-ml-40 { margin: 40px; }
+.lg-ml-45 { margin: 45px; }
+.lg-ml-50 { margin: 50px; }
+/* End of Margins */
+
+/* Padding */
+.lg-p-5 { margin: 5px; }
+.lg-p-10 { margin: 10px; }
+.lg-p-15 { margin: 15px; }
+.lg-p-20 { margin: 20px; }
+.lg-p-25 { margin: 25px; }
+.lg-p-30 { margin: 30px; }
+.lg-p-35 { margin: 35px; }
+.lg-p-40 { margin: 40px; }
+.lg-p-45 { margin: 45px; }
+.lg-p-50 { margin: 50px; }
+/* Padding Top */
+.lg-pt-5 { margin: 5px; }
+.lg-pt-10 { margin: 10px; }
+.lg-pt-15 { margin: 15px; }
+.lg-pt-20 { margin: 20px; }
+.lg-pt-25 { margin: 25px; }
+.lg-pt-30 { margin: 30px; }
+.lg-pt-35 { margin: 35px; }
+.lg-pt-40 { margin: 40px; }
+.lg-pt-45 { margin: 45px; }
+.lg-pt-50 { margin: 50px; }
+/* Padding Right */
+.lg-pr-5 { margin: 5px; }
+.lg-pr-10 { margin: 10px; }
+.lg-pr-15 { margin: 15px; }
+.lg-pr-20 { margin: 20px; }
+.lg-pr-25 { margin: 25px; }
+.lg-pr-30 { margin: 30px; }
+.lg-pr-35 { margin: 35px; }
+.lg-pr-40 { margin: 40px; }
+.lg-pr-45 { margin: 45px; }
+.lg-pr-50 { margin: 50px; }
+/* Padding Bottom */
+.lg-pb-5 { margin: 5px; }
+.lg-pb-10 { margin: 10px; }
+.lg-pb-15 { margin: 15px; }
+.lg-pb-20 { margin: 20px; }
+.lg-pb-25 { margin: 25px; }
+.lg-pb-30 { margin: 30px; }
+.lg-pb-35 { margin: 35px; }
+.lg-pb-40 { margin: 40px; }
+.lg-pb-45 { margin: 45px; }
+.lg-pb-50 { margin: 50px; }
+/* Padding Left */
+.lg-pl-5 { margin: 5px; }
+.lg-pl-10 { margin: 10px; }
+.lg-pl-15 { margin: 15px; }
+.lg-pl-20 { margin: 20px; }
+.lg-pl-25 { margin: 25px; }
+.lg-pl-30 { margin: 30px; }
+.lg-pl-35 { margin: 35px; }
+.lg-pl-40 { margin: 40px; }
+.lg-pl-45 { margin: 45px; }
+.lg-pl-50 { margin: 50px; }
+/* End of Padding */
+
+
+.circular-menu {width: 60px;height: 49px;margin: 0 auto;position: absolute;margin-left: -10px;bottom: -4px;}
+
+.circle {width: 300px;height: 300px;opacity: 0;position: absolute;left: calc(50% - 150px);bottom: -115px;-webkit-transform: scale(0);-moz-transform: scale(0);transform: scale(0);-webkit-transition: all 0.4s ease-out;-moz-transition: all 0.4s ease-out;transition: all 0.4s ease-out;}
+.circle.open {opacity: 1;-webkit-transform: scale(1);-moz-transform: scale(1);transform: scale(1);}
+.circle span {text-decoration: none;color: #fff;display: block;height: 56px;width: 56px;line-height: 56px;margin-left: -28px;margin-top: -28px;position: absolute;text-align: center;background-color: transparent;box-shadow: 0 0 30px rgba(0,0,0,0.3);border-radius: 50% 50%;}
+.circle span.progress { font-size: 20px; background-color: #00cfff }
+.circle span.goal { font-size: 20px; background-color: #1abc9c }
+.circle span.post { font-size: 22px; background-color: #e8591c }
+.circle span.post:after {content: 'Share Post';font-size: 13px;position: absolute;top: -30px;left: -17px;width: 90px;line-height: 22px; font-family: 'Geomanist-Regular';}
+.circle span.goal:after {content: 'Create Goal';font-size: 13px;position: absolute;top: -30px;left: -17px;width: 90px;line-height: 22px; font-family: 'Geomanist-Regular';}
+.circle span.progress:after {content: 'Add Progress';font-size: 13px;position: absolute;top: -30px;left: -17px;width: 90px;line-height: 22px; font-family: 'Geomanist-Regular';}
+
+.menu-button {position: absolute;bottom: 4px;left: calc(50% - 21px);text-decoration: none;text-align: center;color: #444;border-radius: 50%;display: block;height: 40px;width: 40px;background: #1bbc9b;transform: rotate(0deg);transition: transform 0.3s;}
+.menu-button i {line-height: 37px;}
+.menu-button.open {transform: rotate(45deg);transition: transform 0.3s;background-color: #5c6470;height: 42px;width: 42px;}
+
+.lg-action-btn.active {color: #1bbc9b;}
+
+img.round-img-lrg {border-radius: 50%;width: 60px;height: 60px;}
+
+.wide-as-needed {overflow: scroll;white-space: nowrap;}
+.image-modal {width: 100% !important;height: 100%;top: 0 !important;left: 0 !important;}
+.transparency {background: rgba(0,0,0,1);}
+.cs-img .slider, .cs-img .slider .scroll-view, .cs-img .slider .scroll-view .scroll { height: 100%;}
+.image {position: relative; width: 100%;height: 100%;background-size: contain;background-repeat: no-repeat;background-position: center center;}
+a.mentioned { color: #1bbc9b !important; }
+
+.fade-hide { opacity: 0; transition: opacity 0.5s linear; }
+.settings-icon-me {position: relative; top: -6px;}
+
+.comment-img {
+    padding-top: 5px;
+}
+.comment-img img {
+    max-width: 100%;
+    max-height:200px;
+}
